@@ -5,16 +5,20 @@ remote:
   management:
     ip: 192.168.0.115
     port: 8080
+  wechat:
+    url: https://api.weixin.qq.com
+    appid: wxc62afc144417346e
+    secret: b5a7ea8dcee900d1f1663076ac8dba3b
 
 spring:
   servlet:
     multipart:
       maxFileSize: 10000MB
       maxRequestSize: 10000MB
-#  Mysql
+  #  Mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3308/pose-wcmp-rel?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://127.0.0.1:3306/pose-wcmp?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: root
   #    MVC搜索路径
@@ -29,7 +33,7 @@ spring:
 files:
   upload:
     local:
-      path: C:\Users\Administrator\Desktop\client_file\
+      path: C:\Users\Administrator\Desktop\files\
       maxFileSize: 104857600
 
 session:
