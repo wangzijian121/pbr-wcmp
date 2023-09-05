@@ -5,10 +5,10 @@ remote:
   management:
     ip: 192.168.0.115
     port: 8080
-  wechat:
-    url: https://api.weixin.qq.com
-    appid: wxc62afc144417346e
-    secret: b5a7ea8dcee900d1f1663076ac8dba3b
+#  wechat:
+#    url: https://api.weixin.qq.com
+#    appid: wxc62afc144417346e
+#    secret: b5a7ea8dcee900d1f1663076ac8dba3b
 
 spring:
   servlet:

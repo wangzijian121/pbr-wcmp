@@ -30,8 +30,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
     @Autowired
     private UserMapper userMapper;
 
-    @Autowired
-    private SessionServiceI sessionServiceI;
+
 
 
     @Override
