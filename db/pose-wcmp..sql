@@ -16,28 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `algorithmConfiguration`
+-- Table structure for table `algorithm_configuration`
 --
 
-DROP TABLE IF EXISTS `algorithmConfiguration`;
+DROP TABLE IF EXISTS `algorithm_configuration`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `algorithmConfiguration` (
-                             `id` int NOT NULL AUTO_INCREMENT,
-                             `appId` varchar(255) DEFAULT NULL COMMENT '小程序ID',
-                             `name` varchar(50) NOT NULL COMMENT '算法名称',
-                             `sport_category` varchar(255) DEFAULT NULL COMMENT '体育种类',
-                             `content` int DEFAULT NULL COMMENT '模板',
-                             `enable` int DEFAULT NULL COMMENT '0：启用 1：未启用',
-                             `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-                             PRIMARY KEY (`id`)
+CREATE TABLE `algorithm_configuration` (
+                                           `app_id` varchar(255) NOT NULL COMMENT '小程序ID',
+                                           `algorithm_id` int NOT NULL COMMENT '算法唯一ID',
+                                           `name` varchar(50) NOT NULL COMMENT '算法名称',
+                                           `sport_category` varchar(255) DEFAULT NULL COMMENT '体育种类',
+                                           `enable` tinyint(1) DEFAULT NULL COMMENT '是否可用1：启用 0：禁用',
+                                           `content` json DEFAULT NULL COMMENT '模板',
+                                           `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+                                           PRIMARY KEY (`app_id`,`algorithm_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='机构算法同步表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `algorithmConfiguration`
+-- Dumping data for table `algorithm_configuration`
 --
 
+INSERT INTO `algorithm_configuration` VALUES ('wxc62afc1444173666',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 02:14:00'),('wxc62afc1444173777',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 02:14:00'),('wxc62afc1444173777',14,'足球专用犯规识别算法','篮球',1,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 02:14:00'),('wxc62afc1444173777',16,'乒乓球角度识别算法','乒乓球',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 02:14:00'),('wxc62afc1444173888',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 02:14:00'),('wxc62afc1444173888',3,'游泳姿势优化算法','游泳',1,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 02:14:00');
 
 --
 -- Table structure for table `course`
@@ -246,4 +247,4 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-06 19:32:56
+-- Dump completed on 2023-09-07  2:14:48
