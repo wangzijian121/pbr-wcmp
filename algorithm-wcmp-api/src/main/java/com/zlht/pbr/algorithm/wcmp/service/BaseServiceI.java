@@ -2,9 +2,6 @@ package com.zlht.pbr.algorithm.wcmp.service;
 
 
 import com.zlht.pbr.algorithm.wcmp.dao.entity.User;
-import com.zlht.pbr.algorithm.wcmp.remote.client.ManagementClient;
-import org.springframework.http.HttpHeaders;
-import org.springframework.util.MultiValueMap;
 
 import java.util.Map;
 
@@ -30,13 +27,4 @@ public interface BaseServiceI<T> {
      */
     boolean canOperator(User operateUser);
 
-
-    /**
-     * 装配header（将本地的sessionId 装配到Client）
-     *
-     * @param managementClient
-     * @param values
-     * @return
-     */
-    HttpHeaders loadForManagementClient(ManagementClient managementClient, MultiValueMap<String, String> values);
 }

@@ -1,7 +1,7 @@
-package com.zlht.pbr.algorithm.wcmp.remote.client;
+package com.zlht.pbr.algorithm.wcmp.client;
 
 
-import com.zlht.pbr.algorithm.wcmp.remote.model.WeChatUserInfo;
+import com.zlht.pbr.algorithm.wcmp.model.WeChatUserInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

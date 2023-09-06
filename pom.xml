@@ -24,7 +24,6 @@
         <module>algorithm-wcmp-api</module>
         <module>algorithm-wcmp-dao</module>
         <module>algorithm-wcmp-tools</module>
-        <module>algorithm-wcmp-remote</module>
         <module>algorithm-wcmp-dist</module>
     </modules>
     <properties>
@@ -85,11 +84,6 @@
             <dependency>
                 <groupId>com.zlht.pbr</groupId>
                 <artifactId>algorithm-wcmp-dist</artifactId>
-                <version>${algorithm-wcmp.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zlht.pbr</groupId>
-                <artifactId>algorithm-wcmp-remote</artifactId>
                 <version>${algorithm-wcmp.version}</version>
             </dependency>
             <dependency>
@@ -194,13 +188,13 @@
             </dependency>
 
             <!--openfein的依赖-->
-                     <dependency>
-                         <groupId>org.springframework.cloud</groupId>
-                         <artifactId>spring-cloud-dependencies</artifactId>
-                         <version>${spring-cloud.version}</version>
-                         <type>pom</type>
-                         <scope>import</scope>
-                     </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
             <dependency>
                 <groupId>org.springframework.cloud</groupId>

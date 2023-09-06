@@ -23,10 +23,6 @@
         </dependency>
         <dependency>
             <groupId>com.zlht.pbr</groupId>
-            <artifactId>algorithm-wcmp-remote</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.zlht.pbr</groupId>
             <artifactId>algorithm-wcmp-tools</artifactId>
         </dependency>
         <dependency>

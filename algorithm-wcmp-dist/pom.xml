@@ -21,10 +21,7 @@
             <groupId>com.zlht.pbr</groupId>
             <artifactId>algorithm-wcmp-dao</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.zlht.pbr</groupId>
-            <artifactId>algorithm-wcmp-remote</artifactId>
-        </dependency>
+
     </dependencies>
 
     <build>

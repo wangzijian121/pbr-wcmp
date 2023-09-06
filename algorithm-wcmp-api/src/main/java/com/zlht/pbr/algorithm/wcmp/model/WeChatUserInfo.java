@@ -1,4 +1,4 @@
-package com.zlht.pbr.algorithm.wcmp.remote.model;
+package com.zlht.pbr.algorithm.wcmp.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

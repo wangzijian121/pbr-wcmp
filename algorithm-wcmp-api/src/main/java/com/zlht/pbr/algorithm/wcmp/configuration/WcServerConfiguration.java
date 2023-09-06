@@ -1,4 +1,4 @@
-package com.zlht.pbr.algorithm.wcmp.remote.configuration;
+package com.zlht.pbr.algorithm.wcmp.configuration;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

@@ -1,9 +1,8 @@
 package com.zlht.pbr.algorithm.wcmp.service.impl;
 
 import com.zlht.pbr.algorithm.wcmp.enums.Status;
-import com.zlht.pbr.algorithm.wcmp.remote.client.WeChatClient;
-import com.zlht.pbr.algorithm.wcmp.remote.configuration.WcServerConfiguration;
-import com.zlht.pbr.algorithm.wcmp.remote.model.WeChatUserInfo;
+import com.zlht.pbr.algorithm.wcmp.client.WeChatClient;
+import com.zlht.pbr.algorithm.wcmp.configuration.WcServerConfiguration;
 import com.zlht.pbr.algorithm.wcmp.service.WeChatServiceI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
