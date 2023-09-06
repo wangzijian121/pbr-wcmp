@@ -15,7 +15,7 @@ public class SyncAlgorithmTask {
     @Autowired
     private AlgorithmConfigurationServiceI algorithmConfigurationServiceI;
 
-    @Scheduled(cron = "0/5 * *  * * ? ")
+    @Scheduled(cron = "0/60 * *  * * ? ")
     public void execute() {
         algorithmConfigurationServiceI.syncAlgorithm();
     }

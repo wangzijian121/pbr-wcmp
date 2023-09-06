@@ -8,6 +8,8 @@ import com.zlht.pbr.algorithm.wcmp.dao.mapper.AlgorithmConfigurationMapper;
 import com.zlht.pbr.algorithm.wcmp.enums.Status;
 import com.zlht.pbr.algorithm.wcmp.service.AlgorithmConfigurationServiceI;
 import com.zlht.pbr.algorithm.wcmp.utils.Result;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,8 @@ import java.util.stream.Collectors;
  */
 @Service
 public class AlgorithmConfigurationServiceImpl extends BaseServiceImpl implements AlgorithmConfigurationServiceI {
+
+    private static final Logger logger = LogManager.getLogger(AlgorithmConfigurationServiceImpl.class);
 
     @Autowired
     private ManagementClient managementClient;
@@ -100,7 +104,21 @@ public class AlgorithmConfigurationServiceImpl extends BaseServiceImpl implement
     }
 
     @Override
-    public Map<String, Object> setAlgorithmAvailability(String appId, int algorithm_id, boolean enable) {
-        return null;
+    public Map<String, Object> setAlgorithmAvailability(String appId, int algorithmId, boolean enable) {
+        Map<String, Object> map = new HashMap<>();
+
+        UpdateWrapper updateWrapper = new UpdateWrapper();
+        updateWrapper.eq("app_id", appId);
+        updateWrapper.eq("algorithm_id", algorithmId);
+        updateWrapper.set("enable", enable);
+        try {
+            algorithmConfigurationMapper.update(null, updateWrapper);
+            putMsg(map, Status.SUCCESS.getCode(), Status.SUCCESS.getMsg());
+        } catch (Exception e) {
+            String errMsg = "更新算法启用失败！";
+            logger.error("setAlgorithmAvailability() method .message={}, appId={} ,algorithmId={}", errMsg, appId, algorithmId);
+            putMsg(map, 400, errMsg);
+        }
+        return map;
     }
 }

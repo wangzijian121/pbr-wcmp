@@ -12,10 +12,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * @author zi jian Wang
@@ -31,7 +30,7 @@ public class AlgorithmConfigurationController extends BaseController {
     /**
      * 获取机构下所有算法
      *
-     * @return User
+     * @param appId
      */
     @ApiOperation(value = "获取机构下所有算法", notes = "获取机构下所有算法")
     @ApiImplicitParams({
@@ -42,6 +41,30 @@ public class AlgorithmConfigurationController extends BaseController {
     public Result<AlgorithmConfiguration> getAlgorithmByAppId(@RequestParam(required = false) String appId) {
 
         return algorithmConfigurationServiceI.getAlgorithmByAppId(appId);
+    }
+
+    /**
+     * 设置算法可用性
+     *
+     * @param appId
+     * @param algorithmId
+     * @param enable
+     * @return
+     */
+    @ApiOperation(value = "设置算法可用性", notes = "设置算法可用性")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "appId", value = "小程序ID ", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "algorithmId", value = "算法ID", dataTypeClass = int.class),
+            @ApiImplicitParam(name = "enable", value = "是否启用", dataTypeClass = Boolean.class)
+    })
+    @PutMapping(value = "/wechat/setAlgorithmAvailability")
+    @ResponseStatus(HttpStatus.OK)
+    public Result<AlgorithmConfiguration> setAlgorithmAvailability(@RequestParam(required = false) String appId,
+                                                                   @RequestParam(required = false) int algorithmId,
+                                                                   @RequestParam(required = false) Boolean enable) {
+
+        Map<String, Object> map = algorithmConfigurationServiceI.setAlgorithmAvailability(appId, algorithmId, enable);
+        return returnDataList(map);
     }
 
 }

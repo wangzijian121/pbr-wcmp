@@ -29,7 +29,7 @@ public class AlgorithmConfiguration {
     @ApiModelProperty(value = "体育种类")
     private String sportCategory;
 
-    @ApiModelProperty(value = "是否启用")
+    @ApiModelProperty(value = "是否启用 (1：启用 0：禁用)")
     private Integer enable;
 
     @ApiModelProperty(value = "模板")

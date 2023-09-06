@@ -33,9 +33,9 @@ public interface AlgorithmConfigurationServiceI extends BaseServiceI {
      * 启用/停止算法
      *
      * @param appId
-     * @param algorithm_id
+     * @param algorithmId
      * @param enable
      * @return
      */
-    Map<String, Object> setAlgorithmAvailability(String appId, int algorithm_id, boolean enable);
+    Map<String, Object> setAlgorithmAvailability(String appId, int algorithmId, boolean enable);
 }
