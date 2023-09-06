@@ -17,14 +17,14 @@ import springfox.documentation.oas.annotations.EnableOpenApi;
 @EnableOpenApi
 @EnableFeignClients
 @EnableScheduling
-public class AlgorithmwcmpApi implements ApplicationRunner {
+public class AlgorithmWcmpApi implements ApplicationRunner {
 
     @Autowired
     private EnvService envService;
 
 
     public static void main(String[] args) {
-        SpringApplication.run(AlgorithmwcmpApi.class, args);
+        SpringApplication.run(AlgorithmWcmpApi.class, args);
     }
 
     @Override

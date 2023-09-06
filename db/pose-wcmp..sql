@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `algorithm`
+-- Table structure for table `algorithmConfiguration`
 --
 
-DROP TABLE IF EXISTS `algorithm`;
+DROP TABLE IF EXISTS `algorithmConfiguration`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `algorithm` (
+CREATE TABLE `algorithmConfiguration` (
                              `id` int NOT NULL AUTO_INCREMENT,
                              `appId` varchar(255) DEFAULT NULL COMMENT '小程序ID',
                              `name` varchar(50) NOT NULL COMMENT '算法名称',
@@ -35,7 +35,7 @@ CREATE TABLE `algorithm` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `algorithm`
+-- Dumping data for table `algorithmConfiguration`
 --
 
 
