@@ -1,6 +1,5 @@
 package com.zlht.pbr.algorithm.wcmp;
 
-import com.zlht.pbr.algorithm.wcmp.service.impl.Demo;
 import com.zlht.pbr.algorithm.wcmp.tools.service.EnvService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -21,8 +20,6 @@ public class AlgorithmwcmpApi implements ApplicationRunner {
     @Autowired
     private EnvService envService;
 
-    @Autowired
-    private Demo demo;
 
     public static void main(String[] args) {
         SpringApplication.run(AlgorithmwcmpApi.class, args);
@@ -31,6 +28,5 @@ public class AlgorithmwcmpApi implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
         envService.printSwaggerAddress();
-        System.out.println(demo.login());
     }
 }

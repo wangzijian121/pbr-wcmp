@@ -5,6 +5,7 @@ import com.zlht.pbr.algorithm.wcmp.dao.entity.User;
 import com.zlht.pbr.algorithm.wcmp.enums.Status;
 import com.zlht.pbr.algorithm.wcmp.service.SessionServiceI;
 import com.zlht.pbr.algorithm.wcmp.service.UserServicesI;
+import com.zlht.pbr.algorithm.wcmp.service.WeChatServiceI;
 import com.zlht.pbr.algorithm.wcmp.utils.PageInfo;
 import com.zlht.pbr.algorithm.wcmp.utils.Result;
 import io.swagger.annotations.Api;
@@ -34,6 +35,8 @@ public class UserController extends BaseController {
     @Autowired
     private UserServicesI userServices;
 
+    @Autowired
+    private WeChatServiceI weChatServiceI;
 
     @Autowired
     private SessionServiceI sessionServiceI;
@@ -66,67 +69,18 @@ public class UserController extends BaseController {
     }
 
     /**
-     * 创建用户
-     *
-     * @return User
-     */
-    @ApiOperation(value = "创建用户", notes = "创建用户")
-    @PostMapping(value = "/createUser")
-    @ResponseStatus(HttpStatus.OK)
-    public Map<String, Object> createUser(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
-                                          @RequestBody User user) {
-        Map<String, Object> map = userServices.createUser(loginUser, user);
-        return map;
-    }
-
-    /**
-     * 更新用户
-     *
-     * @return User
-     */
-    @ApiOperation(value = "更新用户", notes = "更新用户")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "需要更新的用户ID", required = true, dataTypeClass = int.class)
-    })
-    @PutMapping(value = "/updateUser")
-    @ResponseStatus(HttpStatus.OK)
-    public Map<String, Object> updateUser(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
-                                          @RequestParam int id,
-                                          @RequestBody User user) {
-        Map<String, Object> map = userServices.updateUser(loginUser, id, user);
-        return map;
-    }
-
-    /**
-     * 删除用户
-     *
-     * @return User
-     */
-    @ApiOperation(value = "删除用户", notes = "删除用户")
-    @DeleteMapping(value = "/deleteUser")
-    @ResponseStatus(HttpStatus.OK)
-    public Map<String, Object> deleteUser(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
-                                          @RequestParam int id) {
-        Map<String, Object> map = userServices.deleteUser(loginUser, id);
-        return map;
-    }
-
-    /**
      * 登录
      *
-     * @param username
-     * @param password
+     * @param jsCode
      * @return
      */
     @ApiOperation(value = "用户登录", notes = "用户登录")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "username", value = "用户名", required = true, dataTypeClass = String.class),
-            @ApiImplicitParam(name = "password", value = "密码", required = true, dataTypeClass = String.class)
+            @ApiImplicitParam(name = "jsCode", value = "jsCode", required = true, dataTypeClass = String.class)
     })
     @PostMapping(value = "/login")
     @ResponseStatus(HttpStatus.OK)
-    public Result login(@RequestParam String username,
-                        @RequestParam String password,
+    public Result login(@RequestParam String jsCode,
                         HttpServletRequest request,
                         HttpServletResponse response) {
         // user ip check
@@ -134,15 +88,12 @@ public class UserController extends BaseController {
         if (StringUtils.isEmpty(ip)) {
             return error(10125, "获取不到IP！");
         }
-        Map<String, Object> map = null;
-        try {
-            String code = "code";
-            if (Integer.valueOf(map.get(code).toString()) != 0) {
-                return returnDataList(map);
-            }
-        } catch (Exception e) {
+        Map<String, Object> map = weChatServiceI.code2Session(jsCode);
+        System.out.println(map);
+        String checkKey = "code";
+        if (map.get(checkKey).equals(Status.SUCCESS.getCode())) {
+
         }
-        returnDataList(map);
         return returnDataList(map);
     }
 

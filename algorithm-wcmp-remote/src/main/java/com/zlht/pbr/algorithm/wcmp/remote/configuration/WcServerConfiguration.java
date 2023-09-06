@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "remote.wechat")
 public class WcServerConfiguration {
 
-    private String url;
     private String appid;
     private String secret;
 }
