@@ -5,7 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.zlht.pbr.algorithm.wcmp.client.ManagementClient;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.AlgorithmConfiguration;
 import com.zlht.pbr.algorithm.wcmp.dao.mapper.AlgorithmConfigurationMapper;
-import com.zlht.pbr.algorithm.wcmp.service.AlgorithmServiceI;
+import com.zlht.pbr.algorithm.wcmp.enums.Status;
+import com.zlht.pbr.algorithm.wcmp.service.AlgorithmConfigurationServiceI;
 import com.zlht.pbr.algorithm.wcmp.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
  * @author zijian Wang
  */
 @Service
-public class AlgorithmServiceImpl extends BaseServiceImpl implements AlgorithmServiceI {
+public class AlgorithmConfigurationServiceImpl extends BaseServiceImpl implements AlgorithmConfigurationServiceI {
 
     @Autowired
     private ManagementClient managementClient;
@@ -29,7 +30,7 @@ public class AlgorithmServiceImpl extends BaseServiceImpl implements AlgorithmSe
 
 
     @Override
-    public Map<String, Object> syncAlgorithm() {
+    public void syncAlgorithm() {
 
         Map<String, Object> map = new HashMap<>();
         Result<List<AlgorithmConfiguration>> result = managementClient.syncAlgorithm();
@@ -74,7 +75,7 @@ public class AlgorithmServiceImpl extends BaseServiceImpl implements AlgorithmSe
                 updateWrapper.set("sport_category", algorithmConfiguration.getSportCategory());
                 updateWrapper.set("content", algorithmConfiguration.getContent());
                 updateWrapper.set("update_time", LocalDateTime.now());
-                algorithmConfigurationMapper. update(null, updateWrapper);
+                algorithmConfigurationMapper.update(null, updateWrapper);
             } else {
                 // 记录不存在，执行插入操作
                 algorithmConfiguration.setAppId(algorithmConfiguration.getAppId());
@@ -83,6 +84,23 @@ public class AlgorithmServiceImpl extends BaseServiceImpl implements AlgorithmSe
                 algorithmConfigurationMapper.insert(algorithmConfiguration);
             }
         }
+    }
+
+    @Override
+    public Result<AlgorithmConfiguration> getAlgorithmByAppId(String appId) {
+
+        Result result = new Result();
+        QueryWrapper<AlgorithmConfiguration> queryWrapper = new QueryWrapper();
+        queryWrapper.eq("app_id", appId);
+        List<AlgorithmConfiguration> algorithmConfigurationList = algorithmConfigurationMapper.selectList(queryWrapper);
+        result.setData(algorithmConfigurationList);
+        result.setCode(Status.SUCCESS.getCode());
+        result.setMsg(Status.SUCCESS.getMsg());
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> setAlgorithmAvailability(String appId, int algorithm_id, boolean enable) {
         return null;
     }
 }
