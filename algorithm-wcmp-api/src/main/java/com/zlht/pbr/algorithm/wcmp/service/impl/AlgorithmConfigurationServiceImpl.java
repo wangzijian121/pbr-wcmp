@@ -36,7 +36,6 @@ public class AlgorithmConfigurationServiceImpl extends BaseServiceImpl implement
     @Override
     public void syncAlgorithm() {
 
-        Map<String, Object> map = new HashMap<>();
         Result<List<AlgorithmConfiguration>> result = managementClient.syncAlgorithm();
         List<AlgorithmConfiguration> list = result.getData();
 

@@ -1,6 +1,7 @@
-package com.zlht.pbr.algorithm.wcmp.controller;
+package com.zlht.pbr.algorithm.wcmp.controller.admin;
 
 
+import com.zlht.pbr.algorithm.wcmp.controller.base.BaseController;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.AlgorithmConfiguration;
 import com.zlht.pbr.algorithm.wcmp.service.AlgorithmConfigurationServiceI;
 import com.zlht.pbr.algorithm.wcmp.utils.Result;

@@ -1,4 +1,4 @@
-package com.zlht.pbr.algorithm.wcmp.controller;
+package com.zlht.pbr.algorithm.wcmp.controller.base;
 
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;

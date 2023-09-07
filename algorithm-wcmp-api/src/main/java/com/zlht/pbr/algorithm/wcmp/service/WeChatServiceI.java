@@ -8,5 +8,10 @@ import java.util.Map;
  */
 public interface WeChatServiceI extends BaseServiceI{
 
+     /**
+      *
+      * @param jsCode
+      * @return
+      */
      Map<String, Object> code2Session(String jsCode);
 }

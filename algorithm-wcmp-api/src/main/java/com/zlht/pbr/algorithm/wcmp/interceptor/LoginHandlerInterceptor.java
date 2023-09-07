@@ -1,7 +1,6 @@
 package com.zlht.pbr.algorithm.wcmp.interceptor;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.zlht.pbr.algorithm.wcmp.controller.BaseController;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.Session;
 import com.zlht.pbr.algorithm.wcmp.dao.mapper.SessionMapper;
 import org.apache.logging.log4j.LogManager;
@@ -9,9 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.thymeleaf.util.StringUtils;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
