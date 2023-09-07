@@ -22,7 +22,7 @@ public interface BaseServiceI<T> {
     /**
      * 检查权限
      *
-     * @param userId
+     * @param operateUser
      * @return
      */
     boolean canOperator(User operateUser);

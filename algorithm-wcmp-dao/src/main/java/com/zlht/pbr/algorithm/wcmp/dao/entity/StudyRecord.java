@@ -4,6 +4,10 @@ import lombok.Data;
 
 import java.util.Date;
 
+
+/**
+ * @author zijian Wang
+ */
 @Data
 public class StudyRecord {
     private Integer id;

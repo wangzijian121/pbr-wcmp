@@ -51,10 +51,6 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
     public Map<String, Object> createResource(User loginUser, MultipartFile file) {
 
         Map<String, Object> map = new HashMap<>(3);
-       /* if (!canOperator(loginUser)) {
-            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
-            return map;
-        }*/
         //获取文件原始名称
         String fullName = file.getOriginalFilename();
 

@@ -21,7 +21,8 @@ import java.util.Map;
  * @author zi jian Wang
  */
 @RestController
-@Api(tags = "算法配置")
+@Api(tags = "算法与算法配置")
+@RequestMapping("/wechat/algorithm")
 public class AlgorithmConfigurationController extends BaseController {
 
     private static final Logger logger = LogManager.getLogger(AlgorithmConfigurationController.class);
@@ -37,7 +38,7 @@ public class AlgorithmConfigurationController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "appId", value = "appId", dataTypeClass = String.class)
     })
-    @GetMapping(value = "/wechat/getAlgorithmConfiguration")
+    @GetMapping(value = "/getAlgorithmConfiguration")
     @ResponseStatus(HttpStatus.OK)
     public Result<AlgorithmConfiguration> getAlgorithmByAppId(@RequestParam(required = false) String appId) {
 
@@ -58,7 +59,7 @@ public class AlgorithmConfigurationController extends BaseController {
             @ApiImplicitParam(name = "algorithmId", value = "算法ID", dataTypeClass = int.class),
             @ApiImplicitParam(name = "enable", value = "是否启用", dataTypeClass = Boolean.class)
     })
-    @PutMapping(value = "/wechat/setAlgorithmAvailability")
+    @PutMapping(value = "/getAlgorithmAvailability")
     @ResponseStatus(HttpStatus.OK)
     public Result<AlgorithmConfiguration> setAlgorithmAvailability(@RequestParam(required = false) String appId,
                                                                    @RequestParam(required = false) int algorithmId,

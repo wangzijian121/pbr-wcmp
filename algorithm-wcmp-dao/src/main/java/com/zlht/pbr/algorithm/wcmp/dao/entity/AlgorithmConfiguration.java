@@ -36,5 +36,5 @@ public class AlgorithmConfiguration {
     private String content;
 
     @ApiModelProperty(value = "更新时间")
-    private LocalDateTime update_time;
+    private LocalDateTime updateTime;
 }

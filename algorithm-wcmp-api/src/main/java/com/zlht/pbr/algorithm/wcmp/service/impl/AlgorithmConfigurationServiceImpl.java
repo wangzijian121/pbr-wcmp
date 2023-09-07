@@ -83,7 +83,7 @@ public class AlgorithmConfigurationServiceImpl extends BaseServiceImpl implement
                 // 记录不存在，执行插入操作
                 algorithmConfiguration.setAppId(algorithmConfiguration.getAppId());
                 algorithmConfiguration.setEnable(0);
-                algorithmConfiguration.setUpdate_time(LocalDateTime.now());
+                algorithmConfiguration.setUpdateTime(LocalDateTime.now());
                 algorithmConfigurationMapper.insert(algorithmConfiguration);
             }
         }
@@ -104,7 +104,7 @@ public class AlgorithmConfigurationServiceImpl extends BaseServiceImpl implement
 
     @Override
     public Map<String, Object> setAlgorithmAvailability(String appId, int algorithmId, boolean enable) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
 
         UpdateWrapper updateWrapper = new UpdateWrapper();
         updateWrapper.eq("app_id", appId);
