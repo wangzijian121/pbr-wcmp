@@ -32,7 +32,7 @@ spring:
 files:
   upload:
     local:
-      path: C:\Users\Administrator\Desktop\files\
+      path: C:\Users\Administrator\Desktop\微信端文件\
       maxFileSize: 104857600
 
 session:
