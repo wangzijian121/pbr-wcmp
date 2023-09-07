@@ -83,12 +83,12 @@ public class ExamServiceImpl extends BaseServiceImpl implements ExamServiceI {
     }
 
     @Override
-    public Result<PageInfo<Exam>> queryExamList(int currentPage, int pageSize, String name) {
+    public Result<PageInfo<Exam>> queryExamList(int currentPage, int pageSize, String appId) {
         Result result = new Result();
         Page<Exam> page = new Page<>(currentPage, pageSize);
         QueryWrapper<Exam> wapper = new QueryWrapper<Exam>();
-        if (name != null) {
-            wapper.like("name", name);
+        if (appId != null) {
+            wapper.eq("app_id", appId);
         }
         Page<Exam> examPage = examMapper.selectPage(page, wapper);
         PageInfo pageInfo = new PageInfo(currentPage, pageSize);

@@ -25,6 +25,7 @@ public class WeChatServiceImpl extends BaseServiceImpl implements WeChatServiceI
     @Autowired
     WeChatClient weChatServiceClient;
 
+    @Override
     public Map<String, Object> code2Session(String jsCode) {
         Map<String, Object> map = new HashMap<>();
 /*        try {

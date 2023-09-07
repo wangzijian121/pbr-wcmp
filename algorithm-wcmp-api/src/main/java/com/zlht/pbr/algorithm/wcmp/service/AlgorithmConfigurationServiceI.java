@@ -13,13 +13,6 @@ import java.util.Map;
 public interface AlgorithmConfigurationServiceI extends BaseServiceI {
 
 
-    /**
-     * 同步算法
-     *
-     * @return
-     */
-    void syncAlgorithm();
-
 
     /**
      * 查询算法

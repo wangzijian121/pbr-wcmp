@@ -2,6 +2,7 @@ package com.zlht.pbr.algorithm.wcmp.client;
 
 
 import com.zlht.pbr.algorithm.wcmp.dao.entity.AlgorithmConfiguration;
+import com.zlht.pbr.algorithm.wcmp.dao.entity.LinkCodeAndAppIdMap;
 import com.zlht.pbr.algorithm.wcmp.utils.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,11 +20,20 @@ import java.util.List;
 public interface ManagementClient {
 
     /**
-     * 根据appId更新机构算法
+     * 更新机构授权的算法
      *
      * @return
      */
     @RequestMapping(value = "/wechat/getInstitutionAlgorithm", method = RequestMethod.GET)
     Result<List<AlgorithmConfiguration>> syncAlgorithm();
+
+
+    /**
+     * 根据appId更新机构算法
+     *
+     * @return
+     */
+    @RequestMapping(value = "/wechat/getInstitutionLinkCodeAndAppId", method = RequestMethod.GET)
+    Result<List<LinkCodeAndAppIdMap>> syncLinkCodeAndAppId();
 
 }

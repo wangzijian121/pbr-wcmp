@@ -23,7 +23,7 @@ import java.util.Map;
  * @author ziji Wang
  */
 @RestController
-@Api(tags = "考试接口")
+@Api(tags = "机构管理员-考试接口")
 @RequestMapping("/wechat/exam")
 public class ExamController extends BaseController {
 
@@ -45,20 +45,20 @@ public class ExamController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "页数(默认1)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
-            @ApiImplicitParam(name = "name", value = "考试名", dataTypeClass = String.class)
+            @ApiImplicitParam(name = "appId", value = "小程序ID", dataTypeClass = String.class)
     })
 
     @GetMapping(value = "/getExam")
     @ResponseStatus(HttpStatus.OK)
     public Result<PageInfo<Exam>> queryExamList(@RequestParam(required = false, defaultValue = "1") int currentPage,
                                                 @RequestParam(required = false, defaultValue = "10") int pageSize,
-                                                @RequestParam(required = false) String name) {
+                                                @RequestParam(required = false) String appId) {
 
         Result result = checkPageParams(currentPage, pageSize);
         if (!result.checkResult()) {
             return result;
         }
-        return examServiceI.queryExamList(currentPage, pageSize, name);
+        return examServiceI.queryExamList(currentPage, pageSize, appId);
     }
 
     /**

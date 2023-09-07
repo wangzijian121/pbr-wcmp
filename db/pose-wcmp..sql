@@ -38,7 +38,7 @@ CREATE TABLE `algorithm_configuration` (
 -- Dumping data for table `algorithm_configuration`
 --
 
-INSERT INTO `algorithm_configuration` VALUES ('wxc62afc1444173666',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 17:50:00'),('wxc62afc1444173777',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 17:50:00'),('wxc62afc1444173777',14,'足球专用犯规识别算法','篮球',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 17:50:00'),('wxc62afc1444173777',16,'乒乓球角度识别算法','乒乓球',1,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 17:50:00'),('wxc62afc1444173888',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 17:50:00'),('wxc62afc1444173888',3,'游泳姿势优化算法','游泳',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 17:50:00');
+INSERT INTO `algorithm_configuration` VALUES ('wxc62afc1444173555',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-08 02:29:36'),('wxc62afc1444173555',14,'足球专用犯规识别算法','篮球',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-08 02:29:36'),('wxc62afc1444173555',16,'乒乓球角度识别算法','乒乓球',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-08 02:29:36'),('wxc62afc1444173666',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-08 02:29:36'),('wxc62afc1444173777',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-08 02:29:36'),('wxc62afc1444173777',3,'游泳姿势优化算法','游泳',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-08 02:29:36'),('wxc62afc1444173888',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-08 02:29:36'),('wxc62afc1444173888',3,'游泳姿势优化算法','游泳',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-08 02:29:36');
 
 --
 -- Table structure for table `course`
@@ -49,6 +49,7 @@ DROP TABLE IF EXISTS `course`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `course` (
                           `id` int NOT NULL AUTO_INCREMENT,
+                          `app_id` varchar(36) DEFAULT NULL COMMENT '小程序ID',
                           `name` varchar(50) NOT NULL COMMENT '课程名称',
                           `type` int DEFAULT NULL COMMENT '0:文字 1：图片 2： 视频',
                           `cover_uuid` varchar(36) DEFAULT NULL COMMENT '课程封面',
@@ -58,13 +59,14 @@ CREATE TABLE `course` (
                           `create_time` datetime NOT NULL COMMENT '创建时间',
                           `update_time` datetime DEFAULT NULL COMMENT '更新时间',
                           PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='学习表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='学习表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `course`
 --
 
+INSERT INTO `course` VALUES (1,'wxc62afc1444173777','课程1',0,'1111','222','3333','课程1','2023-09-07 21:50:36','2023-09-07 21:50:36'),(2,'111','555',0,'222','444','6666','333','2023-09-07 22:03:35','2023-09-07 22:03:35');
 
 --
 -- Table structure for table `exam`
@@ -76,6 +78,7 @@ DROP TABLE IF EXISTS `exam`;
 CREATE TABLE `exam` (
                         `id` int NOT NULL AUTO_INCREMENT,
                         `name` varchar(50) NOT NULL COMMENT '考试名称',
+                        `app_id` varchar(36) DEFAULT NULL COMMENT '小程序ID',
                         `description` varchar(500) DEFAULT NULL COMMENT '考试描述',
                         `start_time` datetime NOT NULL COMMENT '开始时间',
                         `end_time` datetime NOT NULL COMMENT '结束时间',
@@ -83,13 +86,34 @@ CREATE TABLE `exam` (
                         `exam_count` int DEFAULT NULL COMMENT '考试次数',
                         `create_time` datetime NOT NULL COMMENT '创建时间',
                         PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='考试表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='考试表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `exam`
 --
 
+INSERT INTO `exam` VALUES (4,'123','wxc62afc1444173777','123','2023-09-07 21:58:30','2023-09-07 21:58:30','11111',2,'2023-09-07 21:58:30'),(5,'123','wxc62afc1444173666','123','2023-09-07 21:58:30','2023-09-07 21:58:30','11111',2,'2023-09-07 21:58:30');
+
+--
+-- Table structure for table `link_code_and_appid_map`
+--
+
+DROP TABLE IF EXISTS `link_code_and_appid_map`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `link_code_and_appid_map` (
+                                           `link_code` varchar(36) DEFAULT NULL COMMENT '链接代码',
+                                           `app_id` varchar(255) DEFAULT NULL COMMENT '小程序ID',
+                                           `update_time` datetime DEFAULT NULL COMMENT '更新时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='链接码和应用Id的映射表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `link_code_and_appid_map`
+--
+
+INSERT INTO `link_code_and_appid_map` VALUES ('po80bb43-4a86-463e-8a64-86af145af212','wxc62afc1444173666','2023-09-08 02:29:36'),('4180bb43-4a86-463e-8a64-86af145af2op','wxc62afc1444173555','2023-09-08 02:29:36'),('8180bb43-4a86-463e-8a64-86af145af2gf','wxc62afc1444173999','2023-09-08 02:29:36'),('3180bb43-4a86-463e-8a64-86af145af245','wxc62afc1444173888','2023-09-08 02:29:36'),('2180bb43-4a86-463e-8a64-86af145af27e','wxc62afc1444173777','2023-09-08 02:29:36');
 
 --
 -- Table structure for table `report`
@@ -248,4 +272,4 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-07 17:50:38
+-- Dump completed on 2023-09-08  2:30:02

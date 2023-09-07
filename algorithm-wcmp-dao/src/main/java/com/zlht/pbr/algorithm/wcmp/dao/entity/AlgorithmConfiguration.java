@@ -1,5 +1,6 @@
 package com.zlht.pbr.algorithm.wcmp.dao.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;

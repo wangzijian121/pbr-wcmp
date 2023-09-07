@@ -1,6 +1,5 @@
 package com.zlht.pbr.algorithm.wcmp.task;
 
-import com.zlht.pbr.algorithm.wcmp.service.AlgorithmConfigurationServiceI;
 import com.zlht.pbr.algorithm.wcmp.service.impl.SyncServiceImpl;
 import feign.RetryableException;
 import org.apache.logging.log4j.LogManager;
@@ -15,19 +14,19 @@ import org.springframework.stereotype.Component;
  * @author zijian Wang
  **/
 @Component
-public class SyncAlgorithmTask {
+public class SyncLinkAndAppIdTask {
 
-    private final static Logger logger = LogManager.getLogger(SyncAlgorithmTask.class);
+    private final static Logger logger = LogManager.getLogger(SyncLinkAndAppIdTask.class);
     @Autowired
     private SyncServiceImpl syncService;
 
     @Scheduled(cron = "0/6 * *  * * ? ")
-    public void executeSyncAlgorithm() {
+    public void executeSyncLinkAndAppId() {
         try {
-            syncService.syncAlgorithm();
+            syncService.syncInstitutionLinkCodeAndAppId();
         } catch (RetryableException retryableException) {
-            String errMsg = "同步算法失败！";
-            logger.warn("executeSyncAlgorithm(), message={}", errMsg);
+            String errMsg = "同步链接和小程序ID失败！";
+            logger.warn("executeSyncLinkAndAppId(), message={}", errMsg);
         }
     }
 }

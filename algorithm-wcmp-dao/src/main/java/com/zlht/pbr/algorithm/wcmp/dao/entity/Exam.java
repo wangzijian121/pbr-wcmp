@@ -25,7 +25,7 @@ public class Exam {
     @TableId(type = IdType.AUTO)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer id;
-
+    private String appId;
     private String name;
 
     private String description;

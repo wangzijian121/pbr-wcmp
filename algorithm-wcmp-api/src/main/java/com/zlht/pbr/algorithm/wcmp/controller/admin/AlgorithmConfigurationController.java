@@ -21,7 +21,7 @@ import java.util.Map;
  * @author zi jian Wang
  */
 @RestController
-@Api(tags = "算法与算法配置")
+@Api(tags = "机构管理员-算法与算法配置")
 @RequestMapping("/wechat/algorithm")
 public class AlgorithmConfigurationController extends BaseController {
 
@@ -44,6 +44,7 @@ public class AlgorithmConfigurationController extends BaseController {
 
         return algorithmConfigurationServiceI.getAlgorithmByAppId(appId);
     }
+
 
     /**
      * 设置算法可用性
