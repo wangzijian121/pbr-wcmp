@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,8 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 /**
- * 课程
+ * 学习表
+ *
  * @author zijian Wang
  */
 @Data
@@ -23,16 +25,15 @@ public class Course {
     private Integer id;
 
     private String name;
-
-    private String cover;
-
+    private Integer type;
+    private String coverUuid;
+    private String mediaUuid;
     private Integer resourceId;
-
     private String description;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(name = "create_time", value = "创建时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
     private Date createTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(name = "update_time", value = "更新时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
     private Date updateTime;
 }
+

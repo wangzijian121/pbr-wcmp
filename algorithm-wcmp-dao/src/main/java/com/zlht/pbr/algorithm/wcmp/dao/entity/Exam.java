@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +14,7 @@ import java.util.Date;
 
 /**
  * 考试表
+ *
  * @author zijian Wang
  */
 @Data
@@ -20,25 +23,24 @@ import java.util.Date;
 @TableName(value = "exam")
 public class Exam {
     @TableId(type = IdType.AUTO)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer id;
 
     private String name;
 
     private String description;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @ApiModelProperty(value = "考试开始时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
     private Date startTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @ApiModelProperty(value = "考试结束时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
     private Date endTime;
 
-    private Integer resourceId;
+    private String uuid;
 
     private Integer examCount;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @ApiModelProperty(name = "create_time", value = "创建时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
     private Date createTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date updateTime;
 }

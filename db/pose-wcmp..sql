@@ -38,7 +38,7 @@ CREATE TABLE `algorithm_configuration` (
 -- Dumping data for table `algorithm_configuration`
 --
 
-INSERT INTO `algorithm_configuration` VALUES ('wxc62afc1444173666',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 02:14:00'),('wxc62afc1444173777',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 02:14:00'),('wxc62afc1444173777',14,'足球专用犯规识别算法','篮球',1,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 02:14:00'),('wxc62afc1444173777',16,'乒乓球角度识别算法','乒乓球',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 02:14:00'),('wxc62afc1444173888',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 02:14:00'),('wxc62afc1444173888',3,'游泳姿势优化算法','游泳',1,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 02:14:00');
+INSERT INTO `algorithm_configuration` VALUES ('wxc62afc1444173666',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 17:50:00'),('wxc62afc1444173777',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 17:50:00'),('wxc62afc1444173777',14,'足球专用犯规识别算法','篮球',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 17:50:00'),('wxc62afc1444173777',16,'乒乓球角度识别算法','乒乓球',1,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 17:50:00'),('wxc62afc1444173888',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 17:50:00'),('wxc62afc1444173888',3,'游泳姿势优化算法','游泳',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-07 17:50:00');
 
 --
 -- Table structure for table `course`
@@ -50,8 +50,10 @@ DROP TABLE IF EXISTS `course`;
 CREATE TABLE `course` (
                           `id` int NOT NULL AUTO_INCREMENT,
                           `name` varchar(50) NOT NULL COMMENT '课程名称',
-                          `cover` varchar(100) DEFAULT NULL COMMENT '课程封面',
-                          `resource_id` int DEFAULT NULL COMMENT '资源ID',
+                          `type` int DEFAULT NULL COMMENT '0:文字 1：图片 2： 视频',
+                          `cover_uuid` varchar(36) DEFAULT NULL COMMENT '课程封面',
+                          `media_uuid` varchar(36) DEFAULT NULL COMMENT '媒体uuid',
+                          `uuid` varchar(255) DEFAULT NULL COMMENT 'uuid',
                           `description` varchar(500) DEFAULT NULL COMMENT '课程描述',
                           `create_time` datetime NOT NULL COMMENT '创建时间',
                           `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -77,12 +79,11 @@ CREATE TABLE `exam` (
                         `description` varchar(500) DEFAULT NULL COMMENT '考试描述',
                         `start_time` datetime NOT NULL COMMENT '开始时间',
                         `end_time` datetime NOT NULL COMMENT '结束时间',
-                        `resource_id` int DEFAULT NULL COMMENT '资源ID',
+                        `uuid` varchar(255) DEFAULT NULL COMMENT '资源ID',
                         `exam_count` int DEFAULT NULL COMMENT '考试次数',
                         `create_time` datetime NOT NULL COMMENT '创建时间',
-                        `update_time` datetime DEFAULT NULL COMMENT '更新时间',
                         PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='考试表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='考试表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -247,4 +248,4 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-07  2:14:48
+-- Dump completed on 2023-09-07 17:50:38

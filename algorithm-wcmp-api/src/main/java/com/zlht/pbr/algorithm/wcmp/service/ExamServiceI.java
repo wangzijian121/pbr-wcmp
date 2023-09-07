@@ -16,7 +16,7 @@ public interface ExamServiceI extends BaseServiceI {
 
 
     /**
-     * 下载试题模板文件
+     * 机构管理员-下载试题模板文件
      *
      * @return
      */
@@ -24,7 +24,7 @@ public interface ExamServiceI extends BaseServiceI {
 
 
     /**
-     * 检查模板规范性
+     * 机构管理员-检查模板规范性
      *
      * @param uuid uuid
      * @return
@@ -34,12 +34,12 @@ public interface ExamServiceI extends BaseServiceI {
     /**
      * 查询考试
      *
-     * @param type
      * @param currentPage
      * @param pageSize
+     * @param name
      * @return
      */
-    Result<PageInfo<Exam>> queryExamList(int type, int currentPage, int pageSize);
+    Result<PageInfo<Exam>> queryExamList(int currentPage, int pageSize,String name);
 
 
     /**

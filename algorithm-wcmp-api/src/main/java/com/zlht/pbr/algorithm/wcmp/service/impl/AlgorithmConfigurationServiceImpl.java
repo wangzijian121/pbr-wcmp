@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,7 +84,7 @@ public class AlgorithmConfigurationServiceImpl extends BaseServiceImpl implement
                 // 记录不存在，执行插入操作
                 algorithmConfiguration.setAppId(algorithmConfiguration.getAppId());
                 algorithmConfiguration.setEnable(0);
-                algorithmConfiguration.setUpdateTime(LocalDateTime.now());
+                algorithmConfiguration.setUpdateTime(new Date());
                 algorithmConfigurationMapper.insert(algorithmConfiguration);
             }
         }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @author zijian Wang
@@ -35,6 +36,6 @@ public class AlgorithmConfiguration {
     @ApiModelProperty(value = "模板")
     private String content;
 
-    @ApiModelProperty(value = "更新时间")
-    private LocalDateTime updateTime;
+    @ApiModelProperty(value = "更新时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
+    private Date updateTime;
 }
