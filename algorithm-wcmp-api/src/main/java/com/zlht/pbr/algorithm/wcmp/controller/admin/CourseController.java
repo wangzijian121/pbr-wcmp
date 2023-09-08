@@ -21,7 +21,7 @@ import java.util.Map;
  */
 @RestController
 @Api(tags = "机构管理员-课程接口")
-@RequestMapping("/wechat/course")
+@RequestMapping("/wechat/admin/course")
 public class CourseController extends BaseController {
 
     @Autowired

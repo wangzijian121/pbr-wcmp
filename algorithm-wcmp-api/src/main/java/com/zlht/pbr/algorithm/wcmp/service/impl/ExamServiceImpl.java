@@ -2,15 +2,16 @@ package com.zlht.pbr.algorithm.wcmp.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zlht.pbr.algorithm.wcmp.controller.admin.AlgorithmConfigurationController;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.Exam;
 import com.zlht.pbr.algorithm.wcmp.dao.mapper.ExamMapper;
 import com.zlht.pbr.algorithm.wcmp.enums.Status;
 import com.zlht.pbr.algorithm.wcmp.service.ExamServiceI;
+import com.zlht.pbr.algorithm.wcmp.utils.ExamTableValidator;
 import com.zlht.pbr.algorithm.wcmp.utils.PageInfo;
 import com.zlht.pbr.algorithm.wcmp.utils.Result;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
@@ -19,10 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,7 +47,6 @@ public class ExamServiceImpl extends BaseServiceImpl implements ExamServiceI {
     @Override
     public ResponseEntity downloadExamXlsxTemplate() {
 
-        Map<String, Object> map = new HashMap<>(3);
         String fileName = "考试模板.xlsx";
         // 从文件存储中读取文件
         File file = new File(fileUploadPath + fileName);
@@ -79,7 +76,16 @@ public class ExamServiceImpl extends BaseServiceImpl implements ExamServiceI {
 
     @Override
     public Map<String, Object> checkExamXlsxTemplate(String uuid) {
-        return null;
+
+        Map<String, Object> map = new HashMap<>(3);
+        String fileName = uuid + ".xlsx";
+        boolean conform = ExamTableValidator.validateExamTable(fileUploadPath + fileName);
+        if (conform) {
+            putMsg(map, Status.SUCCESS.getCode(), "模板符合规范");
+        } else {
+            putMsg(map, 400, "模板不符合要求规范");
+        }
+        return map;
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.zlht.pbr.algorithm.wcmp.controller.admin;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zlht.pbr.algorithm.wcmp.controller.base.BaseController;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.Exam;
-import com.zlht.pbr.algorithm.wcmp.dao.entity.User;
 import com.zlht.pbr.algorithm.wcmp.service.ExamServiceI;
 import com.zlht.pbr.algorithm.wcmp.utils.PageInfo;
 import com.zlht.pbr.algorithm.wcmp.utils.Result;
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Map;
 
@@ -24,8 +22,8 @@ import java.util.Map;
  */
 @RestController
 @Api(tags = "机构管理员-考试接口")
-@RequestMapping("/wechat/exam")
-public class ExamController extends BaseController {
+@RequestMapping("/wechat/admin/exam")
+public class AdminExamController extends BaseController {
 
     @Autowired
     private ExamServiceI examServiceI;
@@ -34,6 +32,20 @@ public class ExamController extends BaseController {
     @GetMapping("/download")
     public ResponseEntity download() {
         return examServiceI.downloadExamXlsxTemplate();
+    }
+
+
+    /**
+     * 检查上传表格模板规范
+     *
+     * @return Exam
+     */
+    @ApiOperation(value = "检查上传表格模板规范", notes = "检查上传表格模板规范")
+    @PostMapping(value = "/checkExamXlsxTemplate")
+    @ResponseStatus(HttpStatus.OK)
+    public Result<Exam> checkExamXlsxTemplate(@RequestParam String uuid) {
+        Map<String, Object> map = examServiceI.checkExamXlsxTemplate(uuid);
+        return returnDataList(map);
     }
 
     /**

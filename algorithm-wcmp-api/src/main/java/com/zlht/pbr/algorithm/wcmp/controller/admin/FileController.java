@@ -1,4 +1,4 @@
-package com.zlht.pbr.algorithm.wcmp.controller;
+package com.zlht.pbr.algorithm.wcmp.controller.admin;
 
 
 import com.zlht.pbr.algorithm.wcmp.controller.base.BaseController;
