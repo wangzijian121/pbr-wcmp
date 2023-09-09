@@ -27,7 +27,7 @@ public class WeChatServiceImpl extends BaseServiceImpl implements WeChatServiceI
 
     @Override
     public Map<String, Object> code2Session(String jsCode) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
 /*        try {
             WeChatUserInfo userInfo = weChatServiceClient.login(jsCode);
             String errMsg = convertErrorCode(userInfo.getErrCode());

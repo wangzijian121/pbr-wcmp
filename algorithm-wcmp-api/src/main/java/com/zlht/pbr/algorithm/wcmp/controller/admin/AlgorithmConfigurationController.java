@@ -22,7 +22,7 @@ import java.util.Map;
  */
 @RestController
 @Api(tags = "机构管理员-算法与算法配置")
-@RequestMapping("/wechat/admin/algorithm")
+@RequestMapping("/wechat/{linkCode}/admin/algorithm")
 public class AlgorithmConfigurationController extends BaseController {
 
     private static final Logger logger = LogManager.getLogger(AlgorithmConfigurationController.class);

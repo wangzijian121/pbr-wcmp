@@ -17,15 +17,15 @@ public class ExamTableValidator {
 
             Sheet sheet = workbook.getSheetAt(0);
             Row firstRow = sheet.getRow(0);
-
+            int  num =6;
             // 检查第一行的标题是否符合规范
-            if (firstRow.getLastCellNum() != 6 ||
-                    !getStringCellValue(firstRow.getCell(0)).equals("题目") ||
-                    !getStringCellValue(firstRow.getCell(1)).equals("A") ||
-                    !getStringCellValue(firstRow.getCell(2)).equals("B") ||
-                    !getStringCellValue(firstRow.getCell(3)).equals("C") ||
-                    !getStringCellValue(firstRow.getCell(4)).equals("D") ||
-                    !getStringCellValue(firstRow.getCell(5)).equals("答案")) {
+            if (firstRow.getLastCellNum() != num ||
+                    !"题目".equals(getStringCellValue(firstRow.getCell(0))) ||
+                    !"A".equals(getStringCellValue(firstRow.getCell(1))) ||
+                    !"B".equals(getStringCellValue(firstRow.getCell(2))) ||
+                    !"C".equals(getStringCellValue(firstRow.getCell(3))) ||
+                    !"D".equals(getStringCellValue(firstRow.getCell(4))) ||
+                    !"答案".equals(getStringCellValue(firstRow.getCell(5)))) {
                 return false;
             }
 

@@ -3,8 +3,11 @@ package com.zlht.pbr.algorithm.wcmp.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.Exam;
+import com.zlht.pbr.algorithm.wcmp.dao.entity.LinkCodeAndAppIdMap;
 import com.zlht.pbr.algorithm.wcmp.dao.mapper.ExamMapper;
+import com.zlht.pbr.algorithm.wcmp.dao.mapper.LinkCodeAndAppIdMapMapper;
 import com.zlht.pbr.algorithm.wcmp.enums.Status;
+import com.zlht.pbr.algorithm.wcmp.security.AuthLinkCodeServiceI;
 import com.zlht.pbr.algorithm.wcmp.service.ExamServiceI;
 import com.zlht.pbr.algorithm.wcmp.utils.ExamTableValidator;
 import com.zlht.pbr.algorithm.wcmp.utils.PageInfo;
@@ -40,9 +43,15 @@ public class ExamServiceImpl extends BaseServiceImpl implements ExamServiceI {
     @Value("${files.upload.local.path}")
     private String fileUploadPath;
 
-
     @Autowired
     private ExamMapper examMapper;
+
+    @Autowired
+    private LinkCodeAndAppIdMapMapper linkCodeAndAppIdMapMapper;
+
+    @Autowired
+    private AuthLinkCodeServiceI authLinkCodeServiceI;
+
 
     @Override
     public ResponseEntity downloadExamXlsxTemplate() {
@@ -89,14 +98,21 @@ public class ExamServiceImpl extends BaseServiceImpl implements ExamServiceI {
     }
 
     @Override
-    public Result<PageInfo<Exam>> queryExamList(int currentPage, int pageSize, String appId) {
+    public Result<PageInfo<Exam>> queryExamList(String linkCode, int currentPage, int pageSize) {
+
         Result result = new Result();
-        Page<Exam> page = new Page<>(currentPage, pageSize);
-        QueryWrapper<Exam> wapper = new QueryWrapper<Exam>();
-        if (appId != null) {
-            wapper.eq("app_id", appId);
+        if (!authLinkCodeServiceI.checkLinkCodeValidity(linkCode)) {
+            result.setMsg("linkCode错误!！");
+            result.setCode(400);
+            return result;
         }
-        Page<Exam> examPage = examMapper.selectPage(page, wapper);
+        Page<Exam> page = new Page<>(currentPage, pageSize);
+
+        QueryWrapper<Exam> examQueryWrapper = new QueryWrapper<Exam>();
+        if (linkCode != null) {
+            examQueryWrapper.eq("link_code", linkCode);
+        }
+        Page<Exam> examPage = examMapper.selectPage(page, examQueryWrapper);
         PageInfo pageInfo = new PageInfo(currentPage, pageSize);
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(examPage.getRecords());
@@ -107,10 +123,14 @@ public class ExamServiceImpl extends BaseServiceImpl implements ExamServiceI {
     }
 
     @Override
-    public Map<String, Object> createExam(Exam exam) {
+    public Map<String, Object> createExam(String linkCode, Exam exam) {
         Map<String, Object> map = new HashMap<>(3);
-
+        if (!authLinkCodeServiceI.checkLinkCodeValidity(exam.getLinkCode())) {
+            putMsg(map, 400, "linkCode错误!！");
+            return map;
+        }
         QueryWrapper queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("link_code", linkCode);
         queryWrapper.eq("name", exam.getName());
         //exist?
         if (examMapper.exists(queryWrapper)) {
@@ -118,6 +138,7 @@ public class ExamServiceImpl extends BaseServiceImpl implements ExamServiceI {
             return map;
         }
         try {
+            exam.setLinkCode(linkCode);
             examMapper.insert(exam);
             putMsg(map, Status.SUCCESS.getCode(), "创建考试成功！");
         } catch (Exception e) {
@@ -129,10 +150,13 @@ public class ExamServiceImpl extends BaseServiceImpl implements ExamServiceI {
     }
 
     @Override
-    public Map<String, Object> updateExam(int id, Exam exam) {
+    public Map<String, Object> updateExam(String linkCode, int id, Exam exam) {
         Map<String, Object> map = new HashMap<>(3);
-
-        if (!checkExamExistById(id)) {
+        if (!authLinkCodeServiceI.checkLinkCodeValidity(exam.getLinkCode())) {
+            putMsg(map, 400, "linkCode错误!！");
+            return map;
+        }
+        if (!checkExamExistById(linkCode, id)) {
             putMsg(map, 400, "所更新的考试ID不存在!");
             return map;
         }
@@ -145,6 +169,7 @@ public class ExamServiceImpl extends BaseServiceImpl implements ExamServiceI {
             return map;
         }
         QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("link_code", linkCode);
         queryWrapper.eq("id", id);
         try {
             putMsg(map, Status.SUCCESS.getCode(), "更新考试成功！");
@@ -158,13 +183,18 @@ public class ExamServiceImpl extends BaseServiceImpl implements ExamServiceI {
     }
 
     @Override
-    public Map<String, Object> deleteExam(int id) {
+    public Map<String, Object> deleteExam(String linkCode, int id) {
         Map<String, Object> map = new HashMap<>(3);
-        if (!checkExamExistById(id)) {
+        if (!authLinkCodeServiceI.checkLinkCodeValidity(linkCode)) {
+            putMsg(map, 400, "linkCode错误!！");
+            return map;
+        }
+        if (!checkExamExistById(linkCode, id)) {
             putMsg(map, 400, "所删除的考试ID不存在!");
             return map;
         }
         QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("link_code", linkCode);
         queryWrapper.eq("id", id);
         try {
             examMapper.delete(queryWrapper);
@@ -178,8 +208,9 @@ public class ExamServiceImpl extends BaseServiceImpl implements ExamServiceI {
     }
 
     @Override
-    public boolean checkExamExistById(int id) {
+    public boolean checkExamExistById(String linkCode, int id) {
         QueryWrapper queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("link_code", linkCode);
         queryWrapper.eq("id", id);
         return examMapper.exists(queryWrapper);
     }

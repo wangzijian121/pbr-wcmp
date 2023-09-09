@@ -34,49 +34,49 @@ public interface ExamServiceI extends BaseServiceI {
     /**
      * 查询考试
      *
+     * @param linkCode
      * @param currentPage
      * @param pageSize
-     * @param name
      * @return
      */
-    Result<PageInfo<Exam>> queryExamList(int currentPage, int pageSize,String name);
+    Result<PageInfo<Exam>> queryExamList(String  linkCode,int currentPage, int pageSize);
 
 
     /**
      * 创建考试
      *
-     * @param
      * @param exam
      * @return
      */
 
-    Map<String, Object> createExam(Exam exam);
+    Map<String, Object> createExam(String linkCode,Exam exam);
 
     /**
      * 更新考试
      *
-     * @param
+     * @param linkCode
      * @param id
      * @param exam
      * @return
      */
-    Map<String, Object> updateExam(int id, Exam exam);
+    Map<String, Object> updateExam(String  linkCode,int id, Exam exam);
 
     /**
      * 删除考试
      *
-     * @param
+     * @param linkCode
      * @param id
      * @return
      */
-    Map<String, Object> deleteExam(int id);
+    Map<String, Object> deleteExam(String  linkCode,int id);
 
 
     /**
      * 通过考试ID判断是否存在
      *
+     * @param linkCode
      * @param id
      * @return
      */
-    boolean checkExamExistById(int id);
+    boolean checkExamExistById(String linkCode,int id);
 }

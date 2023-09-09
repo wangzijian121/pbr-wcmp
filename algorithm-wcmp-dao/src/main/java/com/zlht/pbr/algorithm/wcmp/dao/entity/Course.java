@@ -24,7 +24,8 @@ public class Course {
     @TableId(type = IdType.AUTO)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer id;
-    private String appId;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String linkCode;
     private String name;
     private Integer type;
     private String coverUuid;

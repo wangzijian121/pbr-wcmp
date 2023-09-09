@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 算法配置
  * @author zijian Wang
  */
 @Service

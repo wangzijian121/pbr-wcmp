@@ -14,46 +14,46 @@ import java.util.Map;
  */
 public interface CourseServiceI extends BaseServiceI {
 
-   
+
     /**
      * 查询课程
      *
-     * @param appId
+     * @param linkCode
      * @param currentPage
      * @param pageSize
      * @return
      */
-    Result<PageInfo<Course>> queryCourseList(String appId,int currentPage, int pageSize);
+    Result<PageInfo<Course>> queryCourseList(String linkCode, int currentPage, int pageSize);
 
 
     /**
      * 创建课程
      *
-     * @param
      * @param exam
      * @return
      */
 
-    Map<String, Object> createCourse(Course exam);
+    Map<String, Object> createCourse(String linkCode, Course exam);
 
     /**
      * 更新课程
      *
-     * @param
+     * @param linkCode
      * @param id
      * @param exam
      * @return
      */
-    Map<String, Object> updateCourse(int id, Course exam);
+    Map<String, Object> updateCourse(String linkCode, int id, Course exam);
 
     /**
      * 删除课程
      *
      * @param
+     * @param linkCode
      * @param id
      * @return
      */
-    Map<String, Object> deleteCourse(int id);
+    Map<String, Object> deleteCourse(String linkCode, int id);
 
 
     /**
@@ -62,5 +62,5 @@ public interface CourseServiceI extends BaseServiceI {
      * @param id
      * @return
      */
-    boolean checkCourseExistById(int id);
+    boolean checkCourseExistById(String linkCode,int id);
 }

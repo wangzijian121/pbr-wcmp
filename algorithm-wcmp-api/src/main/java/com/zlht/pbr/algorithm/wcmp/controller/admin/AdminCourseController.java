@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.Map;
 
 /**
@@ -21,8 +22,8 @@ import java.util.Map;
  */
 @RestController
 @Api(tags = "机构管理员-课程接口")
-@RequestMapping("/wechat/admin/course")
-public class CourseController extends BaseController {
+@RequestMapping("/wechat/{linkCode}/admin/course")
+public class AdminCourseController extends BaseController {
 
     @Autowired
     private CourseServiceI courseServiceI;
@@ -35,13 +36,12 @@ public class CourseController extends BaseController {
     @ApiOperation(value = "查询课程", notes = "查询课程")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "页数(默认1)", dataTypeClass = int.class),
-            @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
-            @ApiImplicitParam(name = "appId", value = "小程序ID", dataTypeClass = String.class)
+            @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class)
     })
 
     @GetMapping(value = "/getCourse")
     @ResponseStatus(HttpStatus.OK)
-    public Result<PageInfo<Course>> queryCourseList(@RequestParam(required = false, defaultValue = "1") String appId,
+    public Result<PageInfo<Course>> queryCourseList(@PathVariable String linkCode,
                                                     @RequestParam(required = false, defaultValue = "1") int currentPage,
                                                     @RequestParam(required = false, defaultValue = "10") int pageSize) {
 
@@ -49,7 +49,7 @@ public class CourseController extends BaseController {
         if (!result.checkResult()) {
             return result;
         }
-        return courseServiceI.queryCourseList(appId,currentPage, pageSize);
+        return courseServiceI.queryCourseList(linkCode, currentPage, pageSize);
     }
 
     /**
@@ -58,11 +58,14 @@ public class CourseController extends BaseController {
      * @return Course
      */
     @ApiOperation(value = "创建课程", notes = "创建课程")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "linkCode", value = "小程序链接码", dataTypeClass = String.class)
+    })
     @PostMapping(value = "/createCourse")
     @ResponseStatus(HttpStatus.OK)
     @JsonIgnoreProperties(value = "id")
-    public Result<Course> createCourse(@RequestBody Course course) {
-        Map<String, Object> map = courseServiceI.createCourse(course);
+    public Result<Course> createCourse(@PathVariable String linkCode, @RequestBody Course course) {
+        Map<String, Object> map = courseServiceI.createCourse(linkCode, course);
         return returnDataList(map);
     }
 
@@ -73,13 +76,14 @@ public class CourseController extends BaseController {
      */
     @ApiOperation(value = "更新课程", notes = "更新课程")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "需要更新的课程ID", required = true, dataTypeClass = int.class)
+            @ApiImplicitParam(name = "id", value = "需要更新的课程ID", required = true, dataTypeClass = int.class),
     })
     @PutMapping(value = "/updateCourse")
     @ResponseStatus(HttpStatus.OK)
     public Result<Course> updateCourse(@RequestParam int id,
+                                       @PathVariable String linkCode,
                                        @RequestBody Course course) {
-        Map<String, Object> map = courseServiceI.updateCourse(id, course);
+        Map<String, Object> map = courseServiceI.updateCourse(linkCode, id, course);
         return returnDataList(map);
     }
 
@@ -91,8 +95,9 @@ public class CourseController extends BaseController {
     @ApiOperation(value = "删除课程", notes = "删除课程")
     @DeleteMapping(value = "/deleteCourse")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Course> deleteCourse(@RequestParam int id) {
-        Map<String, Object> map = courseServiceI.deleteCourse(id);
+    public Result<Course> deleteCourse(@PathVariable String linkCode,
+                                       @RequestParam int id) {
+        Map<String, Object> map = courseServiceI.deleteCourse(linkCode, id);
         return returnDataList(map);
     }
 }

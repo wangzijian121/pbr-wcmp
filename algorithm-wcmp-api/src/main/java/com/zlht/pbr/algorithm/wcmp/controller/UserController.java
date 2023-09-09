@@ -66,6 +66,7 @@ public class UserController extends BaseController {
         if (!result.checkResult()) {
             return result;
         }
+
         return userServices.queryUserList(loginUser, type, currentPage, pageSize, nickname);
     }
 

@@ -1,12 +1,16 @@
 package com.zlht.pbr.algorithm.wcmp.service.impl;
 
 import com.zlht.pbr.algorithm.wcmp.dao.entity.User;
+import com.zlht.pbr.algorithm.wcmp.security.AuthLinkCodeServiceI;
 import com.zlht.pbr.algorithm.wcmp.service.BaseServiceI;
 import com.zlht.pbr.algorithm.wcmp.enums.Status;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
 
 public class BaseServiceImpl<T> implements BaseServiceI<T> {
+
+
 
     public void putMsg(Map<String, Object> result, int code, String msg) {
         result.put("code", code);
@@ -18,7 +22,7 @@ public class BaseServiceImpl<T> implements BaseServiceI<T> {
 
     @Override
     public boolean canOperator(User operateUser) {
-        return operateUser != null ;
+        return operateUser != null;
     }
 
 }

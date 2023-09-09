@@ -2,6 +2,8 @@ package com.zlht.pbr.algorithm.wcmp.service;
 
 
 import com.zlht.pbr.algorithm.wcmp.dao.entity.User;
+import com.zlht.pbr.algorithm.wcmp.security.AuthLinkCodeServiceI;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
 
@@ -10,6 +12,7 @@ import java.util.Map;
  */
 public interface BaseServiceI<T> {
 
+    
     /**
      * 发送消息
      *
