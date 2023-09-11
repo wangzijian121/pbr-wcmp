@@ -3,6 +3,7 @@ package com.zlht.pbr.algorithm.wcmp.service.impl;
 import cn.hutool.json.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zlht.pbr.algorithm.wcmp.client.ManagementClient;
 import com.zlht.pbr.algorithm.wcmp.client.WeChatClient;
 import com.zlht.pbr.algorithm.wcmp.configuration.WcServerConfiguration;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.User;
@@ -11,6 +12,7 @@ import com.zlht.pbr.algorithm.wcmp.dao.mapper.UserMapper;
 import com.zlht.pbr.algorithm.wcmp.enums.Status;
 import com.zlht.pbr.algorithm.wcmp.service.WeChatServiceI;
 import com.zlht.pbr.algorithm.wcmp.utils.RandomGeneratorUtils;
+import com.zlht.pbr.algorithm.wcmp.utils.Result;
 import com.zlht.pbr.algorithm.wcmp.utils.WxBizDataCryptUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,6 +32,9 @@ public class WeChatServiceImpl extends BaseServiceImpl implements WeChatServiceI
     private static final Logger logger = LogManager.getLogger(WeChatServiceImpl.class);
     @Autowired
     WcServerConfiguration wcServerConfiguration;
+
+    @Autowired
+    private ManagementClient managementClient;
 
     @Autowired
     private WeChatClient weChatServiceClient;
@@ -67,13 +72,13 @@ public class WeChatServiceImpl extends BaseServiceImpl implements WeChatServiceI
                 userQueryWrapper.eq("open_id", openId);
                 User user;
                 user = userMapper.selectOne(userQueryWrapper);
+                user.setType(adminOrNot(linkCode, openId) ? 2 : 3);
 //                check user exists
                 if (user != null) {
                     user.setSessionKey(sessionKey);
                     userMapper.update(user, userQueryWrapper);
                     putMsg(map, Status.SUCCESS.getCode(), Status.SUCCESS.getMsg());
                 } else {
-                    //TODO is Admin?？？
                     user = new User();
                     user.setType(0);
                     user.setNickname("微信用户" + RandomGeneratorUtils.generateRandomChars(5));
@@ -106,18 +111,10 @@ public class WeChatServiceImpl extends BaseServiceImpl implements WeChatServiceI
         return map;
     }
 
-    public String convertErrorCode(int errorCode) {
-        switch (errorCode) {
-            case 40029:
-                return "无效的code，js_code无效";
-            case 45011:
-                return "API调用频率超限，请稍候再试";
-            case 40226:
-                return "高风险等级用户，小程序登录被拦截";
-            case -1:
-                return "系统错误，请稍候再试";
-            default:
-                return null;
-        }
+    boolean adminOrNot(String linkCode, String openId) {
+
+        Result<Map<String, Object>> result = managementClient.adminOrNot(linkCode, openId);
+
+        return Boolean.getBoolean(result.getData().get("adminOrNot").toString());
     }
 }

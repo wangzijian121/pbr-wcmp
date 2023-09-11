@@ -7,8 +7,10 @@ import com.zlht.pbr.algorithm.wcmp.utils.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -36,4 +38,14 @@ public interface ManagementClient {
     @RequestMapping(value = "/wechat/getInstitutionLinkCodeAndAppId", method = RequestMethod.GET)
     Result<List<LinkCodeAndAppIdMap>> syncLinkCodeAndAppId();
 
+
+    /**
+     * 是否为管理员
+     *
+     * @param linkCode
+     * @param openId
+     * @return
+     */
+    @RequestMapping(value = "/wechat/adminOrNot", method = RequestMethod.POST)
+    Result<Map<String,Object>> adminOrNot(@RequestParam String linkCode, @RequestParam String openId);
 }
