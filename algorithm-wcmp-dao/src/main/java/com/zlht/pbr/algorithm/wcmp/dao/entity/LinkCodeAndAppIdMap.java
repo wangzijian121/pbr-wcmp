@@ -20,6 +20,7 @@ public class LinkCodeAndAppIdMap {
 
     private String linkCode;
     private String appId;
+    private String appSecret;
     @ApiModelProperty(value = "更新时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
     private Date updateTime;
 }

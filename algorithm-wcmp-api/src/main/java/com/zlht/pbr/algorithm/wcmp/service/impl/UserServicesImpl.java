@@ -31,8 +31,6 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
     private UserMapper userMapper;
 
 
-
-
     @Override
     public Result<PageInfo<User>> queryUserList(User loginUser, int type, int currentPage, int pageSize, String keyword) {
 
@@ -52,8 +50,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
             wapper.like("nickname", keyword);
         }
         Page<User> userPage = userMapper.selectPage(page, wapper);
-        logger.info("queryUserList() method. username={},type={}, currentPage={},pageSize={},keyword={}",
-                loginUser.getUsername(), type, currentPage, pageSize, keyword);
+
         PageInfo pageInfo = new PageInfo(currentPage, pageSize);
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(userPage.getRecords());
@@ -84,7 +81,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
             putMsg(map, Status.SUCCESS.getCode(), "新建用户成功！");
         } catch (Exception e) {
             String errMsg = "新建用户失败";
-            logger.error("createUser() method .message={}, username={}", errMsg, user.getUsername(), e);
+            logger.error("createUser() method .message={}, username={}", errMsg, user.getNickname(), e);
             putMsg(map, 400, errMsg);
         }
 
@@ -112,7 +109,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
             putMsg(map, Status.SUCCESS.getCode(), "更新用户成功！");
         } catch (Exception e) {
             String errMsg = "更新用户失败";
-            logger.error("updateUser() method .message={}, username={}", errMsg, user.getUsername(), e);
+            logger.error("updateUser() method .message={}, username={}", errMsg, user.getNickname(), e);
             putMsg(map, 400, errMsg);
         }
 
@@ -149,7 +146,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
     @Override
     public boolean checkUserExistByIdName(int id, User user) {
         QueryWrapper queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("username", user.getUsername());
+        queryWrapper.eq("username", user.getNickname());
         queryWrapper.eq("type", user.getType());
         queryWrapper.ne("id", id);
         return userMapper.exists(queryWrapper);
@@ -164,7 +161,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
     @Override
     public boolean checkUserExistByUserName(User user) {
         QueryWrapper queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("username", user.getUsername());
+        queryWrapper.eq("username", user.getNickname());
         queryWrapper.eq("type", user.getType());
         return userMapper.exists(queryWrapper);
     }
@@ -194,7 +191,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
         if (user == null) {
             return false;
         }
-        String username = user.getUsername();
+        String username = user.getNickname();
         String nickname = user.getNickname();
         // 校验 username 和 nickname 不为空，并且没有空格
         if (StringUtils.isBlank(username) || StringUtils.isBlank(nickname)

@@ -17,6 +17,7 @@ import java.util.Map;
 
 /**
  * 用户表
+ *
  * @author zi jian Wang
  */
 @Data
@@ -28,31 +29,17 @@ public class User {
     @TableId(type = IdType.AUTO)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer id;
-    @ApiModelProperty(value = "用户类型（0:管理员 1:学生）", required = true)
+    private String linkCode;
     private Integer type;
-
-    @ApiModelProperty(value = "用户名", required = true)
-    private String username;
-
-    @ApiModelProperty(value = "昵称", required = false)
+    private String openId;
+    private String sessionKey;
     private String nickname;
-
-    @ApiModelProperty(value = "性别(0:女 1:男)", required = true)
     private Integer gender;
-
-    @ApiModelProperty(value = "手机号")
-    private String phone;
-
-    @ApiModelProperty(value = "使用时长")
-    private long durationOfUse;
-
-    @ApiModelProperty(value = "打卡天数")
+    private String durationOfUse;
     private Integer clockingDays;
-
     @ApiModelProperty(value = "创建时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
     private Date createTime;
+    @ApiModelProperty(value = "更新时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
+    private Date updateTime;
 
-    @TableField(typeHandler = JacksonTypeHandler.class)
-    @ApiModelProperty(value = "", required = true)
-    private Map<String, Object> attr;
 }

@@ -20,7 +20,7 @@ public class SyncLinkAndAppIdTask {
     @Autowired
     private SyncServiceImpl syncService;
 
-    @Scheduled(cron = "0/60 * *  * * ? ")
+    @Scheduled(cron = "0/600 * *  * * ? ")
     public void executeSyncLinkAndAppId() {
         try {
             syncService.syncInstitutionLinkCodeAndAppId();
