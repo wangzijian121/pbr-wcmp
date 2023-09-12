@@ -55,15 +55,15 @@ public class WeChatServiceImpl extends BaseServiceImpl implements WeChatServiceI
         String secret = selectMapByLinkCode.get("appSecret");
 
         String code2SessionRes = weChatServiceClient.code2Session("authorization_code", appId, secret, code);
-        Map<String, Object> code2SessionResMap;
+        Map<String, Object> sessionOpenIdMap;
         try {
-            code2SessionResMap = objectMapper.readValue(code2SessionRes, Map.class);
-            System.out.println(code2SessionResMap);
+            sessionOpenIdMap = objectMapper.readValue(code2SessionRes, Map.class);
+            System.out.println(sessionOpenIdMap);
             String checkKeyStr = "session_key";
             String checkOpenIdStr = "openid";
-            if (code2SessionResMap.containsKey(checkKeyStr) && code2SessionResMap.containsKey(checkOpenIdStr)) {
-                String sessionKey = code2SessionResMap.get(checkKeyStr).toString();
-                String openId = code2SessionResMap.get(checkOpenIdStr).toString();
+            if (sessionOpenIdMap.containsKey(checkKeyStr) && sessionOpenIdMap.containsKey(checkOpenIdStr)) {
+                String sessionKey = sessionOpenIdMap.get(checkKeyStr).toString();
+                String openId = sessionOpenIdMap.get(checkOpenIdStr).toString();
                 //decrypt
                 WxBizDataCryptUtil wxBizDataCryptUtil = new WxBizDataCryptUtil(appId, sessionKey);
                 JSONObject jsonObject = wxBizDataCryptUtil.decrypt(encryptedData, iv);
@@ -77,6 +77,8 @@ public class WeChatServiceImpl extends BaseServiceImpl implements WeChatServiceI
                 if (user != null) {
                     user.setSessionKey(sessionKey);
                     userMapper.update(user, userQueryWrapper);
+                    //Sync
+                    reportUserData(appId, user, 0);
                     putMsg(map, Status.SUCCESS.getCode(), Status.SUCCESS.getMsg());
                 } else {
                     user = new User();
@@ -89,6 +91,8 @@ public class WeChatServiceImpl extends BaseServiceImpl implements WeChatServiceI
                     user.setGender(jsonObject.getInt("gender"));
                     user.setCreateTime(new Date());
                     userMapper.insert(user);
+                    //Sync
+                    reportUserData(appId, user, 1);
                     putMsg(map, Status.SUCCESS.getCode(), Status.SUCCESS.getMsg());
                 }
                 Map<String, Object> useMap = new HashMap<>(1);
@@ -97,8 +101,8 @@ public class WeChatServiceImpl extends BaseServiceImpl implements WeChatServiceI
             } else {
                 String errmsgStr = "errmsgStr";
                 String reason = "未知";
-                if (code2SessionResMap.containsKey(errmsgStr)) {
-                    reason = code2SessionResMap.get(errmsgStr).toString();
+                if (sessionOpenIdMap.containsKey(errmsgStr)) {
+                    reason = sessionOpenIdMap.get(errmsgStr).toString();
                 }
                 String errMsg = "未获取到session_key和openid,登录失败,原因:" + reason;
                 logger.error("login() method .message={}, jsCode={}", errMsg, code);
@@ -116,5 +120,13 @@ public class WeChatServiceImpl extends BaseServiceImpl implements WeChatServiceI
         Result<Map<String, Object>> result = managementClient.adminOrNot(linkCode, openId);
 
         return Boolean.getBoolean(result.getData().get("adminOrNot").toString());
+    }
+
+    private void reportUserData(String appId, User user, int event) {
+        Map<String, Object> map = new HashMap<>(3);
+        map.put("nickname", user.getNickname());
+        map.put("openId", user.getOpenId());
+        map.put("appId", appId);
+        managementClient.reportUser(map, event);
     }
 }

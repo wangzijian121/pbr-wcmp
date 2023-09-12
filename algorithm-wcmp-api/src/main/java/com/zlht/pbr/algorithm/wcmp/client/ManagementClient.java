@@ -5,6 +5,7 @@ import com.zlht.pbr.algorithm.wcmp.dao.entity.AlgorithmConfiguration;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.LinkCodeAndAppIdMap;
 import com.zlht.pbr.algorithm.wcmp.utils.Result;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,5 +48,15 @@ public interface ManagementClient {
      * @return
      */
     @RequestMapping(value = "/wechat/adminOrNot", method = RequestMethod.POST)
-    Result<Map<String,Object>> adminOrNot(@RequestParam String linkCode, @RequestParam String openId);
+    Result<Map<String, Object>> adminOrNot(@RequestParam String linkCode, @RequestParam String openId);
+
+    /**
+     * 上报用户数据
+     *
+     * @param linkCode
+     * @param event
+     * @return
+     */
+    @RequestMapping(value = "/wechat/reportUserData", method = RequestMethod.POST)
+    Result<Map<String, Object>> reportUser(@RequestBody Map<String, Object> linkCode, @RequestParam int event);
 }
