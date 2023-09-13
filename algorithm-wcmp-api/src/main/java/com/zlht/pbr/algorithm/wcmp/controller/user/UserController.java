@@ -3,7 +3,7 @@ package com.zlht.pbr.algorithm.wcmp.controller.user;
 
 import com.zlht.pbr.algorithm.wcmp.controller.base.BaseController;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.User;
-import com.zlht.pbr.algorithm.wcmp.service.SessionServiceI;
+import com.zlht.pbr.algorithm.wcmp.enums.Status;
 import com.zlht.pbr.algorithm.wcmp.service.UserServicesI;
 import com.zlht.pbr.algorithm.wcmp.service.WeChatServiceI;
 import com.zlht.pbr.algorithm.wcmp.utils.PageInfo;
@@ -20,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
@@ -38,9 +39,6 @@ public class UserController extends BaseController {
 
     @Autowired
     private WeChatServiceI weChatServiceI;
-
-    @Autowired
-    private SessionServiceI sessionServiceI;
 
 
     /**
@@ -68,8 +66,18 @@ public class UserController extends BaseController {
         if (StringUtils.isEmpty(ip)) {
             return error(10125, "获取不到IP！");
         }
-        Map<String, Object> map = weChatServiceI.login(linkCode,code,encryptedData,iv);
-
+        Map<String, Object> map = weChatServiceI.login(linkCode, code, encryptedData, iv);
+        String codeStr = "code";
+        if (!map.get(codeStr).equals(Status.SUCCESS.getCode())) {
+            return returnDataList(map);
+        }
+        response.setStatus(200);
+        Map<String, Object> cookieMap = (Map<String, Object>) map.get("data");
+        for (Map.Entry<String, Object> cookieEntry : cookieMap.entrySet()) {
+            Cookie cookie = new Cookie(cookieEntry.getKey(), (String) cookieEntry.getValue());
+            cookie.setHttpOnly(true);
+            response.addCookie(cookie);
+        }
         return returnDataList(map);
     }
 

@@ -16,8 +16,8 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("session")
-public class Session {
+@TableName("token")
+public class Token {
 
     /**
      * id
@@ -31,12 +31,12 @@ public class Session {
      */
     private Integer userId;
 
-    private String ip;
+    private String token;
 
     /**
-     * last login time
+     * 过期时间
      */
-    private Date lastLoginTime;
+    private Date expireTime;
 
 
 }

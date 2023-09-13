@@ -7,16 +7,15 @@ import java.util.Map;
 /**
  * @author zi jian Wang
  */
-public interface SessionServiceI {
+public interface TokenServiceI {
 
     /**
      * create session
      *
      * @param user user
-     * @param ip   ip
      * @return session string
      */
-    String createSession(User user, String ip);
+    String createOrUpdateToken(User user);
 
 
     /**

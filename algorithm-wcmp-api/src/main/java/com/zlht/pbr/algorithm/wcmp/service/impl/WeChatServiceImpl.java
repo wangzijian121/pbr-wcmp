@@ -10,6 +10,7 @@ import com.zlht.pbr.algorithm.wcmp.dao.entity.User;
 import com.zlht.pbr.algorithm.wcmp.dao.mapper.LinkCodeAndAppIdMapMapper;
 import com.zlht.pbr.algorithm.wcmp.dao.mapper.UserMapper;
 import com.zlht.pbr.algorithm.wcmp.enums.Status;
+import com.zlht.pbr.algorithm.wcmp.service.TokenServiceI;
 import com.zlht.pbr.algorithm.wcmp.service.WeChatServiceI;
 import com.zlht.pbr.algorithm.wcmp.utils.RandomGeneratorUtils;
 import com.zlht.pbr.algorithm.wcmp.utils.Result;
@@ -44,6 +45,9 @@ public class WeChatServiceImpl extends BaseServiceImpl implements WeChatServiceI
 
     @Autowired
     private LinkCodeAndAppIdMapMapper linkCodeAndAppIdMapMapper;
+
+    @Autowired
+    private TokenServiceI tokenServiceI;
 
     @Override
     public Map<String, Object> login(String linkCode, String code, String encryptedData, String iv) {
@@ -95,14 +99,17 @@ public class WeChatServiceImpl extends BaseServiceImpl implements WeChatServiceI
                     reportUserData(appId, user, 1);
                     putMsg(map, Status.SUCCESS.getCode(), Status.SUCCESS.getMsg());
                 }
+                //createOrUpdateToken
+                String token = tokenServiceI.createOrUpdateToken(user);
                 Map<String, Object> useMap = new HashMap<>(1);
                 useMap.put("nickname", user.getNickname());
+                useMap.put("token", token);
                 map.put("data", useMap);
             } else {
-                String errmsgStr = "errmsgStr";
+                String errMsgStr = "errMsgStr";
                 String reason = "未知";
-                if (sessionOpenIdMap.containsKey(errmsgStr)) {
-                    reason = sessionOpenIdMap.get(errmsgStr).toString();
+                if (sessionOpenIdMap.containsKey(errMsgStr)) {
+                    reason = sessionOpenIdMap.get(errMsgStr).toString();
                 }
                 String errMsg = "未获取到session_key和openid,登录失败,原因:" + reason;
                 logger.error("login() method .message={}, jsCode={}", errMsg, code);
