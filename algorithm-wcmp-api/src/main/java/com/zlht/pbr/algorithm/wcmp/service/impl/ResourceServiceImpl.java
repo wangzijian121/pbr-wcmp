@@ -3,9 +3,7 @@ package com.zlht.pbr.algorithm.wcmp.service.impl;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-
 import com.zlht.pbr.algorithm.wcmp.dao.entity.Resource;
-import com.zlht.pbr.algorithm.wcmp.dao.entity.User;
 import com.zlht.pbr.algorithm.wcmp.dao.mapper.ResourceMapper;
 import com.zlht.pbr.algorithm.wcmp.enums.Status;
 import com.zlht.pbr.algorithm.wcmp.service.ResourceServiceI;
@@ -34,7 +32,7 @@ import java.util.UUID;
 public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServiceI {
 
     private static final Logger logger = LogManager.getLogger(ResourceServiceImpl.class);
-    private final String[] ACCEPT_TYPES = new String[]{"zip","mp4","jpg","png","xlsx"};
+    private final String[] ACCEPT_TYPES = new String[]{"zip", "mp4", "jpg", "png", "xlsx"};
     /**
      * 文件磁盘路径
      */
@@ -48,7 +46,7 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
     private ResourceMapper resourceMapper;
 
     @Override
-    public Map<String, Object> createResource( MultipartFile file) {
+    public Map<String, Object> createResource(MultipartFile file) {
 
         Map<String, Object> map = new HashMap<>(3);
         //获取文件原始名称
@@ -118,7 +116,6 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
         return map;
     }
 
-
     @Override
     public ResponseEntity downloadResource(String uuid) {
 
@@ -129,7 +126,7 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
             return ResponseEntity.badRequest().body("未找到资源！");
         }
         // 从文件存储中读取文件
-        File file = new File(fileUploadPath + resource.getAlias() +"."+ resource.getSuffix());
+        File file = new File(fileUploadPath + resource.getAlias() + "." + resource.getSuffix());
         InputStreamResource inputStreamResource = null;
         try {
             inputStreamResource = new InputStreamResource(new FileInputStream(file));
@@ -155,6 +152,16 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
     }
 
     @Override
+    public Map<String, Object> getUrlByResourceId(int resourceId) {
+        Map<String, Object> map = new HashMap<>(3);
+        Resource resource = resourceMapper.selectById(resourceId);
+        String url = "http://127.0.0.1:9999/files/" + resource.getAlias() + "." + resource.getSuffix();
+        map.put("data", url);
+        putMsg(map, Status.SUCCESS.getCode(), Status.SUCCESS.getMsg());
+        return map;
+    }
+
+    @Override
     public boolean checkFileType(String type) {
         if (type == null || "".equals(type)) {
             return false;
@@ -171,7 +178,6 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
     public boolean checkFileSize(long size) {
         return size < maxFileSize ? true : false;
     }
-
 
     @Override
     public boolean resourceExist(String uuid) {

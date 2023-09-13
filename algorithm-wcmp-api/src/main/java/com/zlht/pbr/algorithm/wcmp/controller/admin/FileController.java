@@ -2,7 +2,6 @@ package com.zlht.pbr.algorithm.wcmp.controller.admin;
 
 
 import com.zlht.pbr.algorithm.wcmp.controller.base.BaseController;
-import com.zlht.pbr.algorithm.wcmp.dao.entity.User;
 import com.zlht.pbr.algorithm.wcmp.service.ResourceServiceI;
 import com.zlht.pbr.algorithm.wcmp.utils.Result;
 import io.swagger.annotations.Api;
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Map;
 
@@ -64,10 +62,15 @@ public class FileController extends BaseController {
     @ApiImplicitParam(name = "uuid", value = "资源的uuid", paramType = "query", required = true, dataType = "String")
     @GetMapping("/download")
     public ResponseEntity download(@RequestParam String uuid) {
-        return resourceServiceI.downloadResource( uuid);
+        return resourceServiceI.downloadResource(uuid);
     }
 
-
-
+    @ApiOperation(value = "根据resourceId获取媒体链接")
+    @ApiImplicitParam(name = "resourceId", value = "资源id", paramType = "query", required = true, dataTypeClass = int.class)
+    @GetMapping("/getUrlByResourceId")
+    public Result getUrlByResourceId(@RequestParam int resourceId) {
+        Map<String, Object> map = resourceServiceI.getUrlByResourceId(resourceId);
+        return returnDataList(map);
+    }
 }
 

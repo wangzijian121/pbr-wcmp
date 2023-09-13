@@ -36,6 +36,13 @@ public interface ResourceServiceI {
     ResponseEntity downloadResource(String uuid);
 
     /**
+     * 获取nginx链接
+     * @param resourceId
+     * @return
+     */
+    Map<String, Object> getUrlByResourceId(int resourceId);
+
+    /**
      * 校验资源类型
      *
      * @param type
