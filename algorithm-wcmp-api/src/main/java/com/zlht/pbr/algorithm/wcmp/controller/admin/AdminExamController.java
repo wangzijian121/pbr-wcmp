@@ -47,8 +47,8 @@ public class AdminExamController extends BaseController {
     @ApiOperation(value = "检查上传表格模板规范", notes = "检查上传表格模板规范")
     @PostMapping(value = "/checkExamXlsxTemplate")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Exam> checkExamXlsxTemplate(@RequestParam String uuid) {
-        Map<String, Object> map = examServiceI.checkExamXlsxTemplate(uuid);
+    public Result<Exam> checkExamXlsxTemplate(@RequestParam int resourceId) {
+        Map<String, Object> map = examServiceI.checkExamXlsxTemplate(resourceId);
         return returnDataList(map);
     }
 
@@ -71,16 +71,7 @@ public class AdminExamController extends BaseController {
         return examServiceI.queryExamList(linkCode, currentPage, pageSize);
     }
 
-    @ApiOperation(value = "查看考试内容", notes = "查看考试内容")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "uuid", value = "文件uuid", dataTypeClass = String.class)
-    })
-    @GetMapping(value = "/queryExamContent")
-    @ResponseStatus(HttpStatus.OK)
-    public Result<List<Question>> queryExamContent(@RequestParam String uuid) {
 
-        return examServiceI.queryExamContent(uuid);
-    }
 
     /**
      * 创建考试

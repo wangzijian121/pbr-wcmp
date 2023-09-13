@@ -48,10 +48,10 @@ public class FileController extends BaseController {
     @ApiOperation(value = "删除资源", notes = "删除资源")
 
     @DeleteMapping(value = "/delete")
-    public Result delete(@RequestParam String uuid) {
+    public Result delete(@RequestParam int  resourceId) {
         Map<String, Object> map = null;
         try {
-            map = resourceServiceI.deleteResource(uuid);
+            map = resourceServiceI.deleteResource(resourceId);
         } catch (Exception e) {
             logger.error(e.getMessage(), "文件上传失败！");
         }
@@ -61,8 +61,8 @@ public class FileController extends BaseController {
     @ApiOperation(value = "下载接口")
     @ApiImplicitParam(name = "uuid", value = "资源的uuid", paramType = "query", required = true, dataType = "String")
     @GetMapping("/download")
-    public ResponseEntity download(@RequestParam String uuid) {
-        return resourceServiceI.downloadResource(uuid);
+    public ResponseEntity download(@RequestParam int  resourceId) {
+        return resourceServiceI.downloadResource(resourceId);
     }
 
     @ApiOperation(value = "根据resourceId获取媒体链接")

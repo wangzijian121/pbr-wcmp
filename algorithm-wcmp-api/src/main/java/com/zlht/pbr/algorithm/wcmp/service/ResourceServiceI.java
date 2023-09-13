@@ -21,19 +21,19 @@ public interface ResourceServiceI {
     /**
      * 删除文件
      *
-     * @param uuid
+     * @param resourceId
      * @return
      */
-    Map<String, Object> deleteResource(String uuid);
+    Map<String, Object> deleteResource(int resourceId);
 
 
     /**
      * 下载文件
      *
-     * @param uuid
+     * @param resourceId
      * @return
      */
-    ResponseEntity downloadResource(String uuid);
+    ResponseEntity downloadResource(int resourceId);
 
     /**
      * 获取nginx链接

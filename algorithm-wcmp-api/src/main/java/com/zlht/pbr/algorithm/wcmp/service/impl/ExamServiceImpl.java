@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.Exam;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.LinkCodeAndAppIdMap;
+import com.zlht.pbr.algorithm.wcmp.dao.entity.Resource;
 import com.zlht.pbr.algorithm.wcmp.dao.mapper.ExamMapper;
 import com.zlht.pbr.algorithm.wcmp.dao.mapper.LinkCodeAndAppIdMapMapper;
+import com.zlht.pbr.algorithm.wcmp.dao.mapper.ResourceMapper;
 import com.zlht.pbr.algorithm.wcmp.enums.Status;
 import com.zlht.pbr.algorithm.wcmp.model.Question;
 import com.zlht.pbr.algorithm.wcmp.security.AuthLinkCodeServiceI;
@@ -55,7 +57,8 @@ public class ExamServiceImpl extends BaseServiceImpl implements ExamServiceI {
 
     @Autowired
     private AuthLinkCodeServiceI authLinkCodeServiceI;
-
+    @Autowired
+    private ResourceMapper resourceMapper ;
 
     @Override
     public ResponseEntity downloadExamXlsxTemplate() {
@@ -88,10 +91,11 @@ public class ExamServiceImpl extends BaseServiceImpl implements ExamServiceI {
     }
 
     @Override
-    public Map<String, Object> checkExamXlsxTemplate(String uuid) {
+    public Map<String, Object> checkExamXlsxTemplate(int resourceId) {
 
         Map<String, Object> map = new HashMap<>(3);
-        String fileName = uuid + ".xlsx";
+        Resource resource =resourceMapper.selectById(resourceId);
+        String fileName = resource.getAlias() + ".xlsx";
         boolean conform = ExamTableValidator.validateExamTable(fileUploadPath + fileName);
         if (conform) {
             putMsg(map, Status.SUCCESS.getCode(), "模板符合规范");
@@ -127,11 +131,12 @@ public class ExamServiceImpl extends BaseServiceImpl implements ExamServiceI {
     }
 
     @Override
-    public Result<List<Question>> queryExamContent(String uuid) {
+    public Result<List<Question>> queryExamContent(int  resourceId) {
         Result<List<Question>> result = new Result<>();
         ObjectMapper objectMapper = new ObjectMapper();
 
-        String fileName = uuid + ".xlsx";
+        Resource resource =resourceMapper.selectById(resourceId);
+        String fileName = resource.getAlias() + ".xlsx";
         String json = ExcelToJsonConverter.getQuestionJson(fileUploadPath + fileName);
         List<Question> questionList;
         try {

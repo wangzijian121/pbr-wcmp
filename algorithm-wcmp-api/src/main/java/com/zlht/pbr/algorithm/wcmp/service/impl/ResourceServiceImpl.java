@@ -88,25 +88,23 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
     }
 
     @Override
-    public Map<String, Object> deleteResource(String uuid) {
+    public Map<String, Object> deleteResource(int resourceId) {
 
         Map<String, Object> map = new HashMap<>(3);
    /*     if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
         }*/
-        if (!resourceExist(uuid)) {
+        Resource resource = resourceMapper.selectById(resourceId);
+        if (!resourceExist(resource.getAlias())) {
             putMsg(map, 400, "删除文件不存在！");
             return map;
         }
-        QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("alias", uuid);
-        Resource resource = resourceMapper.selectOne(queryWrapper);
         //local
-        File deleteResource = new File(fileUploadPath + uuid + "." + resource.getSuffix());
+        File deleteResource = new File(fileUploadPath + resource.getAlias() + "." + resource.getSuffix());
         try {
             deleteResource.delete();
-            resourceMapper.delete(queryWrapper);
+            resourceMapper.deleteById(resourceId);
             putMsg(map, Status.SUCCESS.getCode(), "删除成功！");
         } catch (Exception e) {
             String errMsg = "删除资源失败!";
@@ -117,11 +115,9 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
     }
 
     @Override
-    public ResponseEntity downloadResource(String uuid) {
+    public ResponseEntity downloadResource(int resourceId) {
 
-        QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("alias", uuid);
-        Resource resource = resourceMapper.selectOne(queryWrapper);
+        Resource resource = resourceMapper.selectById(resourceId);
         if (resource == null) {
             return ResponseEntity.badRequest().body("未找到资源！");
         }

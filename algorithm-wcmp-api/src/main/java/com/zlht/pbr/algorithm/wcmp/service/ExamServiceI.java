@@ -28,10 +28,10 @@ public interface ExamServiceI extends BaseServiceI {
     /**
      * 机构管理员-检查模板规范性
      *
-     * @param uuid uuid
+     * @param resourceId
      * @return
      */
-    Map<String, Object> checkExamXlsxTemplate(String uuid);
+    Map<String, Object> checkExamXlsxTemplate(int resourceId);
 
     /**
      * 查询考试
@@ -46,10 +46,10 @@ public interface ExamServiceI extends BaseServiceI {
     /**
      * 获取考试内容
      *
-     * @param uuid
+     * @param resourceId
      * @return
      */
-    Result<List<Question>> queryExamContent(String uuid);
+    Result<List<Question>> queryExamContent(int  resourceId);
 
     /**
      * 创建考试

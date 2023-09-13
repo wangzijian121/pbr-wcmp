@@ -3,6 +3,7 @@ package com.zlht.pbr.algorithm.wcmp.controller.user;
 import com.zlht.pbr.algorithm.wcmp.controller.base.BaseController;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.Exam;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.ExamRecord;
+import com.zlht.pbr.algorithm.wcmp.model.Question;
 import com.zlht.pbr.algorithm.wcmp.service.ExamRecordServiceI;
 import com.zlht.pbr.algorithm.wcmp.service.ExamServiceI;
 import com.zlht.pbr.algorithm.wcmp.utils.PageInfo;
@@ -14,6 +15,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author zijian Wang
@@ -86,6 +89,17 @@ public class UserExamController extends BaseController {
                                              @PathVariable String linkCode) {
 
         return returnDataList(examRecordServiceI.commitExam(linkCode, examRecord));
+    }
+
+    @ApiOperation(value = "查看考试内容", notes = "查看考试内容")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "resourceId", value = "resourceId", dataTypeClass = String.class)
+    })
+    @GetMapping(value = "/queryExamContent")
+    @ResponseStatus(HttpStatus.OK)
+    public Result<List<Question>> queryExamContent(@RequestParam int  resourceId) {
+
+        return examServiceI.queryExamContent(resourceId);
     }
 
 
