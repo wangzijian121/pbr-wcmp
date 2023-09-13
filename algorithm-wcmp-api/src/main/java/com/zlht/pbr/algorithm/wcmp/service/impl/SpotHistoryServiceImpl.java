@@ -1,9 +1,14 @@
 package com.zlht.pbr.algorithm.wcmp.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.SpotHistory;
 import com.zlht.pbr.algorithm.wcmp.dao.mapper.SpotHistoryMapper;
 import com.zlht.pbr.algorithm.wcmp.enums.Status;
+import com.zlht.pbr.algorithm.wcmp.security.AuthLinkCodeServiceI;
 import com.zlht.pbr.algorithm.wcmp.service.SpotHistoryServiceI;
+import com.zlht.pbr.algorithm.wcmp.utils.PageInfo;
+import com.zlht.pbr.algorithm.wcmp.utils.Result;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +27,8 @@ public class SpotHistoryServiceImpl extends BaseServiceImpl implements SpotHisto
 
     @Autowired
     private SpotHistoryMapper spotHistoryMapper;
+    @Autowired
+    private AuthLinkCodeServiceI authLinkCodeServiceI;
 
     /**
      * 记录识别历史
@@ -45,15 +52,29 @@ public class SpotHistoryServiceImpl extends BaseServiceImpl implements SpotHisto
         return map;
     }
 
-    /**
-     * 获取识别历史
-     *
-     * @param linkCode
-     * @param userId
-     * @return
-     */
+
     @Override
-    public Map<String, Object> getSpotHistory(String linkCode, int userId) {
-        return null;
+    public Result<SpotHistory> querySpotHistoryByUserId(String linkCode, int userId, int currentPage, int pageSize) {
+        Result result = new Result();
+        if (!authLinkCodeServiceI.checkLinkCodeValidity(linkCode)) {
+            result.setMsg("linkCode错误!！");
+            result.setCode(400);
+            return result;
+        }
+        Page<SpotHistory> page = new Page<>(currentPage, pageSize);
+
+        QueryWrapper<SpotHistory> queryWrapper = new QueryWrapper<SpotHistory>();
+        if (linkCode != null) {
+            queryWrapper.eq("link_code", linkCode);
+            queryWrapper.eq("user_id", userId);
+        }
+        Page<SpotHistory> spotHistoryPage = spotHistoryMapper.selectPage(page, queryWrapper);
+        PageInfo pageInfo = new PageInfo(currentPage, pageSize);
+        pageInfo.setTotal((int) page.getTotal());
+        pageInfo.setTotalList(spotHistoryPage.getRecords());
+        result.setCode(200);
+        result.setMsg(Status.SUCCESS.getMsg());
+        result.setData(pageInfo);
+        return result;
     }
 }
