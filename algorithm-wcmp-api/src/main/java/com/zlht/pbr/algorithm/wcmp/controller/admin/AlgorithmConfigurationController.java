@@ -32,41 +32,37 @@ public class AlgorithmConfigurationController extends BaseController {
     /**
      * 获取机构下所有算法
      *
-     * @param appId
+     * @param linkCode
      */
     @ApiOperation(value = "获取机构下所有算法", notes = "获取机构下所有算法")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "appId", value = "appId", dataTypeClass = String.class)
-    })
     @GetMapping(value = "/getAlgorithmConfiguration")
     @ResponseStatus(HttpStatus.OK)
-    public Result<AlgorithmConfiguration> getAlgorithmByAppId(@RequestParam(required = false) String appId) {
+    public Result<AlgorithmConfiguration> getAlgorithmByAppId(@PathVariable(required = false) String linkCode) {
 
-        return algorithmConfigurationServiceI.getAlgorithmByAppId(appId);
+        return algorithmConfigurationServiceI.getAlgorithmByAppId(linkCode);
     }
 
 
     /**
      * 设置算法可用性
      *
-     * @param appId
+     * @param linkCode
      * @param algorithmId
      * @param enable
      * @return
      */
     @ApiOperation(value = "设置算法可用性", notes = "设置算法可用性")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "appId", value = "小程序ID ", dataTypeClass = String.class),
             @ApiImplicitParam(name = "algorithmId", value = "算法ID", dataTypeClass = int.class),
             @ApiImplicitParam(name = "enable", value = "是否启用", dataTypeClass = Boolean.class)
     })
     @PutMapping(value = "/getAlgorithmAvailability")
     @ResponseStatus(HttpStatus.OK)
-    public Result<AlgorithmConfiguration> setAlgorithmAvailability(@RequestParam(required = false) String appId,
+    public Result<AlgorithmConfiguration> setAlgorithmAvailability(@PathVariable(required = false) String linkCode,
                                                                    @RequestParam(required = false) int algorithmId,
                                                                    @RequestParam(required = false) Boolean enable) {
 
-        Map<String, Object> map = algorithmConfigurationServiceI.setAlgorithmAvailability(appId, algorithmId, enable);
+        Map<String, Object> map = algorithmConfigurationServiceI.setAlgorithmAvailability(linkCode, algorithmId, enable);
         return returnDataList(map);
     }
 

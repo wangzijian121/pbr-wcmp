@@ -2,14 +2,17 @@ package com.zlht.pbr.algorithm.wcmp.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.Exam;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.LinkCodeAndAppIdMap;
 import com.zlht.pbr.algorithm.wcmp.dao.mapper.ExamMapper;
 import com.zlht.pbr.algorithm.wcmp.dao.mapper.LinkCodeAndAppIdMapMapper;
 import com.zlht.pbr.algorithm.wcmp.enums.Status;
+import com.zlht.pbr.algorithm.wcmp.model.Question;
 import com.zlht.pbr.algorithm.wcmp.security.AuthLinkCodeServiceI;
 import com.zlht.pbr.algorithm.wcmp.service.ExamServiceI;
 import com.zlht.pbr.algorithm.wcmp.utils.ExamTableValidator;
+import com.zlht.pbr.algorithm.wcmp.utils.ExcelToJsonConverter;
 import com.zlht.pbr.algorithm.wcmp.utils.PageInfo;
 import com.zlht.pbr.algorithm.wcmp.utils.Result;
 import org.apache.logging.log4j.LogManager;
@@ -26,6 +29,7 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -119,6 +123,25 @@ public class ExamServiceImpl extends BaseServiceImpl implements ExamServiceI {
         result.setCode(200);
         result.setMsg(Status.SUCCESS.getMsg());
         result.setData(pageInfo);
+        return result;
+    }
+
+    @Override
+    public Result<List<Question>> queryExamContent(String uuid) {
+        Result<List<Question>> result = new Result<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        String fileName = uuid + ".xlsx";
+        String json = ExcelToJsonConverter.getQuestionJson(fileUploadPath + fileName);
+        List<Question> questionList;
+        try {
+            questionList = objectMapper.readValue(json, List.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        result.setData(questionList);
+        result.setCode(Status.SUCCESS.getCode());
+        result.setMsg(Status.SUCCESS.getMsg());
         return result;
     }
 

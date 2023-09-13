@@ -1,10 +1,12 @@
 package com.zlht.pbr.algorithm.wcmp.service;
 
 import com.zlht.pbr.algorithm.wcmp.dao.entity.Exam;
+import com.zlht.pbr.algorithm.wcmp.model.Question;
 import com.zlht.pbr.algorithm.wcmp.utils.PageInfo;
 import com.zlht.pbr.algorithm.wcmp.utils.Result;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,8 +41,15 @@ public interface ExamServiceI extends BaseServiceI {
      * @param pageSize
      * @return
      */
-    Result<PageInfo<Exam>> queryExamList(String  linkCode,int currentPage, int pageSize);
+    Result<PageInfo<Exam>> queryExamList(String linkCode, int currentPage, int pageSize);
 
+    /**
+     * 获取考试内容
+     *
+     * @param uuid
+     * @return
+     */
+    Result<List<Question>> queryExamContent(String uuid);
 
     /**
      * 创建考试
@@ -49,7 +58,7 @@ public interface ExamServiceI extends BaseServiceI {
      * @return
      */
 
-    Map<String, Object> createExam(String linkCode,Exam exam);
+    Map<String, Object> createExam(String linkCode, Exam exam);
 
     /**
      * 更新考试
@@ -59,7 +68,7 @@ public interface ExamServiceI extends BaseServiceI {
      * @param exam
      * @return
      */
-    Map<String, Object> updateExam(String  linkCode,int id, Exam exam);
+    Map<String, Object> updateExam(String linkCode, int id, Exam exam);
 
     /**
      * 删除考试
@@ -68,7 +77,7 @@ public interface ExamServiceI extends BaseServiceI {
      * @param id
      * @return
      */
-    Map<String, Object> deleteExam(String  linkCode,int id);
+    Map<String, Object> deleteExam(String linkCode, int id);
 
 
     /**
@@ -78,5 +87,5 @@ public interface ExamServiceI extends BaseServiceI {
      * @param id
      * @return
      */
-    boolean checkExamExistById(String linkCode,int id);
+    boolean checkExamExistById(String linkCode, int id);
 }

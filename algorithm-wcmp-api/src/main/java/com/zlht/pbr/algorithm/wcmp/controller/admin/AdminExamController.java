@@ -3,6 +3,7 @@ package com.zlht.pbr.algorithm.wcmp.controller.admin;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zlht.pbr.algorithm.wcmp.controller.base.BaseController;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.Exam;
+import com.zlht.pbr.algorithm.wcmp.model.Question;
 import com.zlht.pbr.algorithm.wcmp.service.ExamServiceI;
 import com.zlht.pbr.algorithm.wcmp.utils.PageInfo;
 import com.zlht.pbr.algorithm.wcmp.utils.Result;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,7 +53,7 @@ public class AdminExamController extends BaseController {
             @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
     })
 
-    @GetMapping(value = "/getExam")
+    @GetMapping(value = "/queryExamList")
     @ResponseStatus(HttpStatus.OK)
     public Result<PageInfo<Exam>> queryExamList(@RequestParam(required = false, defaultValue = "1") int currentPage,
                                                 @RequestParam(required = false, defaultValue = "10") int pageSize,
@@ -62,6 +64,17 @@ public class AdminExamController extends BaseController {
             return result;
         }
         return examServiceI.queryExamList(linkCode, currentPage, pageSize);
+    }
+
+    @ApiOperation(value = "查看考试内容", notes = "查看考试内容")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "uuid", value = "文件uuid", dataTypeClass = String.class)
+    })
+    @GetMapping(value = "/queryExamContent")
+    @ResponseStatus(HttpStatus.OK)
+    public Result<List<Question>> queryExamContent(@RequestParam String uuid) {
+
+        return examServiceI.queryExamContent(uuid);
     }
 
     /**
@@ -77,7 +90,7 @@ public class AdminExamController extends BaseController {
     @ResponseStatus(HttpStatus.OK)
     @JsonIgnoreProperties(value = "id")
     public Result<Exam> createExam(@PathVariable String linkCode, @RequestBody Exam exam) {
-        Map<String, Object> map = examServiceI.createExam(linkCode,exam);
+        Map<String, Object> map = examServiceI.createExam(linkCode, exam);
         return returnDataList(map);
     }
 

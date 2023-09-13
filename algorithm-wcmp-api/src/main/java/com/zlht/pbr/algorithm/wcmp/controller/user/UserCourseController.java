@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * @author zijian Wang
  */
 @RestController
-@RequestMapping("/wechat/user/course")
+@RequestMapping("/wechat/{linkCode}/user/course")
 @Api(tags = "学生课程接口")
 public class UserCourseController extends BaseController {
 
@@ -33,15 +33,14 @@ public class UserCourseController extends BaseController {
     @ApiOperation(value = "查询课程", notes = "查询课程")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "页数(默认1)", dataTypeClass = int.class),
-            @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
-            @ApiImplicitParam(name = "linkCode", value = "链接码", dataTypeClass = String.class)
+            @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class)
     })
 
     @GetMapping(value = "/getCourse")
     @ResponseStatus(HttpStatus.OK)
     public Result<PageInfo<Course>> queryCourseList(@RequestParam(required = false, defaultValue = "1") int currentPage,
                                                     @RequestParam(required = false, defaultValue = "10") int pageSize,
-                                                    @RequestParam(required = false) String linkCode) {
+                                                    @PathVariable(required = false) String linkCode) {
 
         Result result = checkPageParams(currentPage, pageSize);
         if (!result.checkResult()) {

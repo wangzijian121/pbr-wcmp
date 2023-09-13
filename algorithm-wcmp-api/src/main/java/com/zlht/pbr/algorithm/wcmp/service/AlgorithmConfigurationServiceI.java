@@ -17,18 +17,18 @@ public interface AlgorithmConfigurationServiceI extends BaseServiceI {
     /**
      * 查询算法
      *
-     * @param appId
+     * @param linkCode
      * @return
      */
-    Result<AlgorithmConfiguration> getAlgorithmByAppId(String appId);
+    Result<AlgorithmConfiguration> getAlgorithmByAppId(String linkCode);
 
     /**
      * 启用/停止算法
      *
-     * @param appId
+     * @param linkCode
      * @param algorithmId
      * @param enable
      * @return
      */
-    Map<String, Object> setAlgorithmAvailability(String appId, int algorithmId, boolean enable);
+    Map<String, Object> setAlgorithmAvailability(String linkCode, int algorithmId, boolean enable);
 }
