@@ -13,30 +13,27 @@ public interface ResourceServiceI {
     /**
      * 上传
      *
-     * @param loginUser
      * @param file
      * @return
      */
-    Map<String, Object> createResource(User loginUser, MultipartFile file);
+    Map<String, Object> createResource( MultipartFile file);
 
     /**
      * 删除文件
      *
-     * @param loginUser
      * @param uuid
      * @return
      */
-    Map<String, Object> deleteResource(User loginUser, String uuid);
+    Map<String, Object> deleteResource(String uuid);
 
 
     /**
      * 下载文件
      *
-     * @param loginUser
      * @param uuid
      * @return
      */
-    ResponseEntity downloadResource(User loginUser, String uuid);
+    ResponseEntity downloadResource(String uuid);
 
     /**
      * 校验资源类型

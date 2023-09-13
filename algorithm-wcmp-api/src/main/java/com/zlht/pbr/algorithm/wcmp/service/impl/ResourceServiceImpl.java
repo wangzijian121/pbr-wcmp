@@ -34,7 +34,7 @@ import java.util.UUID;
 public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServiceI {
 
     private static final Logger logger = LogManager.getLogger(ResourceServiceImpl.class);
-    private final String[] ACCEPT_TYPES = new String[]{"mp4","jpg","png","xlsx"};
+    private final String[] ACCEPT_TYPES = new String[]{"zip","mp4","jpg","png","xlsx"};
     /**
      * 文件磁盘路径
      */
@@ -48,7 +48,7 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
     private ResourceMapper resourceMapper;
 
     @Override
-    public Map<String, Object> createResource(User loginUser, MultipartFile file) {
+    public Map<String, Object> createResource( MultipartFile file) {
 
         Map<String, Object> map = new HashMap<>(3);
         //获取文件原始名称
@@ -76,7 +76,7 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
             logger.error("createResource() method .message={}", errMsg, e);
             putMsg(map, 400, errMsg);
         }
-        map.put("data", uuid);
+        map.put("data", resource);
         File uploadResource = new File(fileName + suffix);
         //将临时文件转存到指定磁盘位置
         try {
@@ -90,13 +90,13 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
     }
 
     @Override
-    public Map<String, Object> deleteResource(User loginUser, String uuid) {
+    public Map<String, Object> deleteResource(String uuid) {
 
         Map<String, Object> map = new HashMap<>(3);
-        if (!canOperator(loginUser)) {
+   /*     if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
-        }
+        }*/
         if (!resourceExist(uuid)) {
             putMsg(map, 400, "删除文件不存在！");
             return map;
@@ -120,12 +120,8 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
 
 
     @Override
-    public ResponseEntity downloadResource(User loginUser, String uuid) {
-        Map<String, Object> map = new HashMap<>(3);
-        if (!canOperator(loginUser)) {
-            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
-            return (ResponseEntity) ResponseEntity.status(401);
-        }
+    public ResponseEntity downloadResource(String uuid) {
+
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("alias", uuid);
         Resource resource = resourceMapper.selectOne(queryWrapper);
@@ -133,7 +129,7 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
             return ResponseEntity.badRequest().body("未找到资源！");
         }
         // 从文件存储中读取文件
-        File file = new File(fileUploadPath + resource.getAlias() + ".zip");
+        File file = new File(fileUploadPath + resource.getAlias() +"."+ resource.getSuffix());
         InputStreamResource inputStreamResource = null;
         try {
             inputStreamResource = new InputStreamResource(new FileInputStream(file));

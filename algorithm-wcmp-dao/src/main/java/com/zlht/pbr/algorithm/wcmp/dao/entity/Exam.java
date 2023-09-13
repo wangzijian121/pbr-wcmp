@@ -37,7 +37,7 @@ public class Exam {
     @ApiModelProperty(value = "考试结束时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
     private Date endTime;
 
-    private String uuid;
+    private Integer resourceId;
 
     private Integer examCount;
 
