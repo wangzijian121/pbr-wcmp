@@ -2,6 +2,8 @@ package com.zlht.pbr.algorithm.wcmp.controller.user;
 
 import com.zlht.pbr.algorithm.wcmp.controller.base.BaseController;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.Exam;
+import com.zlht.pbr.algorithm.wcmp.dao.entity.ExamRecord;
+import com.zlht.pbr.algorithm.wcmp.service.ExamRecordServiceI;
 import com.zlht.pbr.algorithm.wcmp.service.ExamServiceI;
 import com.zlht.pbr.algorithm.wcmp.utils.PageInfo;
 import com.zlht.pbr.algorithm.wcmp.utils.Result;
@@ -25,6 +27,9 @@ public class UserExamController extends BaseController {
     @Autowired
     private ExamServiceI examServiceI;
 
+    @Autowired
+    private ExamRecordServiceI examRecordServiceI;
+
     /**
      * 学生查询考试信息
      *
@@ -46,7 +51,42 @@ public class UserExamController extends BaseController {
         if (!result.checkResult()) {
             return result;
         }
-        return examServiceI.queryExamList(linkCode,currentPage, pageSize);
+        return examServiceI.queryExamList(linkCode, currentPage, pageSize);
     }
+
+    /**
+     * 查询学生成绩
+     *
+     * @return exam
+     */
+    @ApiOperation(value = "查询学生成绩", notes = "查询学生成绩")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "examId", value = "考试ID", dataTypeClass = int.class),
+            @ApiImplicitParam(name = "userId", value = "用户ID", dataTypeClass = int.class)
+    })
+
+    @GetMapping(value = "/queryExamScore")
+    @ResponseStatus(HttpStatus.OK)
+    public Result<Exam> queryExamScore(@RequestParam int examId,
+                                   @RequestParam int userId,
+                                   @PathVariable String linkCode) {
+
+        return returnDataList(examRecordServiceI.queryExamScore(linkCode, userId, examId));
+    }
+
+    /**
+     * 提交考试信息
+     *
+     * @return exam
+     */
+    @ApiOperation(value = "提交考试信息", notes = "提交考试信息")
+    @PostMapping(value = "/commitExam")
+    @ResponseStatus(HttpStatus.OK)
+    public Result<ExamRecord> commitExam(@RequestBody ExamRecord examRecord,
+                                             @PathVariable String linkCode) {
+
+        return returnDataList(examRecordServiceI.commitExam(linkCode, examRecord));
+    }
+
 
 }

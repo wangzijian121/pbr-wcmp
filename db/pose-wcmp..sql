@@ -38,7 +38,7 @@ CREATE TABLE `algorithm_configuration` (
 -- Dumping data for table `algorithm_configuration`
 --
 
-INSERT INTO `algorithm_configuration` VALUES ('wxc62afc144417346e',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-10 00:14:00'),('wxc62afc1444173555',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-10 00:14:00'),('wxc62afc1444173555',14,'足球专用犯规识别算法','篮球',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-10 00:14:00'),('wxc62afc1444173555',16,'乒乓球角度识别算法','乒乓球',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-10 00:14:00'),('wxc62afc1444173777',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-10 00:14:00'),('wxc62afc1444173777',3,'游泳姿势优化算法','游泳',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-10 00:14:00'),('wxc62afc1444173888',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-10 00:14:00'),('wxc62afc1444173888',3,'游泳姿势优化算法','游泳',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-10 00:14:00');
+INSERT INTO `algorithm_configuration` VALUES ('wxc62afc144417346e',1,'足球射门姿势算法','田径',1,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-13 16:35:00'),('wxc62afc1444173555',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-13 16:35:00'),('wxc62afc1444173555',14,'足球专用犯规识别算法','篮球',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-13 16:35:00'),('wxc62afc1444173555',16,'乒乓球角度识别算法','乒乓球',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-13 16:35:00'),('wxc62afc1444173777',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-13 16:35:00'),('wxc62afc1444173777',3,'游泳姿势优化算法','游泳',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-13 16:35:00'),('wxc62afc1444173888',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-13 16:35:00'),('wxc62afc1444173888',3,'游泳姿势优化算法','游泳',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-13 16:35:00');
 
 --
 -- Table structure for table `course`
@@ -86,7 +86,7 @@ CREATE TABLE `exam` (
                         `exam_count` int DEFAULT NULL COMMENT '考试次数',
                         `create_time` datetime NOT NULL COMMENT '创建时间',
                         PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='考试表';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='考试表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,6 +94,31 @@ CREATE TABLE `exam` (
 --
 
 INSERT INTO `exam` VALUES (4,'123','po80bb43-4a86-463e-8a64-86af145af212','123','2023-09-07 21:58:30','2023-09-07 21:58:30','11111',2,'2023-09-07 21:58:30'),(5,'123','2180bb43-4a86-463e-8a64-86af145af27e','123','2023-09-07 21:58:30','2023-09-07 21:58:30','11111',2,'2023-09-07 21:58:30'),(6,'期末考试','2180bb43-4a86-463e-8a64-86af145af27e','描述','2023-09-08 16:19:47','2023-09-08 16:19:47','11111',2,'2023-09-08 16:19:47');
+
+--
+-- Table structure for table `exam_record`
+--
+
+DROP TABLE IF EXISTS `exam_record`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `exam_record` (
+                               `id` int NOT NULL AUTO_INCREMENT COMMENT '考试记录ID',
+                               `link_code` varchar(255) DEFAULT NULL COMMENT '小程序链接码',
+                               `user_id` int DEFAULT NULL COMMENT '用户ID',
+                               `exam_id` int DEFAULT NULL COMMENT '考试ID',
+                               `count` int DEFAULT NULL COMMENT '考试次数',
+                               `score` int DEFAULT NULL COMMENT '分数',
+                               `time` datetime DEFAULT NULL COMMENT '考试时间',
+                               PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='考试记录表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `exam_record`
+--
+
+INSERT INTO `exam_record` VALUES (3,'po80bb43-4a86-463e-8a64-86af145af212',2,1,4,999,'2023-09-13 15:31:35');
 
 --
 -- Table structure for table `link_code_and_appid_map`
@@ -114,7 +139,7 @@ CREATE TABLE `link_code_and_appid_map` (
 -- Dumping data for table `link_code_and_appid_map`
 --
 
-INSERT INTO `link_code_and_appid_map` VALUES ('po80bb43-4a86-463e-8a64-86af145af212','wxc62afc144417346e','2387d60cc0a34703ae8ec0acedd2a635','2023-09-10 00:14:00'),('4180bb43-4a86-463e-8a64-86af145af2op','wxc62afc1444173555','b5a7ea8dcee900d1f1663076ac8dba3b','2023-09-10 00:14:00'),('8180bb43-4a86-463e-8a64-86af145af2gf','wxc62afc1444173999','b5a7ea8dcee900d1f1663076ac8dba3b','2023-09-10 00:14:00'),('3180bb43-4a86-463e-8a64-86af145af245','wxc62afc1444173888','b5a7ea8dcee900d1f1663076ac8dba3b','2023-09-10 00:14:00'),('2180bb43-4a86-463e-8a64-86af145af27e','wxc62afc1444173777','b5a7ea8dcee900d1f1663076ac8dba3b','2023-09-10 00:14:00');
+INSERT INTO `link_code_and_appid_map` VALUES ('po80bb43-4a86-463e-8a64-86af145af212','wxc62afc144417346e','2387d60cc0a34703ae8ec0acedd2a635','2023-09-13 16:35:00'),('4180bb43-4a86-463e-8a64-86af145af2op','wxc62afc1444173555','b5a7ea8dcee900d1f1663076ac8dba3b','2023-09-13 16:35:00'),('8180bb43-4a86-463e-8a64-86af145af2gf','wxc62afc1444173999','b5a7ea8dcee900d1f1663076ac8dba3b','2023-09-13 16:35:00'),('3180bb43-4a86-463e-8a64-86af145af245','wxc62afc1444173888','b5a7ea8dcee900d1f1663076ac8dba3b','2023-09-13 16:35:00'),('2180bb43-4a86-463e-8a64-86af145af27e','wxc62afc1444173777','b5a7ea8dcee900d1f1663076ac8dba3b','2023-09-13 16:35:00');
 
 --
 -- Table structure for table `report`
@@ -155,14 +180,14 @@ CREATE TABLE `resources` (
                              `create_time` datetime DEFAULT NULL,
                              `update_time` datetime DEFAULT NULL,
                              PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='资源表';
+) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='资源表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `resources`
 --
 
-INSERT INTO `resources` VALUES (113,'Snipaste_2023-09-04_10-22-46.jpg','74b310cb-22e0-4137-8901-162b1c14bbb7','jpg',4654,'2023-09-04 13:56:20','2023-09-04 13:56:20'),(114,'布布比?.jpg','5531030d-e568-4446-bc95-9d3a589450f0','jpg',76958,'2023-09-04 13:59:09','2023-09-04 13:59:09'),(115,'Snipaste_2023-09-04_10-22-46.jpg','b14c3c50-238f-47ff-91c9-18af9c385d5e','jpg',4654,'2023-09-04 14:09:00','2023-09-04 14:09:00'),(116,'demo视频.mp4','e7fc2dd4-0871-4f39-800f-b608ad9759d6','mp4',2501450,'2023-09-04 14:58:36','2023-09-04 14:58:36'),(117,'考试模板.xlsx','ed23e489-ddc3-4047-a9c9-acfba7feae93','xlsx',10761,'2023-09-08 14:35:18','2023-09-08 14:35:18');
+INSERT INTO `resources` VALUES (113,'Snipaste_2023-09-04_10-22-46.jpg','74b310cb-22e0-4137-8901-162b1c14bbb7','jpg',4654,'2023-09-04 13:56:20','2023-09-04 13:56:20'),(114,'布布比?.jpg','5531030d-e568-4446-bc95-9d3a589450f0','jpg',76958,'2023-09-04 13:59:09','2023-09-04 13:59:09'),(115,'Snipaste_2023-09-04_10-22-46.jpg','b14c3c50-238f-47ff-91c9-18af9c385d5e','jpg',4654,'2023-09-04 14:09:00','2023-09-04 14:09:00'),(116,'demo视频.mp4','e7fc2dd4-0871-4f39-800f-b608ad9759d6','mp4',2501450,'2023-09-04 14:58:36','2023-09-04 14:58:36'),(117,'考试模板.xlsx','ed23e489-ddc3-4047-a9c9-acfba7feae93','xlsx',10761,'2023-09-08 14:35:18','2023-09-08 14:35:18'),(118,'考试模板.xlsx','9d36db1a-4fea-4284-98c1-b014b66cd3eb','xlsx',10769,'2023-09-13 14:11:44','2023-09-13 14:11:44');
 
 --
 -- Table structure for table `sports_ability`
@@ -237,6 +262,27 @@ CREATE TABLE `study_record` (
 
 
 --
+-- Table structure for table `token`
+--
+
+DROP TABLE IF EXISTS `token`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `token` (
+                         `id` int NOT NULL AUTO_INCREMENT COMMENT 'ID',
+                         `user_id` int DEFAULT NULL COMMENT '用户ID',
+                         `token` varchar(255) DEFAULT NULL,
+                         `expire_time` datetime DEFAULT NULL COMMENT '过期时间',
+                         PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='token';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `token`
+--
+
+
+--
 -- Table structure for table `user`
 --
 
@@ -246,7 +292,7 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
                         `id` int NOT NULL AUTO_INCREMENT,
                         `link_code` varchar(36) DEFAULT NULL COMMENT '链接码',
-                        `type` int DEFAULT NULL COMMENT '0:机构管理员 1: 学生',
+                        `type` int DEFAULT NULL COMMENT '2:机构管理员 3: 学生',
                         `open_id` varchar(255) DEFAULT NULL COMMENT '微信小程序open_id',
                         `session_key` varchar(255) DEFAULT NULL COMMENT '微信小程序session_key',
                         `nickname` varchar(50) DEFAULT NULL COMMENT '昵称',
@@ -274,4 +320,4 @@ INSERT INTO `user` VALUES (3,'po80bb43-4a86-463e-8a64-86af145af212',0,'0JOxMdSLR
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-11  9:35:31
+-- Dump completed on 2023-09-13 16:35:55
