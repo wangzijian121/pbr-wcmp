@@ -29,21 +29,22 @@ public interface ExamRecordServiceI extends BaseServiceI {
 
 
     /**
-     * 机构管理员-查询成绩
+     * 学生-查询成绩
      *
      * @param linkCode
      * @param userId
      * @param examId
      * @return
      */
-    Map<String, Object> queryExamScore(String linkCode,int userId, int examId);
-/*
-    *//**
-     * 机构管理员-查询学生考试次数
+    Map<String, Object> queryExamScore(String linkCode, int userId, int examId);
+
+    /**
+     * 机构管理员-查询成绩
      *
-     * @param userId
-     * @param examName
+     * @param linkCode
+     * @param currentPage
+     * @param pageSize
      * @return
-     *//*
-    Map<String, Object> queryExamCount(int userId, String examName);*/
+     */
+    Result<PageInfo<ExamRecord>> queryAllExamScoreList(String linkCode, int currentPage, int pageSize);
 }

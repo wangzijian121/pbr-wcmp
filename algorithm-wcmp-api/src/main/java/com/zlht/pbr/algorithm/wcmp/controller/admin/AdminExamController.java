@@ -3,7 +3,9 @@ package com.zlht.pbr.algorithm.wcmp.controller.admin;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zlht.pbr.algorithm.wcmp.controller.base.BaseController;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.Exam;
+import com.zlht.pbr.algorithm.wcmp.dao.entity.ExamRecord;
 import com.zlht.pbr.algorithm.wcmp.model.Question;
+import com.zlht.pbr.algorithm.wcmp.service.ExamRecordServiceI;
 import com.zlht.pbr.algorithm.wcmp.service.ExamServiceI;
 import com.zlht.pbr.algorithm.wcmp.utils.PageInfo;
 import com.zlht.pbr.algorithm.wcmp.utils.Result;
@@ -26,6 +28,9 @@ public class AdminExamController extends BaseController {
 
     @Autowired
     private ExamServiceI examServiceI;
+
+    @Autowired
+    private ExamRecordServiceI  examRecordServiceI;
 
     @ApiOperation(value = "下载试题模板")
     @GetMapping("/download")
@@ -128,4 +133,19 @@ public class AdminExamController extends BaseController {
         Map<String, Object> map = examServiceI.deleteExam(linkCode, id);
         return returnDataList(map);
     }
+
+    @ApiOperation(value = "查询考试成绩列表", notes = "查询考试成绩列表")
+    @GetMapping(value = "/queryExamScoreList")
+    @ResponseStatus(HttpStatus.OK)
+    public Result<PageInfo<ExamRecord>> queryExamScoreList(@RequestParam(required = false, defaultValue = "1") int currentPage,
+                                                       @RequestParam(required = false, defaultValue = "10") int pageSize,
+                                                       @PathVariable String linkCode) {
+
+        Result result = checkPageParams(currentPage, pageSize);
+        if (!result.checkResult()) {
+            return result;
+        }
+        return examRecordServiceI.queryAllExamScoreList(linkCode, currentPage, pageSize);
+    }
+
 }
