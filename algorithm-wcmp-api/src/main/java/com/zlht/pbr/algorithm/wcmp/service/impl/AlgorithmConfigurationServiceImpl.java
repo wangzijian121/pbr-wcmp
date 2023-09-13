@@ -40,7 +40,7 @@ public class AlgorithmConfigurationServiceImpl extends BaseServiceImpl implement
 
         Result result = new Result();
         QueryWrapper<LinkCodeAndAppIdMap> queryWrapperLink = new QueryWrapper<>();
-        queryWrapperLink.eq("link_code",linkCode);
+        queryWrapperLink.eq("link_code", linkCode);
         LinkCodeAndAppIdMap linkCodeAndAppIdMap = linkCodeAndAppIdMapMapper.selectOne(queryWrapperLink);
 
         QueryWrapper<AlgorithmConfiguration> queryWrapper = new QueryWrapper();
@@ -56,7 +56,7 @@ public class AlgorithmConfigurationServiceImpl extends BaseServiceImpl implement
     public Map<String, Object> setAlgorithmAvailability(String linkCode, int algorithmId, boolean enable) {
         Map<String, Object> map = new HashMap<>(3);
         QueryWrapper<LinkCodeAndAppIdMap> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("link_code",linkCode);
+        queryWrapper.eq("link_code", linkCode);
         LinkCodeAndAppIdMap linkCodeAndAppIdMap = linkCodeAndAppIdMapMapper.selectOne(queryWrapper);
 
         UpdateWrapper<AlgorithmConfiguration> updateWrapper = new UpdateWrapper();
@@ -72,5 +72,22 @@ public class AlgorithmConfigurationServiceImpl extends BaseServiceImpl implement
             putMsg(map, 400, errMsg);
         }
         return map;
+    }
+
+    @Override
+    public Result<AlgorithmConfiguration> getEnableAlgorithm(String linkCode) {
+        Result result = new Result();
+        QueryWrapper<LinkCodeAndAppIdMap> queryWrapperLink = new QueryWrapper<>();
+        queryWrapperLink.eq("link_code", linkCode);
+        LinkCodeAndAppIdMap linkCodeAndAppIdMap = linkCodeAndAppIdMapMapper.selectOne(queryWrapperLink);
+
+        QueryWrapper<AlgorithmConfiguration> queryWrapper = new QueryWrapper();
+        queryWrapper.eq("app_id", linkCodeAndAppIdMap.getAppId());
+        queryWrapper.eq("enable", 1);
+        List<AlgorithmConfiguration> algorithmConfigurationList = algorithmConfigurationMapper.selectList(queryWrapper);
+        result.setData(algorithmConfigurationList);
+        result.setCode(Status.SUCCESS.getCode());
+        result.setMsg(Status.SUCCESS.getMsg());
+        return result;
     }
 }

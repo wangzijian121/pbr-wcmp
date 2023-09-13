@@ -15,7 +15,7 @@ public interface AlgorithmConfigurationServiceI extends BaseServiceI {
 
 
     /**
-     * 查询算法
+     * 管理员-查询算法
      *
      * @param linkCode
      * @return
@@ -23,7 +23,7 @@ public interface AlgorithmConfigurationServiceI extends BaseServiceI {
     Result<AlgorithmConfiguration> getAlgorithmByAppId(String linkCode);
 
     /**
-     * 启用/停止算法
+     * 管理员-启用/停止算法
      *
      * @param linkCode
      * @param algorithmId
@@ -31,4 +31,12 @@ public interface AlgorithmConfigurationServiceI extends BaseServiceI {
      * @return
      */
     Map<String, Object> setAlgorithmAvailability(String linkCode, int algorithmId, boolean enable);
+
+    /**
+     * 学生-查询算法
+     *
+     * @param linkCode
+     * @return
+     */
+    Result<AlgorithmConfiguration> getEnableAlgorithm(String linkCode);
 }
