@@ -2,11 +2,8 @@ package com.zlht.pbr.algorithm.wcmp.controller.user;
 
 
 import com.zlht.pbr.algorithm.wcmp.controller.base.BaseController;
-import com.zlht.pbr.algorithm.wcmp.dao.entity.User;
 import com.zlht.pbr.algorithm.wcmp.enums.Status;
-import com.zlht.pbr.algorithm.wcmp.service.UserServicesI;
 import com.zlht.pbr.algorithm.wcmp.service.WeChatServiceI;
-import com.zlht.pbr.algorithm.wcmp.utils.PageInfo;
 import com.zlht.pbr.algorithm.wcmp.utils.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -18,7 +15,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -34,8 +30,7 @@ import java.util.Map;
 public class UserController extends BaseController {
 
     private static final Logger logger = LogManager.getLogger(UserController.class);
-    @Autowired
-    private UserServicesI userServices;
+
 
     @Autowired
     private WeChatServiceI weChatServiceI;
