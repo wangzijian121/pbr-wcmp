@@ -189,29 +189,6 @@ CREATE TABLE `resources` (
 INSERT INTO `resources` VALUES (113,'Snipaste_2023-09-04_10-22-46.jpg','74b310cb-22e0-4137-8901-162b1c14bbb7','jpg',4654,'2023-09-04 13:56:20','2023-09-04 13:56:20'),(114,'布布比?.jpg','5531030d-e568-4446-bc95-9d3a589450f0','jpg',76958,'2023-09-04 13:59:09','2023-09-04 13:59:09'),(115,'Snipaste_2023-09-04_10-22-46.jpg','b14c3c50-238f-47ff-91c9-18af9c385d5e','jpg',4654,'2023-09-04 14:09:00','2023-09-04 14:09:00'),(116,'demo视频.mp4','e7fc2dd4-0871-4f39-800f-b608ad9759d6','mp4',2501450,'2023-09-04 14:58:36','2023-09-04 14:58:36'),(117,'考试模板.xlsx','ed23e489-ddc3-4047-a9c9-acfba7feae93','xlsx',10761,'2023-09-08 14:35:18','2023-09-08 14:35:18'),(118,'考试模板.xlsx','9d36db1a-4fea-4284-98c1-b014b66cd3eb','xlsx',10769,'2023-09-13 14:11:44','2023-09-13 14:11:44'),(119,'8ed34f5fgy1h83rag4bbnj227t27tx6p.jpg','88075ad3-4ad1-475a-aee9-a49b2d80b592','jpg',2027475,'2023-09-13 20:18:03','2023-09-13 20:18:03'),(120,'8ed34f5fgy1h83rag4bbnj227t27tx6p.jpg','3a6c9dbc-b1f7-4707-8fff-bb8bd089c161','jpg',2027475,'2023-09-13 20:19:54','2023-09-13 20:19:54'),(121,'考试模板.xlsx','ab631499-1b49-4f2a-b088-5410a3877431','xlsx',10740,'2023-09-13 21:33:19','2023-09-13 21:33:19'),(122,'考试模板.xlsx','9391bfea-dca6-485a-8323-e91e28ed3401','xlsx',10740,'2023-09-13 21:46:56','2023-09-13 21:46:56');
 
 --
--- Table structure for table `sports_ability`
---
-
-DROP TABLE IF EXISTS `sports_ability`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `sports_ability` (
-                                  `id` int NOT NULL AUTO_INCREMENT,
-                                  `user_id` int NOT NULL COMMENT '用户ID',
-                                  `ability_type` tinyint(1) NOT NULL COMMENT '0有氧能力,1肌肉力量,2柔韧伸展,3灵活敏捷,4动作准确',
-                                  `value` int NOT NULL DEFAULT '0' COMMENT '能力值',
-                                  `create_time` datetime NOT NULL COMMENT '创建时间',
-                                  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-                                  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户体育能力表';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `sports_ability`
---
-
-
---
 -- Table structure for table `spot_history`
 --
 
@@ -237,29 +214,6 @@ CREATE TABLE `spot_history` (
 INSERT INTO `spot_history` VALUES (1,'po80bb43-4a86-463e-8a64-86af145af212',1,1,'{}',1,'2023-09-13 17:51:45'),(2,'po80bb43-4a86-463e-8a64-86af145af212',1,1,'{}',1,'2023-09-13 17:51:45'),(3,'po80bb43-4a86-463e-8a64-86af145af212',0,1,'{}',122,'2023-09-13 22:05:33');
 
 --
--- Table structure for table `study_data`
---
-
-DROP TABLE IF EXISTS `study_data`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `study_data` (
-                              `id` int NOT NULL AUTO_INCREMENT,
-                              `user_id` int NOT NULL COMMENT '用户ID',
-                              `course_id` int NOT NULL COMMENT '课程ID',
-                              `duration` int NOT NULL DEFAULT '0' COMMENT '学习时长（秒）',
-                              `create_time` datetime NOT NULL COMMENT '创建时间',
-                              `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-                              PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户学习数据表';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `study_data`
---
-
-
---
 -- Table structure for table `study_record`
 --
 
@@ -268,22 +222,20 @@ DROP TABLE IF EXISTS `study_record`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `study_record` (
                                 `id` int NOT NULL AUTO_INCREMENT,
+                                `link_code` varchar(255) DEFAULT NULL COMMENT '小程序链接码',
                                 `user_id` int NOT NULL COMMENT '用户ID',
                                 `course_id` int NOT NULL COMMENT '课程ID',
-                                `lesson_id` int NOT NULL COMMENT '课时ID',
-                                `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '学习状态，0-未学习，1-学习中，2-已学完',
-                                `start_time` datetime DEFAULT NULL COMMENT '开始学习时间',
-                                `end_time` datetime DEFAULT NULL COMMENT '结束学习时间',
+                                `study_duration` int DEFAULT NULL COMMENT '学习时长',
                                 `create_time` datetime NOT NULL COMMENT '创建时间',
-                                `update_time` datetime DEFAULT NULL COMMENT '更新时间',
                                 PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户学习记录表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户学习记录表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `study_record`
 --
 
+INSERT INTO `study_record` VALUES (1,'po80bb43-4a86-463e-8a64-86af145af212',1,1,4,'2023-09-14 10:13:13'),(2,'po80bb43-4a86-463e-8a64-86af145af212',1,2,5,'2023-09-13 10:13:13'),(3,'po80bb43-4a86-463e-8a64-86af145af212',1,3,6,'2023-09-12 10:13:13');
 
 --
 -- Table structure for table `token`
@@ -344,4 +296,4 @@ INSERT INTO `user` VALUES (3,'po80bb43-4a86-463e-8a64-86af145af212',0,'0JOxMdSLR
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-14  9:04:34
+-- Dump completed on 2023-09-14 17:59:56

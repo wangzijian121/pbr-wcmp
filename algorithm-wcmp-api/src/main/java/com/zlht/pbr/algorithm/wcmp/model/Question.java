@@ -2,6 +2,9 @@ package com.zlht.pbr.algorithm.wcmp.model;
 
 import lombok.Data;
 
+/**
+ * @author zijian Wang
+ */
 @Data
 public class Question {
     private String question;
