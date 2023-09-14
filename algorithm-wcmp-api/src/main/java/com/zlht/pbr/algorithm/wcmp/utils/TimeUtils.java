@@ -11,8 +11,8 @@ import java.util.Map;
  */
 public class TimeUtils {
 
-    public static Map<String,Date>  getCurrentWeekRange(Date date) {
-        Map<String,Date> map =new HashMap<>(2);
+    public static Map<String, Date> getCurrentWeekRange(Date date) {
+        Map<String, Date> map = new HashMap<>(2);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
@@ -21,12 +21,13 @@ public class TimeUtils {
         Date endOfWeek = calendar.getTime();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        map.put("startOfWeek",startOfWeek);
-        map.put("endOfWeek",endOfWeek);
-        return  map;
+        map.put("startOfWeek", startOfWeek);
+        map.put("endOfWeek", endOfWeek);
+        return map;
     }
 
-    public static String getCurrentMonthRange(Date date) {
+    public static Map<String, Date> getCurrentMonthRange(Date date) {
+        Map<String, Date> map = new HashMap<>(2);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
@@ -36,6 +37,8 @@ public class TimeUtils {
         Date endOfMonth = calendar.getTime();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        return dateFormat.format(startOfMonth) + " - " + dateFormat.format(endOfMonth);
+        map.put("startOfMonth", startOfMonth);
+        map.put("endOfMonth", endOfMonth);
+        return map;
     }
 }

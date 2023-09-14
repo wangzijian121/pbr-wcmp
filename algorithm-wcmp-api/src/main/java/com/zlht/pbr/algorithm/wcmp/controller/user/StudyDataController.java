@@ -20,7 +20,7 @@ import java.util.Map;
  * @author zijian Wang
  */
 @RestController
-@Api(tags = "学生学习")
+@Api(tags = "学生学习数据")
 @RequestMapping("/wechat/{linkCode}/admin/studyData")
 public class StudyDataController extends BaseController {
 
@@ -34,7 +34,6 @@ public class StudyDataController extends BaseController {
      */
     @ApiOperation(value = "获取学生学习数据", notes = "获取学生学习数据")
     @ApiImplicitParams({
-
             @ApiImplicitParam(name = "userId", value = "用户ID", dataTypeClass = int.class)
     })
 

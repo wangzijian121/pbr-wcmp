@@ -6,8 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 学习数据
@@ -18,13 +19,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StudyData {
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Integer id;
-
-    private String linkCode;
-
-    @ApiModelProperty(value = "用户ID", required = true)
-    private Integer userId;
 
     private Integer studyTimeWeek;
 
@@ -34,9 +28,9 @@ public class StudyData {
 
     private Integer checkInDaysMonth;
 
-    private String pointsWeek;
+    private List<Map<String, Object>> pointsWeek;
 
-    private String pointMonth;
+    private List<Map<String, Object>> pointMonth;
 
     @ApiModelProperty(value = "创建时间", required = true)
     private Date createTime;

@@ -6,16 +6,17 @@ import com.zlht.pbr.algorithm.wcmp.model.StudyData;
 import com.zlht.pbr.algorithm.wcmp.service.StudyDataServiceI;
 import com.zlht.pbr.algorithm.wcmp.utils.Result;
 import com.zlht.pbr.algorithm.wcmp.utils.TimeUtils;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * @author zijian Wang
  */
+@Service
 public class StudyDataServiceImpl extends BaseServiceImpl implements StudyDataServiceI {
 
     @Autowired
@@ -33,12 +34,29 @@ public class StudyDataServiceImpl extends BaseServiceImpl implements StudyDataSe
 
         Result<StudyData> result = new Result<>();
 //        本周时间范围
-        Map<String, Date> dateMap = TimeUtils.getCurrentWeekRange(new Date());
-        Date startOfWeek = dateMap.get("startOfWeek");
-        Date endOfWeek = dateMap.get("endOfWeek");
-        int count = studyRecordMapper.getCheckInDaysWeek(linkCode, userId, startOfWeek, endOfWeek);
+        Map<String, Date> weekDateMap = TimeUtils.getCurrentWeekRange(new Date());
+        Date startOfWeek = weekDateMap.get("startOfWeek");
+        Date endOfWeek = weekDateMap.get("endOfWeek");
+
+        Map<String, Date> monthDateMap = TimeUtils.getCurrentMonthRange(new Date());
+        Date startOfMonth = monthDateMap.get("startOfMonth");
+        Date endOfMonth = monthDateMap.get("endOfMonth");
+
+        int studyTimeWeek = studyRecordMapper.getStudyTimeWeek(linkCode, userId, startOfWeek, endOfWeek);
+        int studyTimeMonth = studyRecordMapper.getStudyTimeMonth(linkCode, userId, startOfMonth, endOfMonth);
+        int checkInDaysWeekCount = studyRecordMapper.getCheckInDaysWeek(linkCode, userId, startOfWeek, endOfWeek);
+        int checkInDaysMonthCount = studyRecordMapper.getCheckInDaysMonth(linkCode, userId, startOfMonth, endOfMonth);
+        List<Map<String, Object>> pointsWeek = studyRecordMapper.getPointsWeek(linkCode, userId, startOfWeek, endOfWeek);
+        List<Map<String, Object>> pointsMonth = studyRecordMapper.getPointMonth(linkCode, userId, startOfMonth, endOfMonth);
+
         StudyData studyData = new StudyData();
-        studyData.setCheckInDaysWeek(count);
+        studyData.setStudyTimeWeek(studyTimeWeek);
+        studyData.setStudyTimeMonth(studyTimeMonth);
+        studyData.setCheckInDaysWeek(checkInDaysWeekCount);
+        studyData.setCheckInDaysMonth(checkInDaysMonthCount);
+        studyData.setPointsWeek(pointsWeek);
+        studyData.setPointMonth(pointsMonth);
+
         result.setCode(Status.SUCCESS.getCode());
         result.setMsg(Status.SUCCESS.getMsg());
         result.setData(studyData);
