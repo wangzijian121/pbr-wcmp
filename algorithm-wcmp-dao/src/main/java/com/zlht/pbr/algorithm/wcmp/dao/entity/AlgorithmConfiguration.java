@@ -1,13 +1,11 @@
 package com.zlht.pbr.algorithm.wcmp.dao.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.baomidou.mybatisplus.annotation.TableName;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -19,8 +17,9 @@ import java.util.Date;
 @TableName(value = "algorithm_configuration")
 public class AlgorithmConfiguration {
 
+
     @ApiModelProperty(value = "小程序ID")
-    private String appId;
+    private String linkCode;
 
     @ApiModelProperty(value = "算法唯一ID", required = true)
     private Integer algorithmId;

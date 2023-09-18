@@ -2,7 +2,6 @@ package com.zlht.pbr.algorithm.wcmp.service.impl;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.Resource;
 import com.zlht.pbr.algorithm.wcmp.dao.mapper.ResourceMapper;
 import com.zlht.pbr.algorithm.wcmp.enums.Status;

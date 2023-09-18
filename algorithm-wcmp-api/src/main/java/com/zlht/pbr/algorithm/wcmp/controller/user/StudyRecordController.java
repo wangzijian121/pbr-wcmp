@@ -2,7 +2,6 @@ package com.zlht.pbr.algorithm.wcmp.controller.user;
 
 import com.zlht.pbr.algorithm.wcmp.controller.base.BaseController;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.Course;
-import com.zlht.pbr.algorithm.wcmp.dao.entity.SpotHistory;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.StudyRecord;
 import com.zlht.pbr.algorithm.wcmp.service.StudyRecordServiceI;
 import com.zlht.pbr.algorithm.wcmp.utils.PageInfo;

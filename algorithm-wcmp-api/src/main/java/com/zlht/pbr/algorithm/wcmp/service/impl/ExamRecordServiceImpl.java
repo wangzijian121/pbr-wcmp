@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.Exam;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.ExamRecord;
+import com.zlht.pbr.algorithm.wcmp.dao.mapper.ExamMapper;
 import com.zlht.pbr.algorithm.wcmp.dao.mapper.ExamRecordMapper;
-import com.zlht.pbr.algorithm.wcmp.dao.mapper.LinkCodeAndAppIdMapMapper;
 import com.zlht.pbr.algorithm.wcmp.enums.Status;
 import com.zlht.pbr.algorithm.wcmp.security.AuthLinkCodeServiceI;
 import com.zlht.pbr.algorithm.wcmp.service.ExamRecordServiceI;
@@ -27,6 +27,9 @@ public class ExamRecordServiceImpl extends BaseServiceImpl implements ExamRecord
     private ExamRecordMapper examRecordMapper;
 
     @Autowired
+    private ExamMapper examMapper;
+
+    @Autowired
     private AuthLinkCodeServiceI authLinkCodeServiceI;
 
     @Override
@@ -38,13 +41,19 @@ public class ExamRecordServiceImpl extends BaseServiceImpl implements ExamRecord
         queryWrapper.eq("exam_id", examRecord.getExamId());
         queryWrapper.eq("user_id", examRecord.getUserId());
         ExamRecord examRecordHistory = examRecordMapper.selectOne(queryWrapper);
+
         if (examRecordHistory != null) {
+            boolean check=examMapper.checkExamCount(examRecord.getExamId(), examRecord.getUserId());
+            if (!check) {
+                putMsg(map, 400, "提交次数用尽");
+                return map;
+            }
             examRecordHistory.setCount(examRecordHistory.getCount() + 1);
             examRecordHistory.setScore(examRecord.getScore());
             examRecordMapper.updateById(examRecordHistory);
-
         } else {
             examRecord.setLinkCode(linkCode);
+            examRecord.setCount(1);
             examRecordMapper.insert(examRecord);
         }
         putMsg(map, Status.SUCCESS.getCode(), Status.SUCCESS.getMsg());

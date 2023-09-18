@@ -1,13 +1,9 @@
 package com.zlht.pbr.algorithm.wcmp.service;
 
-import com.zlht.pbr.algorithm.wcmp.dao.entity.Exam;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.ExamRecord;
-import com.zlht.pbr.algorithm.wcmp.model.Question;
 import com.zlht.pbr.algorithm.wcmp.utils.PageInfo;
 import com.zlht.pbr.algorithm.wcmp.utils.Result;
-import org.springframework.http.ResponseEntity;
 
-import java.util.List;
 import java.util.Map;
 
 /**

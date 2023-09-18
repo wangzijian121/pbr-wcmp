@@ -82,7 +82,7 @@ public class UserExamController extends BaseController {
      *
      * @return exam
      */
-    @ApiOperation(value = "提交考试信息", notes = "提交考试信息")
+    @ApiOperation(value = "提交考试信息", notes = "提交考试信息 count：第几次提交")
     @PostMapping(value = "/commitExam")
     @ResponseStatus(HttpStatus.OK)
     public Result<ExamRecord> commitExam(@RequestBody ExamRecord examRecord,

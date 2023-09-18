@@ -3,7 +3,6 @@ package com.zlht.pbr.algorithm.wcmp.service;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.Course;
 import com.zlht.pbr.algorithm.wcmp.utils.PageInfo;
 import com.zlht.pbr.algorithm.wcmp.utils.Result;
-import org.springframework.http.ResponseEntity;
 
 import java.util.Map;
 

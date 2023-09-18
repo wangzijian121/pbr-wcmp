@@ -1,10 +1,8 @@
 package com.zlht.pbr.algorithm.wcmp.service.impl;
 
 import com.zlht.pbr.algorithm.wcmp.dao.entity.User;
-import com.zlht.pbr.algorithm.wcmp.security.AuthLinkCodeServiceI;
-import com.zlht.pbr.algorithm.wcmp.service.BaseServiceI;
 import com.zlht.pbr.algorithm.wcmp.enums.Status;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.zlht.pbr.algorithm.wcmp.service.BaseServiceI;
 
 import java.util.Map;
 

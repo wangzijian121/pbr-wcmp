@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zlht.pbr.algorithm.wcmp.controller.base.BaseController;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.Exam;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.ExamRecord;
-import com.zlht.pbr.algorithm.wcmp.model.Question;
 import com.zlht.pbr.algorithm.wcmp.service.ExamRecordServiceI;
 import com.zlht.pbr.algorithm.wcmp.service.ExamServiceI;
 import com.zlht.pbr.algorithm.wcmp.utils.PageInfo;
@@ -15,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 /**

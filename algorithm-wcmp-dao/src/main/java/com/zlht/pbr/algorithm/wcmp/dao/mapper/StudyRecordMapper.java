@@ -13,6 +13,32 @@ import java.util.Map;
  */
 public interface StudyRecordMapper extends BaseMapper<StudyRecord> {
 
+    /**
+     * 获取今日学习时间
+     *
+     * @param linkCode
+     * @param userId
+     * @return
+     */
+    @Select("select ifnull(sum(study_duration),0)\n" +
+            "from study_record\n" +
+            "where link_code = #{linkCode}\n" +
+            "  and user_id = #{userId}\n" +
+            "  and Date(create_time) = CURDATE()")
+    int getStudyTimeToday(String linkCode, int userId);
+
+    /**
+     * 获取全部打开次数
+     *
+     * @param linkCode
+     * @param userId
+     * @return
+     */
+    @Select("select count(1)\n" +
+            "from study_record\n" +
+            "where link_code = #{linkCode}\n" +
+            "  and user_id = #{userId}")
+    int getCheckInTotal(String linkCode, int userId);
 
     /**
      * 本周学习时间

@@ -1,11 +1,9 @@
 package com.zlht.pbr.algorithm.wcmp.client;
 
 
-import com.zlht.pbr.algorithm.wcmp.model.WeChatUserInfo;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 微信客户端

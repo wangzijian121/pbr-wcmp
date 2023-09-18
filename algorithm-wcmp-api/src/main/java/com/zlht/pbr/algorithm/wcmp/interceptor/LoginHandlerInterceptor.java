@@ -1,7 +1,6 @@
 package com.zlht.pbr.algorithm.wcmp.interceptor;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.zlht.pbr.algorithm.wcmp.controller.base.BaseController;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.Token;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.User;
 import com.zlht.pbr.algorithm.wcmp.dao.mapper.TokenMapper;
@@ -16,7 +15,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.crypto.Data;
 import java.util.Date;
 
 /**

@@ -28,6 +28,7 @@ public class ExamRecord {
     private String linkCode;
     private Integer userId;
     private Integer examId;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer count;
     private Integer score;
     @ApiModelProperty(name = "create_time", value = "提交时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)

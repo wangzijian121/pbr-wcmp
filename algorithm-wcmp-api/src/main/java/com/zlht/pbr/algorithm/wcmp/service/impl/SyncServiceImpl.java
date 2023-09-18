@@ -13,8 +13,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -39,30 +37,30 @@ public class SyncServiceImpl extends BaseServiceImpl implements SyncServiceI {
     @Override
     public void syncAlgorithm() {
 
+        logger.info("syncAlgorithm...");
         Result<List<AlgorithmConfiguration>> result = managementClient.syncAlgorithm();
-        System.out.println(result);
         List<AlgorithmConfiguration> list = result.getData();
 
         //获取idList
-        List<String> appIdList = list.stream()
-                .map(AlgorithmConfiguration::getAppId)
+        List<String> linkCodeList = list.stream()
+                .map(AlgorithmConfiguration::getLinkCode)
                 .collect(Collectors.toList());
 
         //clear appId
         QueryWrapper<AlgorithmConfiguration> queryWrapperDeleteAppId = new QueryWrapper<>();
-        queryWrapperDeleteAppId.notIn("app_id", appIdList);
+        queryWrapperDeleteAppId.notIn("link_code", linkCodeList);
         algorithmConfigurationMapper.delete(queryWrapperDeleteAppId);
 
         //delete 同步后不存在的算法
-        for (String appId : appIdList) {
+        for (String linkCode : linkCodeList) {
             List<Integer> algorithmIdList = list.stream()
-                    .filter(algorithmConfiguration -> algorithmConfiguration.getAppId().equals(appId))
+                    .filter(algorithmConfiguration -> algorithmConfiguration.getLinkCode().equals(linkCode))
                     .map(AlgorithmConfiguration::getAlgorithmId)
                     .collect(Collectors.toList());
 
             //clear algorithm_id
             QueryWrapper<AlgorithmConfiguration> queryWrapperDelete = new QueryWrapper<>();
-            queryWrapperDelete.eq("app_id", appId).
+            queryWrapperDelete.eq("link_code", linkCode).
                     and(wrapper -> wrapper.notIn("algorithm_id", algorithmIdList));
             algorithmConfigurationMapper.delete(queryWrapperDelete);
         }
@@ -71,12 +69,12 @@ public class SyncServiceImpl extends BaseServiceImpl implements SyncServiceI {
         for (AlgorithmConfiguration algorithmConfiguration : list) {
 
             QueryWrapper checkWrapper = new QueryWrapper<>();
-            checkWrapper.eq("app_id", algorithmConfiguration.getAppId());
+            checkWrapper.eq("link_code", algorithmConfiguration.getLinkCode());
             checkWrapper.eq("algorithm_id", algorithmConfiguration.getAlgorithmId());
             if (algorithmConfigurationMapper.selectCount(checkWrapper) > 0) {
                 // 记录存在，执行更新操作
                 UpdateWrapper updateWrapper = new UpdateWrapper();
-                updateWrapper.eq("app_id", algorithmConfiguration.getAppId());
+                updateWrapper.eq("link_code", algorithmConfiguration.getLinkCode());
                 updateWrapper.eq("algorithm_id", algorithmConfiguration.getAlgorithmId());
                 updateWrapper.set("name", algorithmConfiguration.getName());
                 updateWrapper.set("sport_category", algorithmConfiguration.getSportCategory());
@@ -85,7 +83,7 @@ public class SyncServiceImpl extends BaseServiceImpl implements SyncServiceI {
                 algorithmConfigurationMapper.update(null, updateWrapper);
             } else {
                 // 记录不存在，执行插入操作
-                algorithmConfiguration.setAppId(algorithmConfiguration.getAppId());
+                algorithmConfiguration.setLinkCode(algorithmConfiguration.getLinkCode());
                 algorithmConfiguration.setEnable(0);
                 algorithmConfiguration.setUpdateTime(new Date());
                 algorithmConfigurationMapper.insert(algorithmConfiguration);
@@ -96,7 +94,6 @@ public class SyncServiceImpl extends BaseServiceImpl implements SyncServiceI {
     @Override
     public void syncInstitutionLinkCodeAndAppId() {
         Result<List<LinkCodeAndAppIdMap>> result = managementClient.syncLinkCodeAndAppId();
-        System.out.println(result);
         List<LinkCodeAndAppIdMap> list = result.getData();
         try {
             linkCodeAndAppIdMapMapper.delete(new QueryWrapper<>());

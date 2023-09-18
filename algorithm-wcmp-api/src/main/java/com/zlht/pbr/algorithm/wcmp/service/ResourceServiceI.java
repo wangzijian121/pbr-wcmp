@@ -1,6 +1,5 @@
 package com.zlht.pbr.algorithm.wcmp.service;
 
-import com.zlht.pbr.algorithm.wcmp.dao.entity.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 

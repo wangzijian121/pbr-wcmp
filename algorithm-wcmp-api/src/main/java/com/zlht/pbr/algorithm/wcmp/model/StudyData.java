@@ -1,6 +1,5 @@
 package com.zlht.pbr.algorithm.wcmp.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,12 +19,14 @@ import java.util.Map;
 @NoArgsConstructor
 public class StudyData {
 
-    private Integer studyTimeWeek;
 
+    private Integer studyTimeToday;
+    private Integer studyTimeWeek;
     private Integer studyTimeMonth;
 
-    private Integer checkInDaysWeek;
 
+    private Integer checkInTotal;
+    private Integer checkInDaysWeek;
     private Integer checkInDaysMonth;
 
     private List<Map<String, Object>> pointsWeek;

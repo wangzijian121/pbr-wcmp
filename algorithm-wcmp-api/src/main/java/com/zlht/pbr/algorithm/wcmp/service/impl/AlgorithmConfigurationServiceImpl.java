@@ -3,9 +3,7 @@ package com.zlht.pbr.algorithm.wcmp.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.AlgorithmConfiguration;
-import com.zlht.pbr.algorithm.wcmp.dao.entity.LinkCodeAndAppIdMap;
 import com.zlht.pbr.algorithm.wcmp.dao.mapper.AlgorithmConfigurationMapper;
-import com.zlht.pbr.algorithm.wcmp.dao.mapper.LinkCodeAndAppIdMapMapper;
 import com.zlht.pbr.algorithm.wcmp.enums.Status;
 import com.zlht.pbr.algorithm.wcmp.service.AlgorithmConfigurationServiceI;
 import com.zlht.pbr.algorithm.wcmp.utils.Result;
@@ -28,8 +26,6 @@ public class AlgorithmConfigurationServiceImpl extends BaseServiceImpl implement
 
     private static final Logger logger = LogManager.getLogger(AlgorithmConfigurationServiceImpl.class);
 
-    @Autowired
-    private LinkCodeAndAppIdMapMapper linkCodeAndAppIdMapMapper;
 
     @Autowired
     private AlgorithmConfigurationMapper algorithmConfigurationMapper;
@@ -39,12 +35,9 @@ public class AlgorithmConfigurationServiceImpl extends BaseServiceImpl implement
     public Result<AlgorithmConfiguration> getAlgorithmByAppId(String linkCode) {
 
         Result result = new Result();
-        QueryWrapper<LinkCodeAndAppIdMap> queryWrapperLink = new QueryWrapper<>();
-        queryWrapperLink.eq("link_code", linkCode);
-        LinkCodeAndAppIdMap linkCodeAndAppIdMap = linkCodeAndAppIdMapMapper.selectOne(queryWrapperLink);
 
         QueryWrapper<AlgorithmConfiguration> queryWrapper = new QueryWrapper();
-        queryWrapper.eq("app_id", linkCodeAndAppIdMap.getAppId());
+        queryWrapper.eq("link_code", linkCode);
         List<AlgorithmConfiguration> algorithmConfigurationList = algorithmConfigurationMapper.selectList(queryWrapper);
         result.setData(algorithmConfigurationList);
         result.setCode(Status.SUCCESS.getCode());
@@ -55,12 +48,8 @@ public class AlgorithmConfigurationServiceImpl extends BaseServiceImpl implement
     @Override
     public Map<String, Object> setAlgorithmAvailability(String linkCode, int algorithmId, boolean enable) {
         Map<String, Object> map = new HashMap<>(3);
-        QueryWrapper<LinkCodeAndAppIdMap> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("link_code", linkCode);
-        LinkCodeAndAppIdMap linkCodeAndAppIdMap = linkCodeAndAppIdMapMapper.selectOne(queryWrapper);
-
         UpdateWrapper<AlgorithmConfiguration> updateWrapper = new UpdateWrapper();
-        updateWrapper.eq("app_id", linkCodeAndAppIdMap.getAppId());
+        updateWrapper.eq("link_code", linkCode);
         updateWrapper.eq("algorithm_id", algorithmId);
         updateWrapper.set("enable", enable);
         try {
@@ -77,12 +66,9 @@ public class AlgorithmConfigurationServiceImpl extends BaseServiceImpl implement
     @Override
     public Result<AlgorithmConfiguration> getEnableAlgorithm(String linkCode) {
         Result result = new Result();
-        QueryWrapper<LinkCodeAndAppIdMap> queryWrapperLink = new QueryWrapper<>();
-        queryWrapperLink.eq("link_code", linkCode);
-        LinkCodeAndAppIdMap linkCodeAndAppIdMap = linkCodeAndAppIdMapMapper.selectOne(queryWrapperLink);
 
         QueryWrapper<AlgorithmConfiguration> queryWrapper = new QueryWrapper();
-        queryWrapper.eq("app_id", linkCodeAndAppIdMap.getAppId());
+        queryWrapper.eq("link_code", linkCode);
         queryWrapper.eq("enable", 1);
         List<AlgorithmConfiguration> algorithmConfigurationList = algorithmConfigurationMapper.selectList(queryWrapper);
         result.setData(algorithmConfigurationList);

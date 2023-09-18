@@ -69,30 +69,41 @@ public class UserServiceImpl extends BaseServiceImpl implements UserServiceI {
     public Result<StudyData> getUserStudyDataByUserId(String linkCode, int userId) {
 
         Result<StudyData> result = new Result<>();
-//        本周时间范围
+        //今日
+
+        //总打开天数
+
+//      本周时间范围
         Map<String, Date> weekDateMap = TimeUtils.getCurrentWeekRange(new Date());
         Date startOfWeek = weekDateMap.get("startOfWeek");
         Date endOfWeek = weekDateMap.get("endOfWeek");
-
+//      本月
         Map<String, Date> monthDateMap = TimeUtils.getCurrentMonthRange(new Date());
         Date startOfMonth = monthDateMap.get("startOfMonth");
         Date endOfMonth = monthDateMap.get("endOfMonth");
-        System.out.println(startOfWeek);
-        System.out.println(endOfWeek);
 
-        System.out.println(startOfMonth);
-        System.out.println(endOfMonth);
-
+        //今日学习时间
+        int studyTimeToday = studyRecordMapper.getStudyTimeToday(linkCode, userId);
+        //近一周学习时间
         int studyTimeWeek = studyRecordMapper.getStudyTimeWeek(linkCode, userId, startOfWeek, endOfWeek);
+        //本月学习时间
         int studyTimeMonth = studyRecordMapper.getStudyTimeMonth(linkCode, userId, startOfMonth, endOfMonth);
+        //总签到
+        int checkInTotal = studyRecordMapper.getCheckInTotal(linkCode, userId);
+        //近一周签到
         int checkInDaysWeekCount = studyRecordMapper.getCheckInDaysWeek(linkCode, userId, startOfWeek, endOfWeek);
+        //本月
         int checkInDaysMonthCount = studyRecordMapper.getCheckInDaysMonth(linkCode, userId, startOfMonth, endOfMonth);
+        //周点位
         List<Map<String, Object>> pointsWeek = studyRecordMapper.getPointsWeek(linkCode, userId, startOfWeek, endOfWeek);
+        //月点位
         List<Map<String, Object>> pointsMonth = studyRecordMapper.getPointMonth(linkCode, userId, startOfMonth, endOfMonth);
 
         StudyData studyData = new StudyData();
+        studyData.setStudyTimeToday(studyTimeToday);
         studyData.setStudyTimeWeek(studyTimeWeek);
         studyData.setStudyTimeMonth(studyTimeMonth);
+        studyData.setCheckInTotal(checkInTotal);
         studyData.setCheckInDaysWeek(checkInDaysWeekCount);
         studyData.setCheckInDaysMonth(checkInDaysMonthCount);
         studyData.setPointsWeek(pointsWeek);

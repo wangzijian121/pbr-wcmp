@@ -3,7 +3,6 @@ package com.zlht.pbr.algorithm.wcmp.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.StudyRecord;
-import com.zlht.pbr.algorithm.wcmp.dao.entity.StudyRecord;
 import com.zlht.pbr.algorithm.wcmp.dao.mapper.StudyRecordMapper;
 import com.zlht.pbr.algorithm.wcmp.enums.Status;
 import com.zlht.pbr.algorithm.wcmp.security.AuthLinkCodeServiceI;

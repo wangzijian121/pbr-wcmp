@@ -1,6 +1,5 @@
 package com.zlht.pbr.algorithm.wcmp.task;
 
-import com.zlht.pbr.algorithm.wcmp.service.AlgorithmConfigurationServiceI;
 import com.zlht.pbr.algorithm.wcmp.service.impl.SyncServiceImpl;
 import feign.RetryableException;
 import org.apache.logging.log4j.LogManager;
