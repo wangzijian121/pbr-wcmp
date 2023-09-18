@@ -38,7 +38,7 @@ CREATE TABLE `algorithm_configuration` (
 -- Dumping data for table `algorithm_configuration`
 --
 
-INSERT INTO `algorithm_configuration` VALUES ('wxc62afc144417346e',1,'足球射门姿势算法','田径',1,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-14 00:10:54'),('wxc62afc1444173555',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-14 00:10:54'),('wxc62afc1444173555',14,'足球专用犯规识别算法','篮球',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-14 00:10:54'),('wxc62afc1444173555',16,'乒乓球角度识别算法','乒乓球',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-14 00:10:54'),('wxc62afc1444173777',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-14 00:10:54'),('wxc62afc1444173777',3,'游泳姿势优化算法','游泳',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-14 00:10:54'),('wxc62afc1444173888',1,'足球射门姿势算法','田径',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-14 00:10:54'),('wxc62afc1444173888',3,'游泳姿势优化算法','游泳',0,'{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-09-14 00:10:54');
+INSERT INTO `algorithm_configuration` VALUES ('wxc62afc144417346e',1,'足球射门姿势算法','足球',1,'{\"动作准确\": \"起跳姿势评分\", \"有氧能力\": \"投篮命中率评分\", \"柔韧伸展\": \"手腕标准度评分\", \"灵活敏捷\": \"投篮时机评分\", \"肌肉力量\": \"球速评分\"}','2023-09-18 01:16:20'),('wxc62afc144417346e',14,'足球专用犯规识别算法','足球',0,'{\"动作准确\": \"起跳姿势评分\", \"有氧能力\": \"投篮命中率评分\", \"柔韧伸展\": \"手腕标准度评分\", \"灵活敏捷\": \"投篮时机评分\", \"肌肉力量\": \"球速评分\"}','2023-09-18 01:16:20'),('wxc62afc144417346e',15,'篮球手部识别算法','篮球',0,'{\"动作准确\": \"起跳姿势评分\", \"有氧能力\": \"投篮命中率评分\", \"柔韧伸展\": \"手腕标准度评分\", \"灵活敏捷\": \"投篮时机评分\", \"肌肉力量\": \"球速评分\"}','2023-09-18 01:16:20'),('wxc62afc144417346e',16,'乒乓球角度识别算法','乒乓球',0,'{\"动作准确\": \"起跳姿势评分\", \"有氧能力\": \"投篮命中率评分\", \"柔韧伸展\": \"手腕标准度评分\", \"灵活敏捷\": \"投篮时机评分\", \"肌肉力量\": \"球速评分\"}','2023-09-18 01:16:20'),('wxc62afc144417346e',20,'跳远距离识别','立定跳远',0,'{\"动作准确\": \"起跳姿势评分\", \"有氧能力\": \"投篮命中率评分\", \"柔韧伸展\": \"手腕标准度评分\", \"灵活敏捷\": \"投篮时机评分\", \"肌肉力量\": \"球速评分\"}','2023-09-18 01:16:20'),('wxc62afc1444173555',1,'足球射门姿势算法','足球',0,'{\"动作准确\": \"起跳姿势评分\", \"有氧能力\": \"投篮命中率评分\", \"柔韧伸展\": \"手腕标准度评分\", \"灵活敏捷\": \"投篮时机评分\", \"肌肉力量\": \"球速评分\"}','2023-09-18 01:16:20'),('wxc62afc1444173555',14,'足球专用犯规识别算法','足球',0,'{\"动作准确\": \"起跳姿势评分\", \"有氧能力\": \"投篮命中率评分\", \"柔韧伸展\": \"手腕标准度评分\", \"灵活敏捷\": \"投篮时机评分\", \"肌肉力量\": \"球速评分\"}','2023-09-18 01:16:20'),('wxc62afc1444173555',16,'乒乓球角度识别算法','乒乓球',0,'{\"动作准确\": \"起跳姿势评分\", \"有氧能力\": \"投篮命中率评分\", \"柔韧伸展\": \"手腕标准度评分\", \"灵活敏捷\": \"投篮时机评分\", \"肌肉力量\": \"球速评分\"}','2023-09-18 01:16:20'),('wxc62afc1444173777',1,'足球射门姿势算法','足球',0,'{\"动作准确\": \"起跳姿势评分\", \"有氧能力\": \"投篮命中率评分\", \"柔韧伸展\": \"手腕标准度评分\", \"灵活敏捷\": \"投篮时机评分\", \"肌肉力量\": \"球速评分\"}','2023-09-18 01:16:20'),('wxc62afc1444173777',3,'游泳姿势优化算法','游泳',0,'{\"动作准确\": \"起跳姿势评分\", \"有氧能力\": \"投篮命中率评分\", \"柔韧伸展\": \"手腕标准度评分\", \"灵活敏捷\": \"投篮时机评分\", \"肌肉力量\": \"球速评分\"}','2023-09-18 01:16:20'),('wxc62afc1444173888',1,'足球射门姿势算法','足球',0,'{\"动作准确\": \"起跳姿势评分\", \"有氧能力\": \"投篮命中率评分\", \"柔韧伸展\": \"手腕标准度评分\", \"灵活敏捷\": \"投篮时机评分\", \"肌肉力量\": \"球速评分\"}','2023-09-18 01:16:20'),('wxc62afc1444173888',3,'游泳姿势优化算法','游泳',0,'{\"动作准确\": \"起跳姿势评分\", \"有氧能力\": \"投篮命中率评分\", \"柔韧伸展\": \"手腕标准度评分\", \"灵活敏捷\": \"投篮时机评分\", \"肌肉力量\": \"球速评分\"}','2023-09-18 01:16:20');
 
 --
 -- Table structure for table `course`
@@ -138,30 +138,7 @@ CREATE TABLE `link_code_and_appid_map` (
 -- Dumping data for table `link_code_and_appid_map`
 --
 
-INSERT INTO `link_code_and_appid_map` VALUES ('po80bb43-4a86-463e-8a64-86af145af212','wxc62afc144417346e','2387d60cc0a34703ae8ec0acedd2a635','2023-09-14 00:10:54'),('4180bb43-4a86-463e-8a64-86af145af2op','wxc62afc1444173555','b5a7ea8dcee900d1f1663076ac8dba3b','2023-09-14 00:10:54'),('8180bb43-4a86-463e-8a64-86af145af2gf','wxc62afc1444173999','b5a7ea8dcee900d1f1663076ac8dba3b','2023-09-14 00:10:54'),('3180bb43-4a86-463e-8a64-86af145af245','wxc62afc1444173888','b5a7ea8dcee900d1f1663076ac8dba3b','2023-09-14 00:10:54'),('2180bb43-4a86-463e-8a64-86af145af27e','wxc62afc1444173777','b5a7ea8dcee900d1f1663076ac8dba3b','2023-09-14 00:10:54');
-
---
--- Table structure for table `report`
---
-
-DROP TABLE IF EXISTS `report`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `report` (
-                          `id` int NOT NULL AUTO_INCREMENT,
-                          `user_id` int NOT NULL COMMENT '用户ID',
-                          `algorithm_id` int NOT NULL COMMENT '算法ID',
-                          `result` json DEFAULT NULL COMMENT '识别结果',
-                          `create_time` datetime NOT NULL COMMENT '创建时间',
-                          `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-                          PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='识别报告';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `report`
---
-
+INSERT INTO `link_code_and_appid_map` VALUES ('po80bb43-4a86-463e-8a64-86af145af212','wxc62afc144417346e','2387d60cc0a34703ae8ec0acedd2a635','2023-09-18 01:16:20'),('4180bb43-4a86-463e-8a64-86af145af2op','wxc62afc1444173555','b5a7ea8dcee900d1f1663076ac8dba3b','2023-09-18 01:16:20'),('8180bb43-4a86-463e-8a64-86af145af2gf','wxc62afc1444173999','b5a7ea8dcee900d1f1663076ac8dba3b','2023-09-18 01:16:20'),('3180bb43-4a86-463e-8a64-86af145af245','wxc62afc1444173888','b5a7ea8dcee900d1f1663076ac8dba3b','2023-09-18 01:16:20'),('2180bb43-4a86-463e-8a64-86af145af27e','wxc62afc1444173777','b5a7ea8dcee900d1f1663076ac8dba3b','2023-09-18 01:16:20');
 
 --
 -- Table structure for table `resources`
@@ -189,29 +166,6 @@ CREATE TABLE `resources` (
 INSERT INTO `resources` VALUES (113,'Snipaste_2023-09-04_10-22-46.jpg','74b310cb-22e0-4137-8901-162b1c14bbb7','jpg',4654,'2023-09-04 13:56:20','2023-09-04 13:56:20'),(114,'布布比?.jpg','5531030d-e568-4446-bc95-9d3a589450f0','jpg',76958,'2023-09-04 13:59:09','2023-09-04 13:59:09'),(115,'Snipaste_2023-09-04_10-22-46.jpg','b14c3c50-238f-47ff-91c9-18af9c385d5e','jpg',4654,'2023-09-04 14:09:00','2023-09-04 14:09:00'),(116,'demo视频.mp4','e7fc2dd4-0871-4f39-800f-b608ad9759d6','mp4',2501450,'2023-09-04 14:58:36','2023-09-04 14:58:36'),(117,'考试模板.xlsx','ed23e489-ddc3-4047-a9c9-acfba7feae93','xlsx',10761,'2023-09-08 14:35:18','2023-09-08 14:35:18'),(118,'考试模板.xlsx','9d36db1a-4fea-4284-98c1-b014b66cd3eb','xlsx',10769,'2023-09-13 14:11:44','2023-09-13 14:11:44'),(119,'8ed34f5fgy1h83rag4bbnj227t27tx6p.jpg','88075ad3-4ad1-475a-aee9-a49b2d80b592','jpg',2027475,'2023-09-13 20:18:03','2023-09-13 20:18:03'),(120,'8ed34f5fgy1h83rag4bbnj227t27tx6p.jpg','3a6c9dbc-b1f7-4707-8fff-bb8bd089c161','jpg',2027475,'2023-09-13 20:19:54','2023-09-13 20:19:54'),(121,'考试模板.xlsx','ab631499-1b49-4f2a-b088-5410a3877431','xlsx',10740,'2023-09-13 21:33:19','2023-09-13 21:33:19'),(122,'考试模板.xlsx','9391bfea-dca6-485a-8323-e91e28ed3401','xlsx',10740,'2023-09-13 21:46:56','2023-09-13 21:46:56');
 
 --
--- Table structure for table `sports_ability`
---
-
-DROP TABLE IF EXISTS `sports_ability`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `sports_ability` (
-                                  `id` int NOT NULL AUTO_INCREMENT,
-                                  `user_id` int NOT NULL COMMENT '用户ID',
-                                  `ability_type` tinyint(1) NOT NULL COMMENT '0有氧能力,1肌肉力量,2柔韧伸展,3灵活敏捷,4动作准确',
-                                  `value` int NOT NULL DEFAULT '0' COMMENT '能力值',
-                                  `create_time` datetime NOT NULL COMMENT '创建时间',
-                                  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-                                  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户体育能力表';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `sports_ability`
---
-
-
---
 -- Table structure for table `spot_history`
 --
 
@@ -234,7 +188,7 @@ CREATE TABLE `spot_history` (
 -- Dumping data for table `spot_history`
 --
 
-INSERT INTO `spot_history` VALUES (1,'po80bb43-4a86-463e-8a64-86af145af212',1,1,'{}',1,'2023-09-13 17:51:45'),(2,'po80bb43-4a86-463e-8a64-86af145af212',1,1,'{}',1,'2023-09-13 17:51:45'),(3,'po80bb43-4a86-463e-8a64-86af145af212',0,1,'{}',122,'2023-09-13 22:05:33');
+INSERT INTO `spot_history` VALUES (1,'po80bb43-4a86-463e-8a64-86af145af212',1,1,'{\"score\": {\"球速评分\": 84, \"投篮时机评分\": 56, \"起跳姿势评分\": 81, \"手腕标准度评分\": 16, \"投篮命中率评分\": 90}, \"ability\": {\"动作准确\": 81, \"有氧能力\": 90, \"柔韧伸展\": 86, \"灵活敏捷\": 86, \"肌肉力量\": 84}}',1,'2023-09-13 17:51:45'),(2,'po80bb43-4a86-463e-8a64-86af145af212',1,1,'{\"score\": {\"球速评分\": 84, \"投篮时机评分\": 56, \"起跳姿势评分\": 81, \"手腕标准度评分\": 86, \"投篮命中率评分\": 90}, \"ability\": {\"动作准确\": 81, \"有氧能力\": 90, \"柔韧伸展\": 86, \"灵活敏捷\": 86, \"肌肉力量\": 84}}',1,'2023-09-13 17:51:45'),(3,'po80bb43-4a86-463e-8a64-86af145af212',0,1,'{\"score\": {\"球速评分\": 84, \"投篮时机评分\": 56, \"起跳姿势评分\": 81, \"手腕标准度评分\": 16, \"投篮命中率评分\": 90}, \"ability\": {\"动作准确\": 81, \"有氧能力\": 90, \"柔韧伸展\": 86, \"灵活敏捷\": 86, \"肌肉力量\": 84}}',122,'2023-09-13 22:05:33');
 
 --
 -- Table structure for table `study_data`
@@ -281,7 +235,7 @@ CREATE TABLE `study_record` (
 -- Dumping data for table `study_record`
 --
 
-INSERT INTO `study_record` VALUES (1,'po80bb43-4a86-463e-8a64-86af145af212',1,1,4,'2023-09-14 10:13:13'),(2,'po80bb43-4a86-463e-8a64-86af145af212',1,2,5,'2023-09-13 10:13:13'),(3,'po80bb43-4a86-463e-8a64-86af145af212',1,3,6,'2023-09-12 10:13:13'),(4,'po80bb43-4a86-463e-8a64-86af145af212',1,7,6,'2023-09-12 10:13:13');
+INSERT INTO `study_record` VALUES (1,'po80bb43-4a86-463e-8a64-86af145af212',1,1,4,'2023-09-03 10:13:13'),(2,'po80bb43-4a86-463e-8a64-86af145af212',1,2,5,'2023-09-13 10:13:13'),(3,'po80bb43-4a86-463e-8a64-86af145af212',1,3,6,'2023-09-12 10:13:13'),(4,'po80bb43-4a86-463e-8a64-86af145af212',1,7,6,'2023-09-12 10:13:13');
 
 --
 -- Table structure for table `token`
@@ -296,13 +250,14 @@ CREATE TABLE `token` (
                          `token` varchar(255) DEFAULT NULL,
                          `expire_time` datetime DEFAULT NULL COMMENT '过期时间',
                          PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='token';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='token';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `token`
 --
 
+INSERT INTO `token` VALUES (1,4,'ea0f4aa97f9e0ab3ab8decbbf37ec6d5','2023-09-18 23:38:49');
 
 --
 -- Table structure for table `user`
@@ -331,7 +286,7 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` VALUES (3,'po80bb43-4a86-463e-8a64-86af145af212',0,'0JOxMdSLRIpacqU36g','NfScwIgIJRSmb4juSEbZ5w==','微信用户CRiaw',0,NULL,NULL,'2023-09-09 19:28:48','2023-09-09 19:37:52'),(4,'po80bb43-4a86-463e-8a64-86af145af212',0,'oFDqp5ebx3IpacqU36g0JOxMdSLI','q+ItxCf6a3ei3qZU59G0eA==','微信用户PSObT',0,NULL,NULL,'2023-09-09 19:42:16','2023-09-09 20:11:42');
+INSERT INTO `user` VALUES (3,'po80bb43-4a86-463e-8a64-86af145af212',0,'0JOxMdSLRIpacqU36g','NfScwIgIJRSmb4juSEbZ5w==','微信用户CRiaw',0,NULL,NULL,'2023-09-09 19:28:48','2023-09-09 19:37:52'),(4,'po80bb43-4a86-463e-8a64-86af145af212',3,'oFDqp5ebx3IpacqU36g0JOxMdSLI','HqTnHi1RYon/IkkpmcLukA==','微信用户PSObT',0,NULL,NULL,'2023-09-09 19:42:16','2023-09-09 20:11:42');
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -342,4 +297,4 @@ INSERT INTO `user` VALUES (3,'po80bb43-4a86-463e-8a64-86af145af212',0,'0JOxMdSLR
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-15  0:27:33
+-- Dump completed on 2023-09-18 10:28:42

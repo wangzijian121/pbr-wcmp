@@ -19,7 +19,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/wechat/{linkCode}/user/spot")
-@Api(tags = "识别历史接口")
+@Api(tags = "AI识别接口")
 public class UserSpotHistoryController extends BaseController {
 
 

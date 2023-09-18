@@ -49,7 +49,6 @@ public class TokenServiceImpl extends BaseServiceImpl implements TokenServiceI {
         token.setToken(tokenStr);
         Date date = new Date(expireTime);
         token.setExpireTime(date);
-        tokenMapper.insert(token);
 
         QueryWrapper<Token> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", user.getId());

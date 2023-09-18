@@ -21,7 +21,7 @@ public class SyncAlgorithmTask {
     @Autowired
     private SyncServiceImpl syncService;
 
-    @Scheduled(cron = "0/6 10 *  * * ? ")
+    @Scheduled(cron = "0/10 * *  * * ? ")
     public void executeSyncAlgorithm() {
         try {
             syncService.syncAlgorithm();

@@ -23,11 +23,11 @@ public interface StudyRecordMapper extends BaseMapper<StudyRecord> {
      * @param endOfWeek
      * @return
      */
-    @Select("select sum(study_duration)\n" +
+    @Select("select ifnull(sum(study_duration),0)\n" +
             "from study_record\n" +
             "where link_code = #{linkCode}\n" +
             "  and user_id = #{userId}\n" +
-            "  and create_time > #{startOfWeek}\n" +
+            "  and create_time >#{startOfWeek}\n" +
             "  and create_time <= #{endOfWeek}")
     int getStudyTimeWeek(String linkCode, int userId, Date startOfWeek, Date endOfWeek);
 
@@ -40,11 +40,11 @@ public interface StudyRecordMapper extends BaseMapper<StudyRecord> {
      * @param endOfMonth
      * @return
      */
-    @Select("select sum(study_duration)\n" +
+    @Select("select ifnull(sum(study_duration),0)\n" +
             "from study_record\n" +
             "where link_code = #{linkCode}\n" +
             "  and user_id = #{userId}\n" +
-            "  and create_time > #{startOfMonth}\n" +
+            "  and create_time >= #{startOfMonth}\n" +
             "  and create_time <= #{endOfMonth}")
     int getStudyTimeMonth(String linkCode, int userId, Date startOfMonth, Date endOfMonth);
 
@@ -61,7 +61,7 @@ public interface StudyRecordMapper extends BaseMapper<StudyRecord> {
             "from study_record\n" +
             "where link_code = #{linkCode}\n" +
             "  and user_id = #{userId}\n" +
-            "  and create_time > #{startOfWeek}\n" +
+            "  and create_time >#{startOfWeek}\n" +
             "  and create_time <= #{endOfWeek}")
     int getCheckInDaysWeek(String linkCode, int userId, Date startOfWeek, Date endOfWeek);
 
@@ -78,7 +78,7 @@ public interface StudyRecordMapper extends BaseMapper<StudyRecord> {
             "from study_record\n" +
             "where link_code = #{linkCode}\n" +
             "  and user_id = #{userId}\n" +
-            "  and create_time > #{startOfMonth}\n" +
+            "  and create_time >= #{startOfMonth}\n" +
             "  and create_time <= #{endOfMonth}")
     int getCheckInDaysMonth(String linkCode, int userId, Date startOfMonth, Date endOfMonth);
 
@@ -114,7 +114,7 @@ public interface StudyRecordMapper extends BaseMapper<StudyRecord> {
             "FROM `pose-wcmp`.study_record\n" +
             "where link_code = #{linkCode}\n" +
             "  and user_id = #{userId}\n" +
-            "  and create_time > #{startOfMonth}\n" +
+            "  and create_time >= #{startOfMonth}\n" +
             "  and create_time <= #{endOfMonth}\n" +
             "GROUP BY study_date\n" +
             "ORDER BY study_date;")

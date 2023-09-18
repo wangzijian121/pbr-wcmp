@@ -21,8 +21,8 @@ import java.util.Map;
  * @author zi jian Wang
  */
 @RestController
-@Api(tags = "机构管理员-算法与算法配置")
-@RequestMapping("/wechat/{linkCode}/admin/algorithm")
+@Api(tags = "AI识别接口")
+@RequestMapping("/wechat/{linkCode}/user/algorithm")
 public class UserAlgorithmController extends BaseController {
 
     private static final Logger logger = LogManager.getLogger(UserAlgorithmController.class);

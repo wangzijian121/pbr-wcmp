@@ -3,15 +3,13 @@ package com.zlht.pbr.algorithm.wcmp.controller.user;
 
 import com.zlht.pbr.algorithm.wcmp.controller.base.BaseController;
 import com.zlht.pbr.algorithm.wcmp.enums.Status;
-import com.zlht.pbr.algorithm.wcmp.service.WeChatServiceI;
+import com.zlht.pbr.algorithm.wcmp.service.UserServiceI;
 import com.zlht.pbr.algorithm.wcmp.utils.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -25,16 +23,13 @@ import java.util.Map;
  * @author zi jian Wang
  */
 @RestController
-@Api(tags = "用户管理")
+@Api(tags = "学生信息接口")
 @RequestMapping("/wechat/{linkCode}/user")
 public class UserController extends BaseController {
 
-    private static final Logger logger = LogManager.getLogger(UserController.class);
-
 
     @Autowired
-    private WeChatServiceI weChatServiceI;
-
+    private UserServiceI userServiceI;
 
     /**
      * 登录
@@ -61,7 +56,7 @@ public class UserController extends BaseController {
         if (StringUtils.isEmpty(ip)) {
             return error(10125, "获取不到IP！");
         }
-        Map<String, Object> map = weChatServiceI.login(linkCode, code, encryptedData, iv);
+        Map<String, Object> map = userServiceI.login(linkCode, code, encryptedData, iv);
         String codeStr = "code";
         if (!map.get(codeStr).equals(Status.SUCCESS.getCode())) {
             return returnDataList(map);
@@ -76,4 +71,38 @@ public class UserController extends BaseController {
         return returnDataList(map);
     }
 
+    /**
+     * 获取学生学习数据
+     *
+     * @return StudyData
+     */
+    @ApiOperation(value = "获取学生学习数据", notes = "获取学生学习数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户ID", dataTypeClass = int.class)
+    })
+
+    @GetMapping(value = "/getUserStudyDataByUserId")
+    @ResponseStatus(HttpStatus.OK)
+    public Result getUserStudyDataByUserId(@RequestParam int userId,
+                                           @PathVariable String linkCode) {
+        return userServiceI.getUserStudyDataByUserId(linkCode, userId);
+    }
+
+
+    /**
+     * 获取学生体育能力
+     *
+     * @return StudyData
+     */
+    @ApiOperation(value = "获取学生体育能力", notes = "获取学生体育能力")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户ID", dataTypeClass = int.class)
+    })
+
+    @GetMapping(value = "/getUserAbilityByUserId")
+    @ResponseStatus(HttpStatus.OK)
+    public Result getUserAbilityByUserId(@RequestParam int userId,
+                                         @PathVariable String linkCode) {
+        return returnDataList(userServiceI.getUserAbilityByUserId(linkCode, userId));
+    }
 }

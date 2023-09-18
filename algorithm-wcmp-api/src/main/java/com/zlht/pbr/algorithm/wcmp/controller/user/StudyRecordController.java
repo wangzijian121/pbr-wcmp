@@ -21,8 +21,8 @@ import java.util.Map;
  * @author zijian Wang
  */
 @RestController
-@Api(tags = "课程记录")
-@RequestMapping("/wechat/{linkCode}/admin/studyRecord")
+@Api(tags = "学生课程接口")
+@RequestMapping("/wechat/{linkCode}/user/studyRecord")
 public class StudyRecordController extends BaseController {
 
     @Autowired
