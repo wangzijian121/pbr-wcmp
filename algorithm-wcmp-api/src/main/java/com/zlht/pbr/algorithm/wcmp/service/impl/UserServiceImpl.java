@@ -221,6 +221,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserServiceI {
                 useMap.put("userId", user.getId().toString());
                 useMap.put("token", token);
                 map.put("data", useMap);
+                managementClient.reportData(linkCode, "user_count_today",1);
             } else {
                 String errMsgStr = "errMsgStr";
                 String reason = "未知";

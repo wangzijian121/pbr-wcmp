@@ -32,8 +32,6 @@ public class User {
     private String sessionKey;
     private String nickname;
     private Integer gender;
-    private String durationOfUse;
-    private Integer clockingDays;
     @ApiModelProperty(value = "创建时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
     private Date createTime;
     @ApiModelProperty(value = "更新时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)

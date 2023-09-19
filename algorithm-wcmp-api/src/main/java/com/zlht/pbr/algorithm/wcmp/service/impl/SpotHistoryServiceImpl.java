@@ -2,6 +2,7 @@ package com.zlht.pbr.algorithm.wcmp.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlht.pbr.algorithm.wcmp.client.ManagementClient;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.SpotHistory;
 import com.zlht.pbr.algorithm.wcmp.dao.mapper.SpotHistoryMapper;
 import com.zlht.pbr.algorithm.wcmp.enums.Status;
@@ -26,6 +27,9 @@ public class SpotHistoryServiceImpl extends BaseServiceImpl implements SpotHisto
     private static final Logger logger = LogManager.getLogger(SpotHistoryServiceImpl.class);
 
     @Autowired
+    private ManagementClient managementClient;
+
+    @Autowired
     private SpotHistoryMapper spotHistoryMapper;
     @Autowired
     private AuthLinkCodeServiceI authLinkCodeServiceI;
@@ -44,8 +48,9 @@ public class SpotHistoryServiceImpl extends BaseServiceImpl implements SpotHisto
         try {
             spotHistoryMapper.insert(spotHistory);
             putMsg(map, Status.SUCCESS.getCode(), "创建识别成功！");
+            managementClient.reportData(linkCode, "algorithm_count_today", 1);
         } catch (Exception e) {
-            String errMsg = "创建识别成功";
+            String errMsg = "创建识别失败！";
             logger.error("createSpotHistory() method .message={}, spotHistory={}", errMsg, spotHistory, e);
             putMsg(map, 400, errMsg);
         }

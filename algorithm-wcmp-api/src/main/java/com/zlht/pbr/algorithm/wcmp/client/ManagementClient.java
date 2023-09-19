@@ -53,10 +53,23 @@ public interface ManagementClient {
     /**
      * 上报用户数据
      *
-     * @param linkCode
+     * @param map
      * @param event
      * @return
      */
     @RequestMapping(value = "/wechat/reportUserData", method = RequestMethod.POST)
-    Result<Map<String, Object>> reportUser(@RequestBody Map<String, Object> linkCode, @RequestParam int event);
+    Result<Map<String, Object>> reportUser(@RequestBody Map<String, Object> map, @RequestParam int event);
+
+    /**
+     * 上报图表数据
+     *
+     * @param linkCode
+     * @param type
+     * @param increment
+     * @return
+     */
+    @RequestMapping(value = "/wechat/createWxReportData", method = RequestMethod.POST)
+    Result<Map<String, Object>> reportData(@RequestParam String linkCode,
+                                           @RequestParam String type,
+                                           @RequestParam int increment);
 }

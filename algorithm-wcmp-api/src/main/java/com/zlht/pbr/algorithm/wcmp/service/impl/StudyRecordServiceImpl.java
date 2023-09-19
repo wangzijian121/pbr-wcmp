@@ -2,6 +2,7 @@ package com.zlht.pbr.algorithm.wcmp.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlht.pbr.algorithm.wcmp.client.ManagementClient;
 import com.zlht.pbr.algorithm.wcmp.dao.entity.StudyRecord;
 import com.zlht.pbr.algorithm.wcmp.dao.mapper.StudyRecordMapper;
 import com.zlht.pbr.algorithm.wcmp.enums.Status;
@@ -22,6 +23,9 @@ public class StudyRecordServiceImpl extends BaseServiceImpl implements StudyReco
     private StudyRecordMapper studyRecordMapper;
 
     @Autowired
+    private ManagementClient managementClient;
+
+    @Autowired
     private AuthLinkCodeServiceI authLinkCodeServiceI;
 
     /**
@@ -35,8 +39,9 @@ public class StudyRecordServiceImpl extends BaseServiceImpl implements StudyReco
         Map<String, Object> map = new HashMap<>(3);
         try {
             studyRecordMapper.insert(studyRecord);
-            map.put("data",studyRecord);
+            map.put("data", studyRecord);
             putMsg(map, Status.SUCCESS.getCode(), "创建学习记录成功！");
+            managementClient.reportData(studyRecord.getLinkCode(), "user_usage_time_today", studyRecord.getStudyDuration());
         } catch (Exception e) {
             putMsg(map, 400, "创建学习记录失败！");
         }
