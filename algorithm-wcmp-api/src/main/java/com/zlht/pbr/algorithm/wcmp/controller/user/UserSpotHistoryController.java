@@ -49,9 +49,9 @@ public class UserSpotHistoryController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "页数(默认1)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
-            @ApiImplicitParam(name = "userId", value = "页大小(默认10)", dataTypeClass = int.class),
+            @ApiImplicitParam(name = "userId", value = "用户ID", dataTypeClass = int.class),
     })
-    @PostMapping(value = "/querySpotHistoryList")
+    @GetMapping(value = "/querySpotHistoryList")
     @ResponseStatus(HttpStatus.OK)
     public Result querySpotHistoryList(
             @PathVariable String linkCode,
