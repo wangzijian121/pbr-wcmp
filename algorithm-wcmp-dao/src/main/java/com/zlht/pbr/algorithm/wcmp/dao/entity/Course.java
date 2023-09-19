@@ -28,8 +28,8 @@ public class Course {
     private String linkCode;
     private String name;
     private Integer type;
-    private Integer coverResourceId;
-    private Integer mediaResourceId;
+    private String coverImg;
+    private String mediaFile;
     private String description;
     @ApiModelProperty(name = "create_time", value = "创建时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
     private Date createTime;
