@@ -42,5 +42,5 @@ public interface ExamRecordServiceI extends BaseServiceI {
      * @param pageSize
      * @return
      */
-    Result<PageInfo<ExamRecord>> queryAllExamScoreList(String linkCode, int currentPage, int pageSize);
+    Result queryAllExamScoreList(String linkCode, int currentPage, int pageSize,String nickname,int  examId);
 }

@@ -82,7 +82,7 @@ public class ExamRecordServiceImpl extends BaseServiceImpl implements ExamRecord
      * @return
      */
     @Override
-    public Result<PageInfo<ExamRecord>> queryAllExamScoreList(String linkCode, int currentPage, int pageSize) {
+    public Result queryAllExamScoreList(String linkCode, int currentPage, int pageSize,String nickname,int  examId) {
 
         Result result = new Result();
         if (!authLinkCodeServiceI.checkLinkCodeValidity(linkCode)) {
@@ -92,11 +92,7 @@ public class ExamRecordServiceImpl extends BaseServiceImpl implements ExamRecord
         }
         Page<ExamRecord> page = new Page<>(currentPage, pageSize);
 
-        QueryWrapper<ExamRecord> examQueryWrapper = new QueryWrapper<ExamRecord>();
-        if (linkCode != null) {
-            examQueryWrapper.eq("link_code", linkCode);
-        }
-        Page<ExamRecord> examPage = examRecordMapper.selectPage(page, examQueryWrapper);
+        Page<Map<String, Object>> examPage = examRecordMapper.queryExamRecordPage(page,linkCode,examId,nickname);
         PageInfo pageInfo = new PageInfo(currentPage, pageSize);
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(examPage.getRecords());

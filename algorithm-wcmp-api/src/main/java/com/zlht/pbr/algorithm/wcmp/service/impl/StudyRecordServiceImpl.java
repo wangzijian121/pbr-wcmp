@@ -67,11 +67,7 @@ public class StudyRecordServiceImpl extends BaseServiceImpl implements StudyReco
         }
         Page<StudyRecord> page = new Page<>(currentPage, pageSize);
 
-        QueryWrapper<StudyRecord> studyRecordQueryWrapper = new QueryWrapper<StudyRecord>();
-        if (linkCode != null) {
-            studyRecordQueryWrapper.eq("link_code", linkCode);
-        }
-        Page<StudyRecord> examPage = studyRecordMapper.selectPage(page, studyRecordQueryWrapper);
+        Page<Map<String, Object>> examPage = studyRecordMapper.queryStudyRecordPage(page, linkCode,userId);
         PageInfo pageInfo = new PageInfo(currentPage, pageSize);
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(examPage.getRecords());

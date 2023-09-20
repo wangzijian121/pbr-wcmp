@@ -41,7 +41,7 @@ public class StudyRecordController extends BaseController {
 
     @GetMapping(value = "/queryStudyRecordList")
     @ResponseStatus(HttpStatus.OK)
-    public Result<PageInfo<Course>> queryStudyRecordList(@RequestParam int userId,
+    public Result<PageInfo<Course>> queryStudyRecordList(@RequestParam(required = false, defaultValue = "-1") int userId,
                                                          @RequestParam(required = false, defaultValue = "1") int currentPage,
                                                          @RequestParam(required = false, defaultValue = "10") int pageSize,
                                                          @PathVariable String linkCode) {

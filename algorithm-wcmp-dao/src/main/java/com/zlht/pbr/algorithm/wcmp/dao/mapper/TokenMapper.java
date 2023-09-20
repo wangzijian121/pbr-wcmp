@@ -20,9 +20,9 @@ public interface TokenMapper extends BaseMapper<Token> {
      * @param now
      * @return
      */
-    @Select("select *\n" +
-            "from  session s\n" +
-            " where  s.id = #{sessionId}\n" +
+    @Select("select *" +
+            " from  session s" +
+            " where  s.id = #{sessionId}" +
             "  and #{now} < #{expireTime}")
     Token queryUserTokenById(@Param("sessionId") String sessionId,
                              @Param("expireTime") Date expireTime,

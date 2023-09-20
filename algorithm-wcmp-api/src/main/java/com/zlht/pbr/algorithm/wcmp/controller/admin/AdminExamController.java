@@ -28,7 +28,7 @@ public class AdminExamController extends BaseController {
     private ExamServiceI examServiceI;
 
     @Autowired
-    private ExamRecordServiceI  examRecordServiceI;
+    private ExamRecordServiceI examRecordServiceI;
 
     @ApiOperation(value = "下载试题模板")
     @GetMapping("/download")
@@ -68,7 +68,6 @@ public class AdminExamController extends BaseController {
         }
         return examServiceI.queryExamList(linkCode, currentPage, pageSize);
     }
-
 
 
     /**
@@ -124,17 +123,26 @@ public class AdminExamController extends BaseController {
     }
 
     @ApiOperation(value = "查询考试成绩列表", notes = "查询考试成绩列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "currentPage", value = "页数(默认1)", dataTypeClass = int.class),
+            @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
+            @ApiImplicitParam(name = "linkCode", value = "小程序链接码", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "examId", value = "考试ID", dataTypeClass = int.class),
+            @ApiImplicitParam(name = "nickname", value = "学生昵称", dataTypeClass = String.class)
+    })
     @GetMapping(value = "/queryExamScoreList")
     @ResponseStatus(HttpStatus.OK)
     public Result<PageInfo<ExamRecord>> queryExamScoreList(@RequestParam(required = false, defaultValue = "1") int currentPage,
-                                                       @RequestParam(required = false, defaultValue = "10") int pageSize,
-                                                       @PathVariable String linkCode) {
+                                                           @RequestParam(required = false, defaultValue = "10") int pageSize,
+                                                           @PathVariable String linkCode,
+                                                           @RequestParam(required = false,defaultValue = "-1") int examId,
+                                                           @RequestParam(required = false) String nickname) {
 
         Result result = checkPageParams(currentPage, pageSize);
         if (!result.checkResult()) {
             return result;
         }
-        return examRecordServiceI.queryAllExamScoreList(linkCode, currentPage, pageSize);
+        return examRecordServiceI.queryAllExamScoreList(linkCode, currentPage, pageSize, nickname, examId);
     }
 
 }

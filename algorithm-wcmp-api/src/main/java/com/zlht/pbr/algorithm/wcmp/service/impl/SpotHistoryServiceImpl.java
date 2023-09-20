@@ -59,7 +59,7 @@ public class SpotHistoryServiceImpl extends BaseServiceImpl implements SpotHisto
 
 
     @Override
-    public Result<SpotHistory> querySpotHistoryByUserId(String linkCode, int userId, int currentPage, int pageSize) {
+    public Result querySpotHistoryByUserId(String linkCode, int userId, int currentPage, int pageSize) {
         Result result = new Result();
         if (!authLinkCodeServiceI.checkLinkCodeValidity(linkCode)) {
             result.setMsg("linkCode错误!！");
@@ -68,12 +68,7 @@ public class SpotHistoryServiceImpl extends BaseServiceImpl implements SpotHisto
         }
         Page<SpotHistory> page = new Page<>(currentPage, pageSize);
 
-        QueryWrapper<SpotHistory> queryWrapper = new QueryWrapper<SpotHistory>();
-        if (linkCode != null) {
-            queryWrapper.eq("link_code", linkCode);
-            queryWrapper.eq("user_id", userId);
-        }
-        Page<SpotHistory> spotHistoryPage = spotHistoryMapper.selectPage(page, queryWrapper);
+        Page<Map<String, Object>> spotHistoryPage = spotHistoryMapper.querySpotHistoryPage(page, userId, linkCode);
         PageInfo pageInfo = new PageInfo(currentPage, pageSize);
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(spotHistoryPage.getRecords());
