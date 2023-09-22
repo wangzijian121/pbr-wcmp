@@ -22,7 +22,7 @@ import java.util.Map;
  */
 
 @RestController
-@RequestMapping("/file")
+@RequestMapping("/wechat")
 @Api(tags = "文件管理")
 public class FileController extends BaseController {
 

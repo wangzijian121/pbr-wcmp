@@ -27,6 +27,9 @@ public class AlgorithmConfiguration {
     @ApiModelProperty(value = "算法名称", required = true)
     private String name;
 
+    @ApiModelProperty(value = "算法调用地址", required = true)
+    private String url;
+
     @ApiModelProperty(value = "体育种类")
     private String sportCategory;
 

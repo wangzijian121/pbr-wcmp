@@ -31,7 +31,7 @@ public interface SpotHistoryMapper extends BaseMapper<SpotHistory> {
             "       sh.create_time\n" +
             "from spot_history sh\n" +
             "         left join algorithm_configuration ac on sh.algorithm_id = ac.algorithm_id\n" +
-            "where ac.link_code = #{link_code} and user_id =#{user_id}")
+            "where ac.link_code = #{link_code} and user_id =#{user_id} order by sh.create_time  desc ")
     Page<Map<String, Object>> querySpotHistoryPage(Page<?> page,
                                                    @Param("user_id") int userId,
                                                    @Param("link_code") String linkCode);
