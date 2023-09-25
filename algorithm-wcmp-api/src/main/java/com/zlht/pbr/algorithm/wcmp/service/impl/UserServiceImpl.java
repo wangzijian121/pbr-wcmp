@@ -132,30 +132,35 @@ public class UserServiceImpl extends BaseServiceImpl implements UserServiceI {
         for (SpotHistory spotHistory : spotHistoryList) {
             // 解析 result 属性的 JSON 数据
             Map<String, Map<String, Integer>> result = parseResultJson(spotHistory.getResult());
+            if (result.size() > 0) {
+                // 获取 ability 参数的值
+                Map<String, Integer> ability = result.get("ability");
 
-            // 获取 ability 参数的值
-            Map<String, Integer> ability = result.get("ability");
+                // 累加 ability 参数值
+                for (Map.Entry<String, Integer> entry : ability.entrySet()) {
+                    String parameter = entry.getKey();
+                    Integer value = entry.getValue();
 
-            // 累加 ability 参数值
-            for (Map.Entry<String, Integer> entry : ability.entrySet()) {
-                String parameter = entry.getKey();
-                Integer value = entry.getValue();
-
-                sumMap.put(parameter, sumMap.getOrDefault(parameter, 0) + value);
+                    sumMap.put(parameter, sumMap.getOrDefault(parameter, 0) + value);
+                }
             }
             count++;
         }
 
         int abilityScore = 0;
         // 计算平均值
+        Map<String,Object> abilityMap=new HashMap<>(5);
         for (Map.Entry<String, Integer> entry : sumMap.entrySet()) {
             String parameter = entry.getKey();
             Integer sum = entry.getValue();
             Integer average = sum / count;
             abilityScore += average;
-            averageMap.put(parameter, average);
+            abilityMap.put(parameter, average);
         }
+
+
         int abilityScoreAvg = abilityScore / 5;
+        averageMap.put("ability",abilityMap);
         averageMap.put("abilityScore", abilityScoreAvg);
         averageMap.put("title", getTitle(abilityScoreAvg));
         map.put("data", averageMap);
@@ -170,14 +175,13 @@ public class UserServiceImpl extends BaseServiceImpl implements UserServiceI {
         ObjectMapper objectMapper = new ObjectMapper();
 //        get appId and secret
         Map<String, String> selectMapByLinkCode = linkCodeAndAppIdMapMapper.selectMapByLinkCode(linkCode);
+        logger.info(selectMapByLinkCode);
         String appId = selectMapByLinkCode.get("appId");
         String secret = selectMapByLinkCode.get("appSecret");
-
         String code2SessionRes = weChatServiceClient.code2Session("authorization_code", appId, secret, code);
         Map<String, Object> sessionOpenIdMap;
         try {
             sessionOpenIdMap = objectMapper.readValue(code2SessionRes, Map.class);
-            System.out.println(sessionOpenIdMap);
             String checkKeyStr = "session_key";
             String checkOpenIdStr = "openid";
             if (sessionOpenIdMap.containsKey(checkKeyStr) && sessionOpenIdMap.containsKey(checkOpenIdStr)) {
@@ -191,7 +195,8 @@ public class UserServiceImpl extends BaseServiceImpl implements UserServiceI {
                 userQueryWrapper.eq("open_id", openId);
                 User user;
                 user = userMapper.selectOne(userQueryWrapper);
-                user.setType(adminOrNot(linkCode, openId) ? 2 : 3);
+
+                logger.info(user);
 //                check user exists
                 if (user != null) {
                     user.setSessionKey(sessionKey);
@@ -208,6 +213,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserServiceI {
                     user.setSessionKey(sessionKey);
                     user.setUpdateTime(new Date());
                     user.setGender(jsonObject.getInt("gender"));
+                    user.setType(adminOrNot(linkCode, openId) ? 2 : 3);
                     user.setCreateTime(new Date());
                     userMapper.insert(user);
                     //Sync
@@ -221,7 +227,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserServiceI {
                 useMap.put("userId", user.getId().toString());
                 useMap.put("token", token);
                 map.put("data", useMap);
-                managementClient.reportData(linkCode, "user_count_today",1);
+                managementClient.reportData(linkCode, "user_count_today", 1);
             } else {
                 String errMsgStr = "errMsgStr";
                 String reason = "未知";
@@ -234,6 +240,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserServiceI {
                 return map;
             }
         } catch (Exception e) {
+            logger.error("登录失败！",e);
             throw new RuntimeException(e);
         }
         return map;

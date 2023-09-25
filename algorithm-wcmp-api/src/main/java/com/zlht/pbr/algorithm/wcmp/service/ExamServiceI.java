@@ -46,10 +46,10 @@ public interface ExamServiceI extends BaseServiceI {
     /**
      * 获取考试内容
      *
-     * @param resourceId
+     * @param fileName
      * @return
      */
-    Result<List<Question>> queryExamContent(int  resourceId);
+    Result<List<Question>> queryExamContent(String fileName);
 
     /**
      * 创建考试

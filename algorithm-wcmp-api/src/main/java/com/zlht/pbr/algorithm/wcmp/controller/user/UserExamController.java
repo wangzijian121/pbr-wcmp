@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 /**
@@ -93,13 +94,14 @@ public class UserExamController extends BaseController {
 
     @ApiOperation(value = "查看考试内容", notes = "查看考试内容")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "resourceId", value = "resourceId", dataTypeClass = String.class)
+            @ApiImplicitParam(name = "file", value = "file", dataTypeClass = String.class)
     })
     @GetMapping(value = "/queryExamContent")
     @ResponseStatus(HttpStatus.OK)
-    public Result<List<Question>> queryExamContent(@RequestParam int  resourceId) {
+    public Result<List<Question>> queryExamContent(@RequestParam String  file,
+                                                   @PathVariable String linkCode) {
 
-        return examServiceI.queryExamContent(resourceId);
+        return examServiceI.queryExamContent(file);
     }
 
 

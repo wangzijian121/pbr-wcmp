@@ -24,9 +24,9 @@ public interface StudyRecordMapper extends BaseMapper<StudyRecord> {
      * @return
      */
     @Select("select er.id," +
-            "       er.link_code," +
-            "       er.user_id," +
-            "       er.exam_id," +
+            "       er.link_code as linkCode," +
+            "       er.user_id as userId," +
+            "       er.exam_id as examId," +
             "       e.name," +
             "       er.count," +
             "       er.score," +
@@ -47,8 +47,8 @@ public interface StudyRecordMapper extends BaseMapper<StudyRecord> {
      * @return
      */
     @Select("select ifnull(sum(study_duration),0)" +
-            "from study_record" +
-            "where link_code = #{linkCode}" +
+            " from study_record" +
+            " where link_code = #{linkCode}" +
             "  and user_id = #{userId}" +
             "  and Date(create_time) = CURDATE()")
     int getStudyTimeToday(String linkCode, int userId);
@@ -61,8 +61,8 @@ public interface StudyRecordMapper extends BaseMapper<StudyRecord> {
      * @return
      */
     @Select("select count(1)" +
-            "from study_record" +
-            "where link_code = #{linkCode}" +
+            " from study_record" +
+            " where link_code = #{linkCode}" +
             "  and user_id = #{userId}")
     int getCheckInTotal(String linkCode, int userId);
 
@@ -76,8 +76,8 @@ public interface StudyRecordMapper extends BaseMapper<StudyRecord> {
      * @return
      */
     @Select("select ifnull(sum(study_duration),0)" +
-            "from study_record" +
-            "where link_code = #{linkCode}" +
+            " from study_record" +
+            " where link_code = #{linkCode}" +
             "  and user_id = #{userId}" +
             "  and create_time >#{startOfWeek}" +
             "  and create_time <= #{endOfWeek}")
@@ -93,8 +93,8 @@ public interface StudyRecordMapper extends BaseMapper<StudyRecord> {
      * @return
      */
     @Select("select ifnull(sum(study_duration),0)" +
-            "from study_record" +
-            "where link_code = #{linkCode}" +
+            " from study_record" +
+            " where link_code = #{linkCode}" +
             "  and user_id = #{userId}" +
             "  and create_time >= #{startOfMonth}" +
             "  and create_time <= #{endOfMonth}")
@@ -110,8 +110,8 @@ public interface StudyRecordMapper extends BaseMapper<StudyRecord> {
      * @return
      */
     @Select("select count(1)" +
-            "from study_record" +
-            "where link_code = #{linkCode}" +
+            " from study_record" +
+            " where link_code = #{linkCode}" +
             "  and user_id = #{userId}" +
             "  and create_time >#{startOfWeek}" +
             "  and create_time <= #{endOfWeek}")
@@ -127,8 +127,8 @@ public interface StudyRecordMapper extends BaseMapper<StudyRecord> {
      * @return
      */
     @Select("select count(1)" +
-            "from study_record" +
-            "where link_code = #{linkCode}" +
+            " from study_record" +
+            " where link_code = #{linkCode}" +
             "  and user_id = #{userId}" +
             "  and create_time >= #{startOfMonth}" +
             "  and create_time <= #{endOfMonth}")
@@ -144,13 +144,13 @@ public interface StudyRecordMapper extends BaseMapper<StudyRecord> {
      * @return
      */
     @Select("SELECT DATE(create_time) AS study_date, SUM(study_duration) AS total_study_duration" +
-            "FROM `pose-wcmp`.study_record" +
-            "where link_code = #{linkCode}" +
+            " FROM study_record" +
+            " where link_code = #{linkCode}" +
             "  and user_id = #{userId}" +
             "  and create_time > #{startOfWeek}" +
             "  and create_time <= #{endOfWeek}" +
-            "GROUP BY study_date" +
-            "ORDER BY study_date;")
+            " GROUP BY study_date" +
+            " ORDER BY study_date;")
     List<Map<String, Object>> getPointsWeek(String linkCode, int userId, Date startOfWeek, Date endOfWeek);
 
     /**
@@ -163,12 +163,12 @@ public interface StudyRecordMapper extends BaseMapper<StudyRecord> {
      * @return
      */
     @Select("SELECT DATE(create_time) AS study_date, SUM(study_duration) AS total_study_duration" +
-            "FROM `pose-wcmp`.study_record" +
-            "where link_code = #{linkCode}" +
+            " FROM study_record" +
+            " where link_code = #{linkCode}" +
             "  and user_id = #{userId}" +
             "  and create_time >= #{startOfMonth}" +
             "  and create_time <= #{endOfMonth}" +
-            "GROUP BY study_date" +
-            "ORDER BY study_date;")
+            " GROUP BY study_date" +
+            " ORDER BY study_date;")
     List<Map<String, Object>> getPointMonth(String linkCode, int userId, Date startOfMonth, Date endOfMonth);
 }

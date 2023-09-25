@@ -129,12 +129,12 @@ public class ExamServiceImpl extends BaseServiceImpl implements ExamServiceI {
     }
 
     @Override
-    public Result<List<Question>> queryExamContent(int  resourceId) {
+    public Result<List<Question>> queryExamContent(String fileName) {
         Result<List<Question>> result = new Result<>();
         ObjectMapper objectMapper = new ObjectMapper();
-
+/*
         Resource resource =resourceMapper.selectById(resourceId);
-        String fileName = resource.getAlias() + ".xlsx";
+        String fileName = resource.getAlias() + ".xlsx";*/
         String json = ExcelToJsonConverter.getQuestionJson(fileUploadPath + fileName);
         List<Question> questionList;
         try {

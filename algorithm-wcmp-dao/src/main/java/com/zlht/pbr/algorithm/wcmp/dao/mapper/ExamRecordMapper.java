@@ -23,10 +23,10 @@ public interface ExamRecordMapper extends BaseMapper<ExamRecord> {
      * @return
      */
     @Select("select er.id," +
-            " er.link_code," +
-            " er.user_id," +
-            " u.nickname," +
-            " er.exam_id," +
+            " er.link_code as linkCode," +
+            " er.user_id as userId," +
+            " u.nickname ," +
+            " er.exam_id as examId," +
             " e.name," +
             " er.count," +
             " er.score," +

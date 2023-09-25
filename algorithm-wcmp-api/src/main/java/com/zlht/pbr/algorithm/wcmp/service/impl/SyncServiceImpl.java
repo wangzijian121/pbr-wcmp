@@ -79,6 +79,7 @@ public class SyncServiceImpl extends BaseServiceImpl implements SyncServiceI {
                 updateWrapper.set("name", algorithmConfiguration.getName());
                 updateWrapper.set("sport_category", algorithmConfiguration.getSportCategory());
                 updateWrapper.set("content", algorithmConfiguration.getContent());
+                updateWrapper.set("url", algorithmConfiguration.getUrl());
                 updateWrapper.set("update_time", LocalDateTime.now());
                 algorithmConfigurationMapper.update(null, updateWrapper);
             } else {

@@ -21,17 +21,17 @@ public interface SpotHistoryMapper extends BaseMapper<SpotHistory> {
      * @param linkCode
      * @return
      */
-    @Select("select sh.id,\n" +
-            "       sh.link_code,\n" +
-            "       sh.user_id,\n" +
-            "       sh.algorithm_id,\n" +
-            "       ac.name,\n" +
-            "       sh.result,\n" +
-            "       sh.file,\n" +
-            "       sh.create_time\n" +
-            "from spot_history sh\n" +
+    @Select("select sh.id," +
+            "       sh.link_code as linkCode," +
+            "       sh.user_id as userId," +
+            "       sh.algorithm_id as algorithmId," +
+            "       ac.name," +
+            "       sh.result," +
+            "       sh.file," +
+            "       sh.create_time as createTime" +
+            " from spot_history sh" +
             "         left join algorithm_configuration ac on sh.algorithm_id = ac.algorithm_id\n" +
-            "where ac.link_code = #{link_code} and user_id =#{user_id} order by sh.create_time  desc ")
+            " where ac.link_code = #{link_code} and user_id =#{user_id} order by sh.create_time  desc ")
     Page<Map<String, Object>> querySpotHistoryPage(Page<?> page,
                                                    @Param("user_id") int userId,
                                                    @Param("link_code") String linkCode);
