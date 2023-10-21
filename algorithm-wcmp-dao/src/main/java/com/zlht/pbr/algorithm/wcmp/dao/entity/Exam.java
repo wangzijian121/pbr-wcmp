@@ -30,9 +30,6 @@ public class Exam {
 
     private String description;
 
-    @ApiModelProperty(value = "考试开始时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
-    private Date startTime;
-
     @ApiModelProperty(value = "考试结束时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
     private Date endTime;
 

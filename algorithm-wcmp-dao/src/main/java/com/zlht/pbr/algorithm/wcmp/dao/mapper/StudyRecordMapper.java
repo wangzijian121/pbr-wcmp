@@ -23,17 +23,17 @@ public interface StudyRecordMapper extends BaseMapper<StudyRecord> {
      * @param userId
      * @return
      */
-    @Select("select er.id," +
-            "       er.link_code as linkCode," +
-            "       er.user_id as userId," +
-            "       er.exam_id as examId," +
-            "       e.name," +
-            "       er.count," +
-            "       er.score," +
-            "       er.time" +
-            " from exam_record er" +
-            "         left join exam e on e.id = er.exam_id" +
-            " where er.link_code = #{link_code}" +
+    @Select("select sr.id," +
+            "       sr.link_code as linkCode," +
+            "       sr.user_id as userId," +
+            "       sr.course_id as courseId," +
+            "       c.name," +
+            "       c.cover_img coverImg," +
+            "       sr.study_duration as studyDuration," +
+            "       sr.create_time as createTime" +
+            " from study_record sr" +
+            "         left join course c on c.id = sr.course_id" +
+            " where sr.link_code = #{link_code}" +
             "  and user_id = #{user_id}")
     Page<Map<String, Object>> queryStudyRecordPage(Page<?> page,
                                                    @Param("link_code") String linkCode,

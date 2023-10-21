@@ -195,11 +195,12 @@ public class UserServiceImpl extends BaseServiceImpl implements UserServiceI {
                 userQueryWrapper.eq("open_id", openId);
                 User user;
                 user = userMapper.selectOne(userQueryWrapper);
-
                 logger.info(user);
 //                check user exists
+                logger.info(adminOrNot(openId));
                 if (user != null) {
                     user.setSessionKey(sessionKey);
+                    user.setType(adminOrNot( openId) ? 2 : 3);
                     userMapper.update(user, userQueryWrapper);
                     //Sync
                     reportUserData(appId, user, 0);
@@ -213,7 +214,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserServiceI {
                     user.setSessionKey(sessionKey);
                     user.setUpdateTime(new Date());
                     user.setGender(jsonObject.getInt("gender"));
-                    user.setType(adminOrNot(linkCode, openId) ? 2 : 3);
+                    user.setType(adminOrNot( openId) ? 2 : 3);
                     user.setCreateTime(new Date());
                     userMapper.insert(user);
                     //Sync
@@ -226,6 +227,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserServiceI {
                 useMap.put("nickname", user.getNickname());
                 useMap.put("userId", user.getId().toString());
                 useMap.put("token", token);
+                useMap.put("type", user.getType().toString());
                 map.put("data", useMap);
                 managementClient.reportData(linkCode, "user_count_today", 1);
             } else {
@@ -246,11 +248,10 @@ public class UserServiceImpl extends BaseServiceImpl implements UserServiceI {
         return map;
     }
 
-    boolean adminOrNot(String linkCode, String openId) {
+    boolean adminOrNot(String openId) {
 
-        Result<Map<String, Object>> result = managementClient.adminOrNot(linkCode, openId);
-
-        return Boolean.getBoolean(result.getData().get("adminOrNot").toString());
+        Result<Map<String, Object>> result = managementClient.adminOrNot(openId);
+        return (boolean) result.getData().get("adminOrNot");
     }
 
     private void reportUserData(String appId, User user, int event) {

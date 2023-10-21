@@ -43,12 +43,11 @@ public interface ManagementClient {
     /**
      * 是否为管理员
      *
-     * @param linkCode
      * @param openId
      * @return
      */
     @RequestMapping(value = "/wechat/adminOrNot", method = RequestMethod.POST)
-    Result<Map<String, Object>> adminOrNot(@RequestParam String linkCode, @RequestParam String openId);
+    Result<Map<String, Object>> adminOrNot(@RequestParam String openId);
 
     /**
      * 上报用户数据
