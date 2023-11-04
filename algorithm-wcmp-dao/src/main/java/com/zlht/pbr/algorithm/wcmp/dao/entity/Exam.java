@@ -24,7 +24,6 @@ public class Exam {
     @TableId(type = IdType.AUTO)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer id;
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String linkCode;
     private String name;
 

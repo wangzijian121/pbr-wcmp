@@ -31,8 +31,8 @@ public interface StudyRecordMapper extends BaseMapper<StudyRecord> {
             "       c.cover_img coverImg," +
             "       sr.study_duration as studyDuration," +
             "       sr.create_time as createTime" +
-            " from study_record sr" +
-            "         left join course c on c.id = sr.course_id" +
+            " from  course c" +
+            "         left join study_record sr on c.id = sr.course_id" +
             " where sr.link_code = #{link_code}" +
             "  and user_id = #{user_id}")
     Page<Map<String, Object>> queryStudyRecordPage(Page<?> page,
@@ -54,13 +54,13 @@ public interface StudyRecordMapper extends BaseMapper<StudyRecord> {
     int getStudyTimeToday(String linkCode, int userId);
 
     /**
-     * 获取全部打开次数
+     * 获取签到天数
      *
      * @param linkCode
      * @param userId
      * @return
      */
-    @Select("select count(1)" +
+    @Select("select count(distinct date(create_time))" +
             " from study_record" +
             " where link_code = #{linkCode}" +
             "  and user_id = #{userId}")

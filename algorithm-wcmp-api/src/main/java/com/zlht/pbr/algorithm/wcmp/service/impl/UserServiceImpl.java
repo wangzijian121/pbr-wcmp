@@ -1,7 +1,9 @@
 package com.zlht.pbr.algorithm.wcmp.service.impl;
 
 import cn.hutool.json.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zlht.pbr.algorithm.wcmp.client.ManagementClient;
 import com.zlht.pbr.algorithm.wcmp.client.WeChatClient;
@@ -20,6 +22,7 @@ import com.zlht.pbr.algorithm.wcmp.utils.RandomGeneratorUtils;
 import com.zlht.pbr.algorithm.wcmp.utils.Result;
 import com.zlht.pbr.algorithm.wcmp.utils.TimeUtils;
 import com.zlht.pbr.algorithm.wcmp.utils.WxBizDataCryptUtil;
+import feign.FeignException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -149,7 +152,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserServiceI {
 
         int abilityScore = 0;
         // 计算平均值
-        Map<String,Object> abilityMap=new HashMap<>(5);
+        Map<String, Object> abilityMap = new HashMap<>(5);
         for (Map.Entry<String, Integer> entry : sumMap.entrySet()) {
             String parameter = entry.getKey();
             Integer sum = entry.getValue();
@@ -160,11 +163,42 @@ public class UserServiceImpl extends BaseServiceImpl implements UserServiceI {
 
 
         int abilityScoreAvg = abilityScore / 5;
-        averageMap.put("ability",abilityMap);
+        averageMap.put("ability", abilityMap);
         averageMap.put("abilityScore", abilityScoreAvg);
         averageMap.put("title", getTitle(abilityScoreAvg));
         map.put("data", averageMap);
         putMsg(map, Status.SUCCESS.getCode(), Status.SUCCESS.getMsg());
+        return map;
+    }
+
+    /**
+     * 更新用户信息
+     *
+     * @param userId
+     * @param nickname
+     * @return
+     */
+    @Override
+    public Map<String, Object> updateUser(int userId, String nickname) {
+
+        Map<String, Object> map = new HashMap<>(3);
+        UpdateWrapper updateWrapper = new UpdateWrapper();
+        updateWrapper.eq("id", userId);
+        updateWrapper.set("nickname", nickname);
+        try {
+            userMapper.update(null, updateWrapper);
+            User user = userMapper.selectById(userId);
+            managementClient.updateReportUserData(user.getOpenId(), nickname);
+            putMsg(map, Status.SUCCESS.getCode(), Status.SUCCESS.getMsg());
+        } catch (FeignException e) {
+            String errMsg = "客户端连接错误!";
+            logger.error("managementClient.updateReportUserData method .message={}", errMsg);
+            putMsg(map, 400, errMsg);
+        } catch (Exception e) {
+            String errMsg = "更新用户信息失败!";
+            logger.error("login() method .message={}, jsCode={}", errMsg, e);
+            putMsg(map, 400, errMsg);
+        }
         return map;
     }
 
@@ -200,7 +234,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserServiceI {
                 logger.info(adminOrNot(openId));
                 if (user != null) {
                     user.setSessionKey(sessionKey);
-                    user.setType(adminOrNot( openId) ? 2 : 3);
+                    user.setType(adminOrNot(openId) ? 2 : 3);
                     userMapper.update(user, userQueryWrapper);
                     //Sync
                     reportUserData(appId, user, 0);
@@ -214,7 +248,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserServiceI {
                     user.setSessionKey(sessionKey);
                     user.setUpdateTime(new Date());
                     user.setGender(jsonObject.getInt("gender"));
-                    user.setType(adminOrNot( openId) ? 2 : 3);
+                    user.setType(adminOrNot(openId) ? 2 : 3);
                     user.setCreateTime(new Date());
                     userMapper.insert(user);
                     //Sync
@@ -242,7 +276,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserServiceI {
                 return map;
             }
         } catch (Exception e) {
-            logger.error("登录失败！",e);
+            logger.error("登录失败！", e);
             throw new RuntimeException(e);
         }
         return map;

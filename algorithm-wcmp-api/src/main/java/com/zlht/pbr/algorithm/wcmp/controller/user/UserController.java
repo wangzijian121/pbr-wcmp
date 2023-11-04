@@ -105,4 +105,21 @@ public class UserController extends BaseController {
                                          @PathVariable String linkCode) {
         return returnDataList(userServiceI.getUserAbilityByUserId(linkCode, userId));
     }
+
+    /**
+     * 更新用户信息
+     *
+     * @return StudyData
+     */
+    @ApiOperation(value = "更新用户信息", notes = "更新用户信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户ID", dataTypeClass = int.class)
+    })
+
+    @PutMapping(value = "/updateUser")
+    @ResponseStatus(HttpStatus.OK)
+    public Result updateUser(@RequestParam int userId,
+                             @RequestParam String nickname) {
+        return returnDataList(userServiceI.updateUser(userId, nickname));
+    }
 }

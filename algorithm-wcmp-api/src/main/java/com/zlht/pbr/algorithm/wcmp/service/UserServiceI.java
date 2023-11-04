@@ -1,5 +1,6 @@
 package com.zlht.pbr.algorithm.wcmp.service;
 
+import com.zlht.pbr.algorithm.wcmp.dao.entity.User;
 import com.zlht.pbr.algorithm.wcmp.model.StudyData;
 import com.zlht.pbr.algorithm.wcmp.utils.Result;
 
@@ -38,6 +39,16 @@ public interface UserServiceI extends BaseServiceI {
      * @param userId
      * @return
      */
-    Map<String,Object> getUserAbilityByUserId(String linkCode, int userId);
+    Map<String, Object> getUserAbilityByUserId(String linkCode, int userId);
+
+
+    /**
+     * 更新用户信息
+     *
+     * @param userId
+     * @param nickname
+     * @return
+     */
+    Map<String, Object> updateUser(int userId, String  nickname);
 
 }

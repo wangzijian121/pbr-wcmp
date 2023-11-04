@@ -60,6 +60,16 @@ public interface ManagementClient {
     Result<Map<String, Object>> reportUser(@RequestBody Map<String, Object> map, @RequestParam int event);
 
     /**
+     * 更新上报用户数据
+     *
+     * @param openId
+     * @param nickName
+     * @return
+     */
+    @RequestMapping(value = "/wechat/updateReportUserData", method = RequestMethod.PUT)
+    Result<Map<String, Object>> updateReportUserData(@RequestParam String openId, @RequestParam String nickName);
+
+    /**
      * 上报图表数据
      *
      * @param linkCode
