@@ -27,6 +27,7 @@ public interface SpotHistoryMapper extends BaseMapper<SpotHistory> {
             "       sh.algorithm_id as algorithmId," +
             "       ac.name," +
             "       sh.result," +
+            "       sh.suggest," +
             "       sh.file," +
             "       sh.create_time as createTime" +
             " from spot_history sh" +

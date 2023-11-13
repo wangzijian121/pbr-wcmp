@@ -21,6 +21,7 @@ public class SpotHistory {
     private Integer userId;
     private Integer algorithmId;
     private String result;
+    private String suggest;
     private String file;
 
     @ApiModelProperty(value = "更新时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)

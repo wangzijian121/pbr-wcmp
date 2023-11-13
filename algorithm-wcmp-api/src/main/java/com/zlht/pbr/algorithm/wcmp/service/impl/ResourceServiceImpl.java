@@ -31,7 +31,7 @@ import java.util.UUID;
 public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServiceI {
 
     private static final Logger logger = LogManager.getLogger(ResourceServiceImpl.class);
-    private final String[] ACCEPT_TYPES = new String[]{"zip", "mp4", "jpg", "png", "xlsx","txt"};
+    private final String[] ACCEPT_TYPES = new String[]{"zip", "mp4", "jpg", "png", "xlsx","txt","webm"};
     /**
      * 文件磁盘路径
      */
